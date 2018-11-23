@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Client-Servers</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="application/javascript" src="scripts/script.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <a href="/" class="navbar-brand">
+            Client-Server API
+        </a>
+    </nav>
+    <div class="container">
+        <div id="publicationVolume" class="row pt-5 justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div id="open-close-get" class="card-header text-center border border-primary">
+                        <h4>GET /publicationVolume</h4>
+                    </div>
+                    <div id="content-get" class="card-body">
+                        <textarea readonly class="form-control" name="get" id="get" rows="10"></textarea>
+                    </div>
+                </div>
+                <br>
+                <div class="card">
+                    <div id="open-close-post" class="card-header text-center border border-success">
+                        <h4>POST /publicationVolume</h4>
+                    </div>
+                    <div id="content-post" class="card-body">
+                        <textarea class="form-control" name="get" id="get" rows="10"></textarea>
+                    </div>
+                </div>
+                <br>
+                <div class="card">
+                    <div id="open-close-get-id" class="card-header text-center border border-primary">
+                        <h4>GET /publicationVolume{id}</h4>
+                    </div>
+                    <div id="content-get-id" class="card-body">
+                        <div class="row">
+                            <label class="col-md-2 text-center">ID</label>
+                            <input type="text" class="col-md-9">
+                        </div><br>
+                        <textarea readonly class="form-control" name="get" id="get" rows="10"></textarea>
+                    </div>
+                </div>
+                <br>
+                <div class="card">
+                    <div id="open-close-put-id" class="card-header text-center border border-warning">
+                        <h4>PUT /publicationVolume{id}</h4>
+                    </div>
+                    <div id="content-put-id" class="card-body">
+                        <div class="row">
+                            <label class="col-md-4 text-center">ID</label>
+                            <input type="text" class="col-md-7">
+                            <label class="col-md-4 text-center">pageEnd</label>
+                            <input type="text" class="col-md-7">
+                            <label class="col-md-4 text-center">pageStart</label>
+                            <input type="text" class="col-md-7">
+                            <label class="col-md-4 text-center">pagination</label>
+                            <input type="text" class="col-md-7">
+                            <label class="col-md-4 text-center">volumeNumber</label>
+                            <input type="text" class="col-md-7">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="card">
+                    <div id="open-close-delete-id" class="card-header text-center border border-danger">
+                        <h4>DELETE /publicationVolume{id}</h4>
+                    </div>
+                    <div id="content-delete-id" class="card-body">
+                        <div class="row">
+                            <label class="col-md-2 text-center">ID</label>
+                            <input type="text" class="col-md-9">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

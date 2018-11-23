@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Client-Servers</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <a href="/" class="navbar-brand">
+            Client-Server API
+        </a>
+    </nav>
+    <div class="container">
+        <div id="language" class="row pt-5 justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h4>Entity type</h4>
+                    </div>
+                    <div class="card-body pt-5 pb-5">
+                        <form>
+                            <div class="form-group">
+                                <select class="form-control" onchange="location = this.value;">
+                                    <option selected="true" disabled="disabled"></option> 
+                                    <option value="creativeWork.html">CreativeWork API</option>
+                                    <option value="publicationVolume.html">PublicationVolume API</option>
+                                    <option value="softwareApplication.html">SoftwareApplication API</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
