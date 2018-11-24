@@ -17,56 +17,55 @@
         <div id="creativeWork" class="row pt-5 justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div id="open-close-get" class="card-header text-center border border-primary">
+                    <div id="get-header" class="card-header text-center border border-primary">
                         <h4>GET /creativeWork</h4>
                     </div>
-                    <form id="content-get" class="card-body">
-                        <textarea readonly class="form-control" name="get" id="get" rows="10"></textarea><br>
-                        <input type="submit" value="Execute" class="btn btn-outline-primary btn-block">
-                    </form>
+                    <form id="get" class="card-body">
+                        <div id="content-get"></div>
+                        <input type="submit" value="Execute" id="btn-get" class="btn btn-outline-primary btn-block">
+                    </form> 
                 </div>
                 <br>
                 <div class="card">
-                    <div id="open-close-post" class="card-header text-center border border-success">
+                    <div id="post-header" class="card-header text-center border border-success">
                         <h4>POST /creativeWork</h4>
                     </div>
-                    <form id="content-post" class="card-body">
-                        <textarea class="form-control" name="get" id="get" rows="10"></textarea><br>
-                        <input type="submit" value="Execute" class="btn btn-outline-primary btn-block">
+                    <form id="post" class="card-body">
+                        <textarea class="form-control" name="content-post" id="content-post" rows="10"></textarea><br>
+                        <input type="submit" value="Execute" id="btn-post" class="btn btn-outline-primary btn-block">
                     </form>
                 </div>
                 <br>
                 <div class="card">
-                    <div id="open-close-get-id" class="card-header text-center border border-primary">
+                    <div id="get-id-header" class="card-header text-center border border-primary">
                         <h4>GET /creativeWork{id}</h4>
                     </div>
-                    <form id="content-get-id" class="card-body">
+                    <form id="get-id" class="card-body">
                         <label class="col-md-2 text-center">ID</label>
                         <input type="text" class="col-md-9"><br><br>
-                        <textarea readonly class="form-control" name="get" id="get" rows="10"></textarea><br>
-                        <input type="submit" value="Execute" class="btn btn-outline-primary btn-block">
+                        <textarea readonly class="form-control" name="content-get-id" id="content-get-id" rows="10"></textarea><br>
+                        <input type="submit" value="Execute" id="btn-get-id" class="btn btn-outline-primary btn-block">
                     </form>
                 </div>
                 <br>
                 <div class="card">
-                    <div id="open-close-put-id" class="card-header text-center border border-warning">
+                    <div id="put-id-header" class="card-header text-center border border-warning">
                         <h4>PUT /creativeWork{id}</h4>
                     </div>
-                    <form id="content-put-id" class="card-body">
-                        <label class="col-md-2 text-center">ID</label>
-                        <input type="text" class="col-md-9"><br><br>
-                        <input type="submit" value="Execute" class="btn btn-outline-primary btn-block">
+                    <form id="put-id" class="card-body">
+                        <textarea class="form-control" name="content-put-id" id="content-put-id" rows="10"></textarea><br>
+                        <input type="submit" value="Execute" id="btn-put-id" class="btn btn-outline-primary btn-block">
                     </form>
                 </div>
                 <br>
                 <div class="card">
-                    <div id="open-close-delete-id" class="card-header text-center border border-danger">
+                    <div id="delete-id-header" class="card-header text-center border border-danger">
                         <h4>DELETE /creativeWork{id}</h4>
                     </div>
-                    <form id="content-delete-id" class="card-body">
+                    <form id="delete-id" class="card-body">
                         <label class="col-md-2 text-center">ID</label>
                         <input type="text" class="col-md-9"><br><br>
-                        <input type="submit" value="Execute" class="btn btn-outline-primary btn-block">
+                        <input type="submit" value="Execute" id="btn-delete-id" class="btn btn-outline-primary btn-block">
                     </form>
                 </div>
             </div>
