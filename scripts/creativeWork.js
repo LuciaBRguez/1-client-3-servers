@@ -8,17 +8,24 @@ class UI {
     putCreativeWork(creativeWork) {
        const contentGet = document.getElementById('content-get');
        const element = document.createElement('div');
-       //let creativeWorkList = [];
+       let contentPost = creativeWork.contentPost;
 
+       // Add post content on get
        document.getElementById('get').addEventListener('submit', function(e){
             element.innerHTML = `
-                <textarea readonly class="form-control" rows="10">${creativeWork.contentPost}</textarea><br>
+                <textarea readonly class="form-control" rows="10">${contentPost}</textarea><br>
             `;
 
             contentGet.appendChild(element);
-            //creativeWorkList.push(creativeWork.contentPost);
-            
+
+            // Prevent default on form submit
             e.preventDefault();
+
+            // Convert to JSON to catch id
+            let json = JSON.parse(contentPost);
+            let id = json.id;
+            console.log(id);
+
         })
     }
 
@@ -48,5 +55,6 @@ document.getElementById('post').addEventListener('submit', function(e){
     const ui = new UI();
     ui.putCreativeWork(creativeWork);
 
+    // Prevent default on form submit
     e.preventDefault();
 })
