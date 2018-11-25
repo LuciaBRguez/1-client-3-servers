@@ -11,82 +11,105 @@ class CreativeWork {
 
 
 class UI {
-    getCreativeWork(creativeWork) {
-       const contentGet = document.getElementById('content-get');
-       const element = document.createElement('div');
-       let contentPost = creativeWork.contentPost;
 
-       // Add post content on get
-       document.getElementById('get').addEventListener('submit', function(e){
-            element.innerHTML = `
-                <textarea readonly class="form-control" rows="10">${contentPost}</textarea><br>
-            `;
+    postCreativeWork(){
 
-            contentGet.appendChild(element);
+        // Catch post content
+        const contentPost = document.getElementById('content-post').value;
+        console.log(contentPost);
 
-            // Prevent default on form submit
-            e.preventDefault();
-        })
+        // Convert to JSON to catch id
+        let json = JSON.parse(contentPost);
+        let id = json.id;
+        console.log(id);
+
+        // Create a new Object CreativeWork if it doens't exist
+        const creativeWork = new CreativeWork(contentPost, id);
+        console.log(creativeWork);
+        
+        // Add new object to creativeWorkArray if other wasn't added previously with the same id
+        let result = creativeWorkArray.filter(obj => obj.id === id);
+        if (result.length === 0){
+            creativeWorkArray.push(creativeWork);
+        }
+
+        console.log(creativeWorkArray);
+
+        // Resest post content
+        // document.getElementById('post').reset();
+        
     }
 
-    deleteCreativeWork(id) {
+
+    getCreativeWork() {
+        
+        // Load div with id="content-get"
+        const contentGet = document.getElementById('content-get');
+
+        // Clean div with id="content-get"
+        contentGet.innerHTML = "";
+
+        // creativeWorkArray loop to catch the objects CreativeWork
         creativeWorkArray.forEach(function(value, index, array){
 
+            // Create div with id="element-content"
+            const element = document.createElement('div');
+            element.setAttribute("id", "element-content");
+            
+            // Catch value of the attribute contentPost of the object
+            let contentPost = value.contentPost;
+
+                // Add contentPost into div with id="element-content"
+                element.innerHTML = `
+                    <textarea readonly class="form-control" rows="10">${contentPost}</textarea><br>
+                `;
+
+                // Add child with id="element-content" inside div with id="content-get" if not exist
+                contentGet.appendChild(element);
+                
+        });
+       
+    }
+
+
+    deleteCreativeWork() {
+
+        // Catch id value from input with id="content-delete-id"
+        const id = document.getElementById('content-delete-id').value;
+
+        // If an object with this id exists then delete it from creativeWorkArray
+        creativeWorkArray.forEach(function(value, index, array){
             if (id == value.id) {
-                console.log("array completo: "+creativeWorkArray);
                 creativeWorkArray.splice(index, 1);
-                console.log("array con objeto eliminado: "+creativeWorkArray);
             }
         });
-
     }
 
-    getCreativeWorkId() {
-
-    }
 }
 
 
-// DOM event
+
 document.getElementById('post').addEventListener('submit', function(e){
-  
-    // Catch post content
-    const contentPost = document.getElementById('content-post').value;
-    console.log(contentPost);
-
-    // Convert to JSON to catch id
-    let json = JSON.parse(contentPost);
-    let id = json.id;
-    console.log(id);
-
-    // Create a new Object CreativeWork
-    const creativeWork = new CreativeWork(contentPost, id);
-    console.log(creativeWork);
-    creativeWorkArray.push(creativeWork);
-    console.log(creativeWorkArray);
-
-    // Resest post content
-    // document.getElementById('post').reset();
-    
-    // Create a new UI post
+    // Create a new UI
     const ui = new UI();
-    ui.getCreativeWork(creativeWork);
-
+    ui.postCreativeWork();
     // Prevent default on form submit
     e.preventDefault();
 });
 
 
-document.getElementById('delete-id').addEventListener('submit', function(e){ 
-    
-    // Create a new UI delete
+document.getElementById('get').addEventListener('submit', function(e){
+    // Create a new UI
     const ui = new UI();
-    const id = document.getElementById('content-delete-id').value;
-    ui.deleteCreativeWork(id);
-    
-    // Aquí habría que mandarle al get un array con todos los objets creativeWork, no sólo un creativeWork. Hay que editar la función getCreativeWork.
-    // ui.getCreativeWork(creativeWork);
+    ui.getCreativeWork();
+    // Prevent default on form submit
+    e.preventDefault();
+});
 
+document.getElementById('delete-id').addEventListener('submit', function(e){
+    // Create a new UI
+    const ui = new UI();
+    ui.deleteCreativeWork();
     // Prevent default on form submit
     e.preventDefault();
 });
