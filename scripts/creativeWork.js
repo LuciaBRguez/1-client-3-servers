@@ -2,12 +2,14 @@
 let creativeWorkArray = [];
 
 
+
 class CreativeWork {
     constructor(contentPost, id) {
         this.contentPost = contentPost;
         this.id = id;
     }
 }
+
 
 
 class UI {
@@ -146,7 +148,6 @@ class UI {
 
 
 
-
 document.getElementById('post').addEventListener('submit', function(e){
     // Create a new UI postCreativeWork
     const ui = new UI();
@@ -164,6 +165,7 @@ document.getElementById('get').addEventListener('submit', function(e){
     e.preventDefault();
 });
 
+
 document.getElementById('delete-id').addEventListener('submit', function(e){
     // Create a new UI deleteCreativeWork
     const ui = new UI();
@@ -172,6 +174,7 @@ document.getElementById('delete-id').addEventListener('submit', function(e){
     e.preventDefault();
 });
 
+
 document.getElementById('get-id').addEventListener('submit', function(e){
     // Create a new UI getIdCreativeWork
     const ui = new UI();
@@ -179,6 +182,7 @@ document.getElementById('get-id').addEventListener('submit', function(e){
     // Prevent default on form submit
     e.preventDefault();
 });
+
 
 document.getElementById('put-id').addEventListener('submit', function(e){
     // Create a new UI getIdCreativeWork
