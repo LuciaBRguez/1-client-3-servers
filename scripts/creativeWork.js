@@ -13,32 +13,25 @@ class CreativeWork {
 class UI {
 
     postCreativeWork(){
-
         // Catch post content
         const contentPost = document.getElementById('content-post').value;
-        console.log(contentPost);
 
         // Convert to JSON to catch id
         let json = JSON.parse(contentPost);
         let id = json.id;
-        console.log(id);
 
         // Create a new Object CreativeWork if it doens't exist
         const creativeWork = new CreativeWork(contentPost, id);
-        console.log(creativeWork);
         
         // Add new object to creativeWorkArray if other wasn't added previously with the same id
         let result = creativeWorkArray.filter(obj => obj.id === id);
         if (result.length === 0){
             creativeWorkArray.push(creativeWork);
         }
-
-        console.log(creativeWorkArray);
     }
 
 
     getCreativeWork() {
-        
         // Load div with id="content-get"
         const contentGet = document.getElementById('content-get');
 
@@ -62,13 +55,11 @@ class UI {
 
                 // Add child with id="element-content-get" inside div with id="content-get" if not exist
                 contentGet.appendChild(element);
-                
         });
     }
 
 
     deleteCreativeWork() {
-
         // Catch id value from input with id="id-delete-id"
         const id = document.getElementById('id-delete-id').value;
 
@@ -82,7 +73,6 @@ class UI {
 
 
     getIdCreativeWork() {
-
         // Catch id value from input with id="id-get-id"
         const id = document.getElementById('id-get-id').value;
 
@@ -109,27 +99,22 @@ class UI {
                 `;
 
                 // Add child with id="element-content-get-id" inside div with id="content-get" if not exist
-                contentGetId.appendChild(element);
-                        
+                contentGetId.appendChild(element);      
             }
         });
     }
 
 
     putCreativeWork() {
-
         // Catch put content
         const contentPut = document.getElementById('content-put').value;
-        console.log(contentPut);
 
         // Convert to JSON to catch id
         let json = JSON.parse(contentPut);
         let id = json.id;
-        console.log(id);
 
         // Create a new Object CreativeWork if it doens't exist
         const creativeWork = new CreativeWork(contentPut, id);
-        console.log(creativeWork);
         
         // Replace an object which has the same id
         creativeWorkArray.forEach(function(value, index, array){
@@ -138,6 +123,7 @@ class UI {
             }
         });
     }
+    
 }
 
 
