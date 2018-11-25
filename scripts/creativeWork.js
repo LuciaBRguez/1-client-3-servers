@@ -2,14 +2,12 @@
 let creativeWorkArray = [];
 
 
-
 class CreativeWork {
     constructor(contentPost, id) {
         this.contentPost = contentPost;
         this.id = id;
     }
 }
-
 
 
 class UI {
@@ -36,7 +34,6 @@ class UI {
         }
 
         console.log(creativeWorkArray);
-        
     }
 
 
@@ -67,7 +64,6 @@ class UI {
                 contentGet.appendChild(element);
                 
         });
-       
     }
 
 
@@ -117,7 +113,6 @@ class UI {
                         
             }
         });
-
     }
 
 
@@ -143,9 +138,7 @@ class UI {
             }
         });
     }
-
 }
-
 
 
 document.getElementById('post').addEventListener('submit', function(e){
