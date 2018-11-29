@@ -5,7 +5,7 @@ let creativeWorkArray = [];
 
 // Create a new Object creativeWork
 let creativeWork = new CreativeWork();
-creativeWork.update("Another creativeWork", 5, 2001, "English", true);
+creativeWork.update("creativeWork", 8, 1999, "English", false);
 creativeWorkArray.push(creativeWork);
 
 // Exported functions
@@ -83,7 +83,7 @@ exports.toJson = function() {
 
 // XML
 exports.toXML = function() {
-    return '<creativeWorkArray>' + creativeWorkArray.map(function(creativeWork, i){
+    return '<creativeWorks>' + creativeWorkArray.map(function(creativeWork, i){
 	    return  '<creativeWork id =' + i + '>' +
 	   			'<alternativeHeadline>'+creativeWork.alternativeHeadline+ '</alternativeHeadline>'+
                 '<commentCount>' + creativeWork.commentCount + '</commentCount>' +
@@ -92,5 +92,5 @@ exports.toXML = function() {
                 '<isAccesibleForFree>' + creativeWork.isAccesibleForFree + '</isAccesibleForFree>' +
 		        '</creativeWork>';
    }).join('') +
-   '</creativeWorkArray>';
+   '</creativeWorks>';
 };

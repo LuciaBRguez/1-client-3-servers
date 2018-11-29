@@ -3,7 +3,7 @@ var http = require('http'),
     Negotiator = require('negotiator'),
     creativeWork = require('./creativeWorkFunctions.js'),
     publicationVolume = require('./publicationVolumeFunctions.js'),
-    //softwareApplication = require('./softwareApplication.js'),
+    softwareApplication = require('./softwareApplicationFunctions.js'),
     availableMediaTypes = ['text/html', 'text/plain', 'application/ld+json', 'application/xml'];
 
 
@@ -219,6 +219,7 @@ function putCreativeWork(post, id, req, res) {
 	});
 }
 
+
 // publicationVolume
 // Content negotiation
 function getPublicationVolume(req, res) {
@@ -301,6 +302,97 @@ function putPublicationVolume(post, id, req, res) {
         volumeNumber = post.volumeNumber;
 	publicationVolume.putPublicationVolume(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccesibleForFree, pageStart, pageEnd, pagination, volumeNumber, function(err, als) {
 		if (err) notAllowed("Couldn't put publicationVolume with id: " + id, res);
+		else{
+			res.statusCode = 200;
+			res.end(); 
+		}
+	});
+}
+
+
+// softwareApplication
+// Content negotiation
+function getSoftwareApplication(req, res) {
+	var negotiator = new Negotiator(req);
+	var mediaType = negotiator.mediaType(availableMediaTypes);
+	console.log("Mediatype selected: " + mediaType);
+	switch (mediaType) {
+	case 'text/plain':
+		res.setHeader('content-type',mediaType);
+		res.end(softwareApplication.toText());
+		break;
+	case 'application/xml': 
+		res.setHeader('content-type',mediaType);
+		res.end(softwareApplication.toXML());
+		break;
+	case 'application/ld+json': 
+		res.setHeader('content-type',mediaType);
+		res.end(softwareApplication.toJson());
+		break;
+	case 'text/html':
+	default:
+		res.setHeader('content-type','text/html');
+		res.end(softwareApplication.toHTML());	
+	}
+}
+
+
+// Try to execute methods knowing id
+function getIdSoftwareApplication(id, req, res) {
+	softwareApplication.getSoftwareApplication(id, function (err, softwareApplication) {
+		if (err) notAllowed("Couldn't find softwareApplication with id: " + id, res);
+		else {
+			res.write(JSON.stringify(softwareApplication));
+			res.end();
+		}
+	});
+}
+
+function deleteSoftwareApplication(id, req, res) {
+	console.log("Deleting softwareApplication with id: " + id);
+	softwareApplication.deleteSoftwareApplication(id, function(err, softwareApplication) {
+	 if (err) notAllowed("Couldn't delete softwareApplication with id: " + id, res);
+	 else{
+		res.statusCode = 200;
+		res.end(); 
+	 }
+	});
+}
+
+function postSoftwareApplication(post, req, res) {
+	console.log(post);
+	let alternativeHeadline = post.alternativeHeadline,
+		commentCount = post.commentCount,
+		copyrightYear = post.copyrightYear,
+		inLanguage = post.inLanguage,
+		isAccesibleForFree = post.isAccesibleForFree,
+		applicationCategory = post.applicationCategory,
+		applicationSubCategory = post.applicationSubCategory,
+		applicationSuite = post.applicationSuite,
+		fileSize = post.fileSize;
+	console.log("Creating softwareApplication.");
+    softwareApplication.postSoftwareApplication(alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccesibleForFree, applicationCategory, applicationSubCategory, applicationSuite, fileSize, function(err, id) {
+    	if (err) notAllowed("Couldn't post softwareApplication.", res);
+    	else{
+			res.statusCode = 200;
+			res.write(id);
+			res.end(); 
+		} 
+    });
+}
+
+function putSoftwareApplication(post, id, req, res) {
+	let alternativeHeadline = post.alternativeHeadline,
+        commentCount = post.commentCount,
+        copyrightYear = post.copyrightYear,
+        inLanguage = post.inLanguage,
+		isAccesibleForFree = post.isAccesibleForFree,
+		applicationCategory = post.applicationCategory,
+		applicationSubCategory = post.applicationSubCategory,
+		applicationSuite = post.applicationSuite,
+		fileSize = post.fileSize;
+	softwareApplication.putSoftwareApplication(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccesibleForFree, applicationCategory, applicationSubCategory, applicationSuite, fileSize, function(err, als) {
+		if (err) notAllowed("Couldn't put softwareApplication with id: " + id, res);
 		else{
 			res.statusCode = 200;
 			res.end(); 

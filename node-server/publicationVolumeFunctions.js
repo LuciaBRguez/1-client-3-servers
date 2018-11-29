@@ -5,7 +5,7 @@ let publicationVolumeArray = [];
 
 // Create a new Object publicationVolume
 let publicationVolume = new PublicationVolume();
-publicationVolume.update("Another publicationVolume", 5, 2001, "German", true, 1, 100, "pagination", 3);
+publicationVolume.update("publicationVolume", 5, 2001, "German", true, 1, 100, "pagination", 3);
 publicationVolumeArray.push(publicationVolume);
 
 
@@ -88,7 +88,7 @@ exports.toJson = function() {
 
 // XML
 exports.toXML = function() {
-    return '<publicationVolumeArray>' + publicationVolumeArray.map(function(publicationVolume,i){
+    return '<publicationVolumes>' + publicationVolumeArray.map(function(publicationVolume,i){
         return  '<publicationVolume id =' + i + '>' +
                 '<alternativeHeadline>'+publicationVolume.alternativeHeadline+ '</alternativeHeadline>'+
                 '<commentCount>' + publicationVolume.commentCount + '</commentCount>' +
@@ -101,5 +101,5 @@ exports.toXML = function() {
                 '<volumeNumber>' + publicationVolume.volumeNumber + '</volumeNumber>' +
                 '</publicationVolume>';
     }).join('') +
-    '</publicationVolumeArray>';
+    '</publicationVolumes>';
 };
