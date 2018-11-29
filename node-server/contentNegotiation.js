@@ -1,8 +1,8 @@
 var http = require('http'),
     url = require('url'),
     Negotiator = require('negotiator'),
-    creativeWork = require('./creativeWork.js'),
-    //publicationVolume = require('./publicationVolume.js'),
+    creativeWork = require('./creativeWorkFunctions.js'),
+    publicationVolume = require('./publicationVolumeFunctions.js'),
     //softwareApplication = require('./softwareApplication.js'),
     availableMediaTypes = ['text/html', 'text/plain', 'application/ld+json', 'application/xml'];
 
@@ -40,7 +40,7 @@ function process (req, res) {
                 getCreativeWork(req, res);
                 break;
             case 'POST':
-                parseBody(req, res, createCreativeWork); 
+                parseBody(req, res, postCreativeWork); 
                 break;
             default:
                 notAllowed("Not supported method.", res);
@@ -53,7 +53,7 @@ function process (req, res) {
                 getPublicationVolume(req, res);
                 break;
             case 'POST':
-                parseBody(req, res, createPublicationVolume); 
+                parseBody(req, res, postPublicationVolume); 
                 break;
             default:
                 notAllowed("Not supported method.",res);
@@ -66,7 +66,7 @@ function process (req, res) {
                 getSoftwareApplication(req, res);
                 break;
             case 'POST':
-                parseBody(req, res, createSoftwareApplication); 
+                parseBody(req, res, postSoftwareApplication); 
                 break;
             default:
                 notAllowed("Not supported method.", res);
@@ -86,7 +86,7 @@ function process (req, res) {
                 break;
             case 'PUT':
                 parseBody(req, res, function (post) {
-                    modifyCreativeWork(post, id, req, res);
+                    putCreativeWork(post, id, req, res);
                 });
                 break;
             default:
@@ -105,7 +105,7 @@ function process (req, res) {
                 break;
             case 'PUT':
                 parseBody(req, res, function (post) {
-                    modifyPublicationVolume(post, id, req, res);
+                    putPublicationVolume(post, id, req, res);
                 });
                 break;
             default:
@@ -124,7 +124,7 @@ function process (req, res) {
                     break;
                 case 'PUT':
                     parseBody(req, res, function (post) {
-                        modifySoftwareApplication(post, id, req, res);
+                        putSoftwareApplication(post, id, req, res);
                     });
                     break;
                 default:
@@ -137,7 +137,8 @@ function process (req, res) {
 }
 
 
-// Content negotiation in creativeWork
+// creativeWork
+// Content negotiation
 function getCreativeWork(req, res) {
 	var negotiator = new Negotiator(req);
 	var mediaType = negotiator.mediaType(availableMediaTypes);
@@ -165,7 +166,7 @@ function getCreativeWork(req, res) {
 
 // Try to execute methods knowing id
 function getIdCreativeWork(id, req, res) {
-	creativeWork.getCreativeWork(id, function (err,creativeWork) {
+	creativeWork.getCreativeWork(id, function (err, creativeWork) {
 		if (err) notAllowed("Couldn't find creativeWork with id: " + id, res);
 		else {
 			res.write(JSON.stringify(creativeWork));
@@ -185,7 +186,7 @@ function deleteCreativeWork(id, req, res) {
 	});
 }
 
-function createCreativeWork(post, req, res) {
+function postCreativeWork(post, req, res) {
 	console.log(post);
 	let alternativeHeadline = post.alternativeHeadline,
 		commentCount = post.commentCount,
@@ -193,8 +194,8 @@ function createCreativeWork(post, req, res) {
 		inLanguage = post.inLanguage,
 		isAccesibleForFree = post.isAccesibleForFree;
 	console.log("Creating creativeWork.");
-    creativeWork.insertCreativeWork(alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccesibleForFree, function(err, id) {
-    	if (err) notAllowed("Couldn't create creativeWork.", res);
+    creativeWork.postCreativeWork(alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccesibleForFree, function(err, id) {
+    	if (err) notAllowed("Couldn't post creativeWork.", res);
     	else{
 			res.statusCode = 200;
 			res.write(id);
@@ -203,14 +204,103 @@ function createCreativeWork(post, req, res) {
     });
 }
 
-function modifyCreativeWork(post, id, req, res) {
+function putCreativeWork(post, id, req, res) {
 	let alternativeHeadline = post.alternativeHeadline,
         commentCount = post.commentCount,
         copyrightYear = post.copyrightYear,
         inLanguage = post.inLanguage,
         isAccesibleForFree = post.isAccesibleForFree;
-	creativeWork.modifyCreativeWork(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccesibleForFree, function(err, als) {
-		if (err) notAllowed("Couldn't modify creativeWork with id: " + id, res);
+	creativeWork.putCreativeWork(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccesibleForFree, function(err, als) {
+		if (err) notAllowed("Couldn't put creativeWork with id: " + id, res);
+		else{
+			res.statusCode = 200;
+			res.end(); 
+		}
+	});
+}
+
+// publicationVolume
+// Content negotiation
+function getPublicationVolume(req, res) {
+	var negotiator = new Negotiator(req);
+	var mediaType = negotiator.mediaType(availableMediaTypes);
+	console.log("Mediatype selected: " + mediaType);
+	switch (mediaType) {
+	case 'text/plain':
+		res.setHeader('content-type',mediaType);
+		res.end(publicationVolume.toText());
+		break;
+	case 'application/xml': 
+		res.setHeader('content-type',mediaType);
+		res.end(publicationVolume.toXML());
+		break;
+	case 'application/ld+json': 
+		res.setHeader('content-type',mediaType);
+		res.end(publicationVolume.toJson());
+		break;
+	case 'text/html':
+	default:
+		res.setHeader('content-type','text/html');
+		res.end(publicationVolume.toHTML());	
+	}
+}
+
+// Try to execute methods knowing id
+function getIdPublicationVolume(id, req, res) {
+	publicationVolume.getPublicationVolume(id, function (err, publicationVolume) {
+		if (err) notAllowed("Couldn't find publicationVolume with id: " + id, res);
+		else {
+			res.write(JSON.stringify(publicationVolume));
+			res.end();
+		}
+	});
+}
+
+function deletePublicationVolume(id, req, res) {
+	console.log("Deleting publicationVolume with id: " + id);
+	publicationVolume.deletePublicationVolume(id, function(err, publicationVolume) {
+	 if (err) notAllowed("Couldn't delete publicationVolume with id: " + id, res);
+	 else{
+		res.statusCode = 200;
+		res.end(); 
+	 }
+	});
+}
+
+function postPublicationVolume(post, req, res) {
+	console.log(post);
+	let alternativeHeadline = post.alternativeHeadline,
+		commentCount = post.commentCount,
+		copyrightYear = post.copyrightYear,
+		inLanguage = post.inLanguage,
+        isAccesibleForFree = post.isAccesibleForFree;
+        pageStart = post.pageStart;
+        pageEnd = post.pageEnd;
+        pagination = post.pagination;
+        volumeNumber = post.volumeNumber;
+	console.log("Creating publicationVolume.");
+    publicationVolume.postPublicationVolume(alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccesibleForFree, pageStart, pageEnd, pagination, volumeNumber, function(err, id) {
+    	if (err) notAllowed("Couldn't post publicationVolume.", res);
+    	else{
+			res.statusCode = 200;
+			res.write(id);
+			res.end(); 
+		} 
+    });
+}
+
+function putPublicationVolume(post, id, req, res) {
+	let alternativeHeadline = post.alternativeHeadline,
+        commentCount = post.commentCount,
+        copyrightYear = post.copyrightYear,
+        inLanguage = post.inLanguage,
+        isAccesibleForFree = post.isAccesibleForFree;
+        pageStart = post.pageStart;
+        pageEnd = post.pageEnd;
+        pagination = post.pagination;
+        volumeNumber = post.volumeNumber;
+	publicationVolume.putPublicationVolume(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccesibleForFree, pageStart, pageEnd, pagination, volumeNumber, function(err, als) {
+		if (err) notAllowed("Couldn't put publicationVolume with id: " + id, res);
 		else{
 			res.statusCode = 200;
 			res.end(); 
