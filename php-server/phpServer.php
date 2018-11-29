@@ -15,6 +15,19 @@ function creativeWorkToJSON()
     $json = $json.']';
     return $json;
 }
+function publicationVolumeToJSON()
+{
+    global $publicationVolume;
+    $json ='[';
+    for ($i = 0; $i < sizeof($publicationVolume); $i++) {
+        $json = $json.'{'.'"@context":"http://schema.org","@type":"Book".'.' "id":' .$publicationVolume[$i]->getId(). ', "alternativeHeadline":"'.$publicationVolume[$i]->getAlternativeHeadline().'","commentCount":'.$publicationVolume[$i]->getCommentCount().', "copyrightYear":'.$publicationVolume[$i]->getCopyrightYear().', "inLanguage":'.$publicationVolume[$i]->getInLanguage().', "isAccessibleForFree":'.$publicationVolume[$i]->getIsAccessibleForFree().', "getPageStart":"'.$publicationVolume[$i]->getPageStart().'", "pageEnd":"'.$publicationVolume[$i]->getPageEnd(). '", "pagination":'.$publicationVolume[$i]->getPagination().', "volumeNumber":'.$publicationVolume[$i]->getVolumeNumber().' }';
+        if($i < (sizeof($publicationVolume)-1)){
+            $json = $json.',';
+        }
+    }
+    $json = $json.']';
+    return $json;
+}
 
 // Convert to HTML
 function creativeWorkToHTML(){
@@ -24,6 +37,15 @@ function creativeWorkToHTML(){
         $html = $html."<li>".$creativeWork->getId()." ".$creativeWork->getAlternativeHeadline()." ".$creativeWork->getCommentCount()." ".$creativeWork->getCopyrightYear()." ".$creativeWork->getInLanguage()." ".$creativeWork->getIsAccessibleForFree()."</li>";
     }
     $html = $html."</ul>";
+    return $html;
+}
+function publicationVolumeToHTML(){
+    global $publicationVolumeArray;
+    $html="<ul>";
+    foreach ($publicationVolumeArray as &$publicationVolume) {
+        $html = $html."<li>".$publicationVolume->getId()." ".$publicationVolume->getAlternativeHeadline()." ".$publicationVolume->getCommentCount()." ".$publicationVolume->getCopyrightYear()." ".$publicationVolume->getInLanguage()." ".$publicationVolume->getIsAccessibleForFree()." ".$publicationVolume->getPageStart()." ".$publicationVolume->getPageEnd()." ".$publicationVolume->getPagination()." ".$publicationVolume->getVolumeNumber()."</li>";
+    }
+    $html= $html."</ul>";
     return $html;
 }
 
@@ -36,8 +58,16 @@ function creativeWorkToText(){
     }
     return $text;
 }
+function publicationVolumeToText(){
+    global $publicationVolumeArray;
+    $text="";
+    foreach ($publicationVolumeArray as &$publicationVolume) {
+        $text= $text.$publicationVolume->getId()." ".$publicationVolume->getAlternativeHeadline()." ".$publicationVolume->getCommentCount()." ".$publicationVolume->getCopyrightYear()." ".$publicationVolume->getInLanguage()." ".$publicationVolume->getIsAccessibleForFree()." ".$publicationVolume->getPageStart()." ".$publicationVolume->getPageEnd()." ".$publicationVolume->getPagination()." ".$publicationVolume->getVolumeNumber()."\n";
+    }
+    return $text;
+}
 
-// Classes creativeWork, publicationVolume, softwareApplication
+// Classes creativeWork, publicationVolume
 class CreativeWork{
     private $id;
     private $alternativeHeadline;
@@ -74,15 +104,49 @@ class CreativeWork{
         return "false";
     }
 }
+class PublicationVolume extends CreativeWork{
+    private $pageStart;
+    private $pageEnd;
+    private $pagination;
+    private $volumeNumber;
+    function __construct($id, $alternativeHeadline, $commentCount, $copyrightYear, $inLanguage, $isAccessibleForFree, $pageStart, $pageEnd, $pagination, $volumeNumber){
+        parent::__construct($id, $alternativeHeadline, $commentCount, $copyrightYear, $inLanguage, $isAccessibleForFree);
+        $this->pageStart = $pageStart;
+        $this->pageEnd = $pageEnd;
+        $this->pagination = $pagination;
+        $this->volumeNumber = $volumeNumber;
+    }
+    function getPageStart(){
+        return $this->pageStart;
+    }
+    public function getPageEnd()
+    {
+        return $this->pageEnd;
+    }
+    public function getPagination()
+    {
+        return $this->pagination;
+    }
+    public function getVolumeNumber()
+    {
+        return $this->volumeNumber;
+    }
+}
 
-// Array creativeWorkArray
+// Arrays creativeWorkArray, publicationVolumeArray
 global $creativeWorkArray;
 $creativeWorkArray = Array();
-$idCreativeWork = 1;
+global $publicationVolumeArray;
+$publicationVolumeArray = Array();
+/*global $softwareApplicationArray;
+$softwareApplicationArray = Array();*/
+$idCreativeWork = 0;
+$idPublicationVolume = 0;
+/*$idSoftwareApplication = 1;*/
 
-// new Objects creativeWork
+// new Objects creativeWork, publicationVolume, softwareApplication
 $creativeWorkArray[] = new CreativeWork(0, "creativeWork", 8, 1999, "English", false);
-$creativeWorkArray[] = new CreativeWork(1, "creativeWork2", 8, 1999, "English", false);
+$publicationVolumeArray[] = new PublicationVolume(0,"publicationVolume", 5, 2001, "German", true, 1, 100, "pagination", 3);
 
 // Processing URI
 if (isset($_SERVER['PATH_INFO'])) {
@@ -131,7 +195,7 @@ if (!$request){
             break;
         case "PUT":
             http_response_code(404);
-            echo "PUT not allowed over every Creative Work.";
+            echo "PUT not allowed over every creativeWork.";
             break;
         case "POST":
             $creativeWork = json_decode(file_get_contents('php://input'));
@@ -179,7 +243,7 @@ if (!$request){
             }
             if(!$getId){
                 http_response_code(404);
-                echo "not allowed";
+                echo "Not allowed.";
             }
             break;
         case "PUT":
@@ -210,13 +274,13 @@ if (!$request){
                 }
                 if(!$put) {
                     http_response_code(404);
-                    echo "not allowed";
+                    echo "Not allowed.";
                 }
             }
             break;
         case "POST":
             http_response_code(404);
-            echo "POST not allowed over a particular Creative Work";
+            echo "POST not allowed over a particular creativeWork.";
             break;
         case "DELETE":
             $delete = false;
@@ -228,15 +292,166 @@ if (!$request){
             }
             if(!$delete) {
                 http_response_code(404);
-                echo "not allowed";
+                echo "Not allowed.";
             }
             break;
         default:
             http_response_code(404);
-            echo "not allowed";
+            echo "Not allowed.";
+            break;
+    }
+
+    // publicationVolume
+}elseif (strcmp('publicationVolume', $request) === 0 && $id == null){
+    switch ($_SERVER['REQUEST_METHOD']) {
+        case "GET":
+            switch ($format) {
+                case 'application/ld+json':
+                    header('Content-type: application/ld+json');
+                    echo json_encode(publicationVolumeToJSON());
+                    break;
+                case 'text/plain':
+                    header('Content-type: text/plain');
+                    echo publicationVolumeToText();
+                    break;
+                default:
+                    header('Content-type: text/html');
+                    echo publicationVolumeToHTML();
+                    break;
+            }
+            break;
+        case "PUT":
+            http_response_code(404);
+            echo "PUT not allowed over every publicationVolume.";
+            break;
+        case "POST":
+            $publicationVolume = json_decode(file_get_contents('php://input'));
+            if($publicationVolume->alternativeHeadline == null) {
+                http_response_code(405);
+                echo "alternativeHeadline can't be null.";
+            }elseif($publicationVolume->commentCount == null) {
+                http_response_code(405);
+                echo "commentCount can't be null.";
+            }elseif($publicationVolume->copyrightYear == null) {
+                http_response_code(405);
+                echo "copyrightYear can't be null.";
+            }elseif($publicationVolume->inLanguage == null) {
+                http_response_code(405);
+                echo "inLanguage can't be null.";
+            }elseif($publicationVolume->isAccessibleForFree == null) {
+                http_response_code(405);
+                echo "isAccessibleForFree can't be null.";
+            }elseif($publicationVolume->pageStart == null) {
+                http_response_code(405);
+                echo "pageStart can't be null.";
+            }elseif($publicationVolume->pageEnd == null) {
+                http_response_code(405);
+                echo "pageEnd can't be null.";
+            }elseif($publicationVolume->pagination == null) {
+                http_response_code(405);
+                echo "pagination can't be null.";
+            }elseif($publicationVolume->volumeNumber == null) {
+                http_response_code(405);
+                echo "volumeNumber can't be null.";
+            }else{
+                $idPublicationVolume++;
+                $newPublicationVolume = new PublicationVolume($idPublicationVolume, $publicationVolume->alternativeHeadline, $publicationVolume->commentCount, $publicationVolume->copyrightYear, $publicationVolume->inLanguage, $publicationVolume->isAccessibleForFree, $publicationVolume->pageStart, $publicationVolume->pageEnd, $publicationVolume->pagination, $publicationVolume->volumeNumber);
+                global $creativeWorkArray;
+                $creativeWorkArray[]= $newPublicationVolume;
+                echo $newPublicationVolume->getId()."";
+            }
+            break;
+        case "DELETE":
+            http_response_code(404);
+            echo "DELETE not allowed over every publicationVolume.";
+            break;
+        default:
+            http_response_code(404);
+            echo "Not allowed.";
+            break;
+    }
+}elseif (strcmp('publicationVolume', $request) === 0 && $id != null){
+    switch ($_SERVER['REQUEST_METHOD']) {
+        case "GET":
+            $getId = false;
+            for($i = 0; $i < sizeof($publicationVolumeArray); $i++) {
+                if ($publicationVolumeArray[$i]->getId() == $id) {
+                    echo json_encode('{'.'"@context":"http://schema.org","@type":"PublicationVolume",'.' "id":'.$id.', "alternativeHeadline":"'.$publicationVolumeArray[$i]->getAlternativeHeadline().'","commentCount":'.$publicationVolumeArray[$i]->getCommentCount().', "copyrightYear":'.$publicationVolumeArray[$i]->getCopyrightYear().', "inLanguage":'.$publicationVolumeArray[$i]->getInLanguage().', "isAccessibleForFree":'.$publicationVolumeArray[$i]->getIsAccessibleForFree().', "pageStart":'.$publicationVolumeArray[$i]->getPageStart().', "pageEnd":'.$publicationVolumeArray[$i]->getPageEnd().', "pagination":'.$publicationVolumeArray[$i]->getPagination().', "volumeNumber":'.$publicationVolumeArray[$i]->getVolumeNumber().' }');
+                    $getId = true;
+                }
+            }
+            if(!$getId){
+                http_response_code(404);
+                echo "Not allowed.";
+            }
+            break;
+        case "PUT":
+            $put = false;
+            $creativeWork = json_decode(file_get_contents('php://input'));
+            if($creativeWork->alternativeHeadline == null) {
+                http_response_code(405);
+                echo "alternativeHeadline can't be null.";
+            }elseif($creativeWork->commentCount == null) {
+                http_response_code(405);
+                echo "commentCount can't be null.";
+            }elseif($creativeWork->copyrightYear == null) {
+                http_response_code(405);
+                echo "copyrightYear can't be null.";
+            }elseif($creativeWork->inLanguage == null) {
+                http_response_code(405);
+                echo "inLanguage can't be null.";
+            }elseif($creativeWork->isAccessibleForFree == null) {
+                http_response_code(405);
+                echo "isAccessibleForFree can't be null.";
+            }elseif($publicationVolume->pageStart == null) {
+                http_response_code(405);
+                echo "pageStart can't be null.";
+            }elseif($publicationVolume->pageEnd == null) {
+                http_response_code(405);
+                echo "pageEnd can't be null.";
+            }elseif($publicationVolume->pagination == null) {
+                http_response_code(405);
+                echo "pagination can't be null.";
+            }elseif($publicationVolume->volumeNumber == null) {
+                http_response_code(405);
+                echo "volumeNumber can't be null.";
+            }else {
+                for($i = 0; $i < sizeof($publicationVolume); $i++){
+                    if($publicationVolumeArray[$i]->getId()== $id){
+                        $put = true;
+                        global $publicationVolumeArray;
+                        $publicationVolumeArray[$i] = new PublicationVolume($idPublicationVolume, $publicationVolume->alternativeHeadline, $publicationVolume->commentCount, $publicationVolume->copyrightYear, $publicationVolume->inLanguage, $publicationVolume->isAccessibleForFree, $publicationVolume->pageStart, $publicationVolume->pageEnd, $publicationVolume->pagination, $publicationVolume->volumeNumber);
+                    }
+                }
+                if(!$put) {
+                    http_response_code(404);
+                    echo "not allowed";
+                }
+            }
+            break;
+        case "POST":
+            http_response_code(404);
+            echo "POST not allowed over a particular publicationVolume.";
+            break;
+        case "DELETE":
+            $delete = false;
+            for($i = 0; $i < sizeof($publicationVolumeArray); $i++) {
+                if ($publicationVolumeArray[$i]->getId() == $id) {
+                    $delete = true;
+                    unset($publicationVolumeArray[$i]);
+                }
+            }
+            if(!$delete) {
+                http_response_code(404);
+                echo "Not allowed.";
+            }
+            break;
+        default:
+            http_response_code(404);
+            echo "Not allowed.";
             break;
     }
 }else{
     http_response_code(404);
-    echo "not allowed";
+    echo "Not allowed.";
 }
