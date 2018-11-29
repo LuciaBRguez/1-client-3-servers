@@ -274,10 +274,10 @@ function postPublicationVolume(post, req, res) {
 		commentCount = post.commentCount,
 		copyrightYear = post.copyrightYear,
 		inLanguage = post.inLanguage,
-        isAccesibleForFree = post.isAccesibleForFree;
-        pageStart = post.pageStart;
-        pageEnd = post.pageEnd;
-        pagination = post.pagination;
+        isAccesibleForFree = post.isAccesibleForFree,
+        pageStart = post.pageStart,
+        pageEnd = post.pageEnd,
+        pagination = post.pagination,
         volumeNumber = post.volumeNumber;
 	console.log("Creating publicationVolume.");
     publicationVolume.postPublicationVolume(alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccesibleForFree, pageStart, pageEnd, pagination, volumeNumber, function(err, id) {
@@ -296,9 +296,9 @@ function putPublicationVolume(post, id, req, res) {
         copyrightYear = post.copyrightYear,
         inLanguage = post.inLanguage,
         isAccesibleForFree = post.isAccesibleForFree;
-        pageStart = post.pageStart;
-        pageEnd = post.pageEnd;
-        pagination = post.pagination;
+        pageStart = post.pageStart,
+        pageEnd = post.pageEnd,
+        pagination = post.pagination,
         volumeNumber = post.volumeNumber;
 	publicationVolume.putPublicationVolume(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccesibleForFree, pageStart, pageEnd, pagination, volumeNumber, function(err, als) {
 		if (err) notAllowed("Couldn't put publicationVolume with id: " + id, res);
