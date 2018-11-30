@@ -15,6 +15,18 @@ function creativeWorkToJSON()
     $json = $json.']';
     return $json;
 }
+function creativeWorkToJSONWithoutBrackets()
+{
+    global $creativeWorkArray;
+    $json ='';
+    for ($i = 0; $i < sizeof($creativeWorkArray); $i++) {
+        $json = $json.'{'.'"id":'.$creativeWorkArray[$i]->getId().', "alternativeHeadline":"'.$creativeWorkArray[$i]->getAlternativeHeadline().'","commentCount":'.$creativeWorkArray[$i]->getCommentCount().', "copyrightYear":'.$creativeWorkArray[$i]->getCopyrightYear().', "inLanguage":'.$creativeWorkArray[$i]->getInLanguage().', "isAccessibleForFree":'.$creativeWorkArray[$i]->getIsAccessibleForFree().' }';
+        if($i < (sizeof($creativeWorkArray)-1)){
+            $json = $json.',';
+        }
+    }
+    return $json;
+}
 function publicationVolumeToJSON()
 {
     global $publicationVolume;
@@ -27,7 +39,21 @@ function publicationVolumeToJSON()
     }
     $json = $json.']';
     return $json;
-}
+}/*
+function softwareApplicationToJSON()
+{
+    global $softwareApplication;
+    $json ='[';
+    for ($i = 0; $i < sizeof($softwareApplication); $i++) {
+        $json = $json.'{' .'"@context":"http://schema.org","@type":"Article",'. ' "id":'.$softwareApplication[$i]->getId().', "alternativeHeadline":"'.$softwareApplication[$i]->getAlternativeHeadline().'","commentCount":'.$softwareApplication[$i]->getCommentCount().', "copyrightYear":'.$softwareApplication[$i]->getCopyrightYear().', "inLanguage":'.$softwareApplication[$i]->getInLanguage().', "isAccessibleForFree":'.$softwareApplication[$i]->getIsAccessibleForFree().', "applicationCategory":"'.$softwareApplication[$i]->getApplicationCategory().'", "applicationSubCategory":"'.$softwareApplication[$i]->getApplicationSubCategory(). '", "applicationSuite":'.$softwareApplication[$i]->getApplicationSuite().', "fileSize":'.$softwareApplication[$i]->getFileSize().' }';
+        if($i<(sizeof($softwareApplication)-1)){
+            $json = $json.',';
+        }
+    }
+    $json = $json.']';
+    return $json;
+}*/
+
 
 // Convert to HTML
 function creativeWorkToHTML(){
@@ -47,7 +73,17 @@ function publicationVolumeToHTML(){
     }
     $html= $html."</ul>";
     return $html;
-}
+}/*
+function softwareApplicationToHTML(){
+    global $softwareApplication;
+    $html="<ul>";
+    for($i = 0; $i < sizeof($softwareApplication); $i++) {
+        $html = $html."<li>" .$softwareApplication[$i]->getId()." ".$softwareApplication[$i]->getAlternativeHeadline()." ".$softwareApplication[$i]->getCommentCount()." ".$softwareApplication[$i]->getCopyrightYear()." ".$softwareApplication[$i]->getInLanguage()." ".$softwareApplication[$i]->getIsAccessibleForFree()." ".$softwareApplication[$i]->getApplicationCategory()." ".$softwareApplication[$i]->getApplicationSubCategory()." ".$softwareApplication[$i]->applicationSuite()." ".$softwareApplication[$i]->getFileSize()."</li>";
+    }
+    $html= $html."</ul>";
+    return $html;
+}*/
+
 
 // Convert to text
 function creativeWorkToText(){
@@ -65,9 +101,19 @@ function publicationVolumeToText(){
         $text= $text.$publicationVolume->getId()." ".$publicationVolume->getAlternativeHeadline()." ".$publicationVolume->getCommentCount()." ".$publicationVolume->getCopyrightYear()." ".$publicationVolume->getInLanguage()." ".$publicationVolume->getIsAccessibleForFree()." ".$publicationVolume->getPageStart()." ".$publicationVolume->getPageEnd()." ".$publicationVolume->getPagination()." ".$publicationVolume->getVolumeNumber()."\n";
     }
     return $text;
-}
+}/*
+function softwareApplicationToText(){
+    global $softwareApplication;
+    $text="";
+    for($i = 0; $i < sizeof($softwareApplication); $i++) {
+    for($i = 0; $i < sizeof($softwareApplication); $i++) {
+        $text = $text. $softwareApplication[$i]->getId()." ".$softwareApplication[$i]->getAlternativeHeadline()." ".$softwareApplication[$i]->getCommentCount()." ".$softwareApplication[$i]->getCopyrightYear()." ".$softwareApplication[$i]->getInLanguage()." ".$softwareApplication[$i]->getIsAccessibleForFree()." ".$softwareApplication[$i]->getApplicationCategory()." ".$softwareApplication[$i]->getApplicationSubCategory()." ".$softwareApplication[$i]->applicationSuite()." ".$softwareApplication[$i]->getFileSize()."\n";
+    }
+    return $text;
+}*/
 
-// Classes creativeWork, publicationVolume
+
+// Classes creativeWork, publicationVolume, softwareApplication
 class CreativeWork{
     private $id;
     private $alternativeHeadline;
@@ -131,22 +177,69 @@ class PublicationVolume extends CreativeWork{
     {
         return $this->volumeNumber;
     }
-}
+}/*
+class SoftwareApplication extends CreativeWork{
+    private $applicationCategory;
+    private $applicationSubCategory;
+    private $applicationSuite;
+    private $fileSize;
+    function __construct($id, $alternativeHeadline, $commentCount, $copyrightYear, $inLanguage, $isAccessibleForFree, $applicationCategory, $applicationSubCategory, $applicationSuite, $fileSize){
+        parent::__construct($id, $alternativeHeadline, $commentCount, $copyrightYear, $inLanguage, $isAccessibleForFree);
+        $this->applicationCategory= $applicationCategory;
+        $this->applicationSubCategory= $applicationSubCategory;
+        $this->applicationSuite= $applicationSuite;
+        $this->fileSize= $fileSize;
+    }
+    public function getApplicationCategory()
+    {
+        return $this->applicationCategory;
+    }
+    public function getApplicationSubCategory()
+    {
+        return $this->applicationSubCategory;
+    }
+    public function getApplicationSuite()
+    {
+        return $this->applicationSuite;
+    }
+    public function getFileSize()
+    {
+        return $this->fileSize;
+    }
+}*/
 
-// Arrays creativeWorkArray, publicationVolumeArray
+// Arrays creativeWorkArray, publicationVolumeArray, softwareApplicationArray
 global $creativeWorkArray;
 $creativeWorkArray = Array();
 global $publicationVolumeArray;
 $publicationVolumeArray = Array();
 /*global $softwareApplicationArray;
 $softwareApplicationArray = Array();*/
-$idCreativeWork = 0;
-$idPublicationVolume = 0;
+$idCreativeWork = -1;
+$idPublicationVolume = -1;
 /*$idSoftwareApplication = 1;*/
 
-// new Objects creativeWork, publicationVolume, softwareApplication
-$creativeWorkArray[] = new CreativeWork(0, "creativeWork", 8, 1999, "English", false);
-$publicationVolumeArray[] = new PublicationVolume(0,"publicationVolume", 5, 2001, "German", true, 1, 100, "pagination", 3);
+
+// Read file elements
+$jsonRead = file_get_contents("creativeWork.json");
+
+    $arrayRead = json_decode("[".$jsonRead."]", true);
+
+    foreach ($arrayRead as $jsonObj){
+        $id = $jsonObj['id'];
+        $alternativeHeadline = $jsonObj['alternativeHeadline'];
+        $commentCount = $jsonObj['commentCount'];
+        $copyrightYear = $jsonObj['copyrightYear'];
+        $inLanguage = $jsonObj['inLanguage'];
+        $isAccessibleForFree = $jsonObj['isAccessibleForFree'];
+        $creativeWorkArray[] = new CreativeWork($id, $alternativeHeadline, $commentCount, $copyrightYear, $inLanguage, $isAccessibleForFree);
+    }
+    if(sizeof($creativeWorkArray)!=0){
+        $position = sizeof($creativeWorkArray)-1;
+        $idCreativeWork = $creativeWorkArray[$position]->getId();
+    }
+
+
 
 // Processing URI
 if (isset($_SERVER['PATH_INFO'])) {
@@ -159,8 +252,10 @@ if (isset($_SERVER['PATH_INFO'])) {
     $request = null;
 }
 
+
 // Format response
 $format = $_SERVER['HTTP_ACCEPT'] or 'html';
+
 
 // Entities methods
 if (!$request){
@@ -215,11 +310,20 @@ if (!$request){
                 http_response_code(405);
                 echo "isAccessibleForFree can't be null.";
             }else{
-                $idCreativeWork++;
-                $newCreativeWork = new CreativeWork($idCreativeWork, $creativeWork->alternativeHeadline, $creativeWork->commentCount, $creativeWork->copyrightYear, $creativeWork->inLanguage, $creativeWork->isAccessibleForFree);
                 global $creativeWorkArray;
-                $creativeWorkArray[]= $newCreativeWork;
-                echo $newCreativeWork->getId()."";
+                $idCreativeWork++;
+
+                $arr = array('id' => $idCreativeWork, 'alternativeHeadline' => $creativeWork->alternativeHeadline, 'commentCount' => $creativeWork->commentCount, 'copyrightYear' => $creativeWork->copyrightYear, 'inLanguage' => $creativeWork->inLanguage, 'isAccessibleForFree' => $creativeWork->isAccessibleForFree);
+
+                // Added creativeWork to file
+                $jsonRead = file_get_contents("creativeWork.json");
+
+                // If it's not empty add commas
+                if($jsonRead!=null){
+                    file_put_contents("creativeWork.json", ",".json_encode($arr, JSON_PRETTY_PRINT), FILE_APPEND | LOCK_EX);
+                }else{
+                    file_put_contents("creativeWork.json", json_encode($arr, JSON_PRETTY_PRINT), FILE_APPEND | LOCK_EX);
+                }
             }
             break;
         case "DELETE":
@@ -247,6 +351,7 @@ if (!$request){
             }
             break;
         case "PUT":
+            global $put;
             $put = false;
             $creativeWork = json_decode(file_get_contents('php://input'));
             if($creativeWork->alternativeHeadline == null) {
@@ -265,11 +370,26 @@ if (!$request){
                 http_response_code(405);
                 echo "isAccessibleForFree can't be null.";
             }else {
-                for($i = 0; $i < sizeof($creativeWork); $i++){
+                $put = false;
+                for($i = 0; $i < sizeof($creativeWorkArray); $i++){
                     if($creativeWorkArray[$i]->getId()== $id){
                         $put = true;
-                        global $creativeWorkArray;
-                        $creativeWorkArray[$i] = new CreativeWork($idCreativeWork, $creativeWork->alternativeHeadline, $creativeWork->commentCount, $creativeWork->copyrightYear, $creativeWork->inLanguage, $creativeWork->isAccessibleForFree);
+                        $creativeWorkArray[$i] = new CreativeWork($id, $creativeWork->alternativeHeadline, $creativeWork->commentCount, $creativeWork->copyrightYear, $creativeWork->inLanguage, $creativeWork->isAccessibleForFree);
+
+                        file_put_contents("creativeWork.json", "");
+                        for($j = 0; $j <sizeof($creativeWorkArray); $j++){
+                            $arr = array('id' => $creativeWorkArray[$j]->getId(), 'alternativeHeadline' => $creativeWorkArray[$j]->getAlternativeHeadline(), 'commentCount' => $creativeWorkArray[$j]->getCommentCount(), 'copyrightYear' => $creativeWorkArray[$j]->getCopyrightYear(), 'inLanguage' => $creativeWorkArray[$j]->getInLanguage(), 'isAccessibleForFree' => $creativeWorkArray[$j]->getIsAccessibleForFree());
+
+                            // Added creativeWork to file
+                            $jsonRead = file_get_contents("creativeWork.json");
+
+                            // If it's not empty add commas
+                            if($jsonRead!=null){
+                                file_put_contents("creativeWork.json", ",".json_encode($arr, JSON_PRETTY_PRINT), FILE_APPEND | LOCK_EX);
+                            }else{
+                                file_put_contents("creativeWork.json", json_encode($arr, JSON_PRETTY_PRINT), FILE_APPEND | LOCK_EX);
+                            }
+                        }
                     }
                 }
                 if(!$put) {
@@ -284,10 +404,27 @@ if (!$request){
             break;
         case "DELETE":
             $delete = false;
+
             for($i = 0; $i < sizeof($creativeWorkArray); $i++) {
                 if ($creativeWorkArray[$i]->getId() == $id) {
                     $delete = true;
-                    unset($creativeWorkArray[$i]);
+
+                    file_put_contents("creativeWork.json", "");
+                    for($j = 0; $j <sizeof($creativeWorkArray); $j++){
+                        if ($j != $id){
+                            $arr = array('id' => $creativeWorkArray[$j]->getId(), 'alternativeHeadline' => $creativeWorkArray[$j]->getAlternativeHeadline(), 'commentCount' => $creativeWorkArray[$j]->getCommentCount(), 'copyrightYear' => $creativeWorkArray[$j]->getCopyrightYear(), 'inLanguage' => $creativeWorkArray[$j]->getInLanguage(), 'isAccessibleForFree' => $creativeWorkArray[$j]->getIsAccessibleForFree());
+
+                            // Added creativeWork to file
+                            $jsonRead = file_get_contents("creativeWork.json");
+
+                            // If it's not empty add commas
+                            if($jsonRead!=null){
+                                file_put_contents("creativeWork.json", ",".json_encode($arr, JSON_PRETTY_PRINT), FILE_APPEND | LOCK_EX);
+                            }else{
+                                file_put_contents("creativeWork.json", json_encode($arr, JSON_PRETTY_PRINT), FILE_APPEND | LOCK_EX);
+                            }
+                        }
+                    }
                 }
             }
             if(!$delete) {
