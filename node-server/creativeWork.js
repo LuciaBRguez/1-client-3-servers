@@ -1,10 +1,11 @@
 class CreativeWork{
-	update(alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccesibleForFree){
+	update(idCreativeWork, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree){
+		this.idCreativeWork = idCreativeWork;
 		this.alternativeHeadline = alternativeHeadline;
 		this.commentCount = commentCount;
 		this.copyrightYear = copyrightYear;
 		this.inLanguage = inLanguage;
-		this.isAccesibleForFree = isAccesibleForFree;
+		this.isAccessibleForFree = isAccessibleForFree;
 	}
 }
 

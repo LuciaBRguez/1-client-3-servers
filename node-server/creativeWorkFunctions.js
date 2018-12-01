@@ -1,11 +1,12 @@
 const {CreativeWork} = require("./creativeWork.js");
+var idCreativeWork = 0;
 
 // Array of creativeWork objects
 let creativeWorkArray = [];
 
 // Create a new Object creativeWork
 let creativeWork = new CreativeWork();
-creativeWork.update("creativeWork", 8, 1999, "English", false);
+creativeWork.update(0, "creativeWork", 8, 1999, "English", false);
 creativeWorkArray.push(creativeWork);
 
 // Exported functions
@@ -17,22 +18,23 @@ exports.getCreativeWork = function(id, next) {
   if (creativeWorkCheck == undefined) 
 	next(new Error("Cannot find creativeWork with id: " + id));
   else{
-	let creativeWork = {"@context":"http://schema.org","@type":"CreativeWork","id":id,"alternativeHeadline":creativeWorkArray[id].alternativeHeadline,"commentCount":creativeWorkArray[id].commentCount,"copyrightYear":creativeWorkArray[id].copyrightYear,"inLanguage":creativeWorkArray[id].inLanguage,"isAccesibleForFree":creativeWorkArray[id].isAccesibleForFree}; 
+	let creativeWork = {"@context":"http://schema.org","@type":"CreativeWork","id":id,"alternativeHeadline":creativeWorkArray[id].alternativeHeadline,"commentCount":creativeWorkArray[id].commentCount,"copyrightYear":creativeWorkArray[id].copyrightYear,"inLanguage":creativeWorkArray[id].inLanguage,"isAccessibleForFree":creativeWorkArray[id].isAccessibleForFree}; 
 	next(null, creativeWork);
   }
 };
 
-exports.postCreativeWork = function (alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccesibleForFree, next) {
+exports.postCreativeWork = function (alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree, next) {
 	if (alternativeHeadline == null) next("Mandatory alternativeHeadline field.");
     else if (commentCount == null) next("Mandatory commentCount field.");
     else if (copyrightYear == null) next("Mandatory copyrightYear field.");
     else if (inLanguage == null) next("Mandatory inLanguage field.");
-    else if (isAccesibleForFree == null) next("Mandatory isAccesibleForFree field.");
+    else if (isAccessibleForFree == null) next("Mandatory isAccessibleForFree field.");
 	else {
+		idCreativeWork++;
 		let creativeWork = new CreativeWork();
-		creativeWork.update(alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccesibleForFree);
+		creativeWork.update(idCreativeWork, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree);
 		creativeWorkArray.push(creativeWork);
-		next(null,(creativeWorkArray.length-1)+"");
+		next(null,idCreativeWork+"");
 	}
 };
 
@@ -44,10 +46,10 @@ exports.deleteCreativeWork = function (id, next) {
 	next(new Error("Non-existent creativeWork with id: " + id));
 };
 
-exports.putCreativeWork = function(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccesibleForFree, next) {
+exports.putCreativeWork = function(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree, next) {
  if (creativeWorkArray[id]!= undefined) {
 	let creativeWork = new CreativeWork();
-	creativeWork.update(alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccesibleForFree);
+	creativeWork.update(alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree);
 	creativeWorkArray[id] = creativeWork;
 	next(null, creativeWorkArray);
  }
@@ -60,14 +62,14 @@ exports.putCreativeWork = function(id, alternativeHeadline, commentCount, copyri
 // HTML
 exports.toHTML = function() {
  return '<ul>' + creativeWorkArray.map(function(creativeWork, i){
-    return '<li>' + i +' '+creativeWork.alternativeHeadline + ' ' + creativeWork.commentCount + ' ' + creativeWork.copyrightYear + ' ' + creativeWork.inLanguage + ' ' + creativeWork.isAccesibleForFree + '</li>';
+    return '<li>' + i +' '+creativeWork.alternativeHeadline + ' ' + creativeWork.commentCount + ' ' + creativeWork.copyrightYear + ' ' + creativeWork.inLanguage + ' ' + creativeWork.isAccessibleForFree + '</li>';
  }).join('') + '</ul>' ;
 }; 
 
 // Text
 exports.toText = function() {
  return creativeWorkArray.map(function(creativeWork, i){
-	return ' - ' + i +' '+ creativeWork.alternativeHeadline + ' ' + creativeWork.commentCount + ' ' + creativeWork.copyrightYear + ' ' + creativeWork.inLanguage + ' ' + creativeWork.isAccesibleForFree + '\n';
+	return ' - ' + i +' '+ creativeWork.alternativeHeadline + ' ' + creativeWork.commentCount + ' ' + creativeWork.copyrightYear + ' ' + creativeWork.inLanguage + ' ' + creativeWork.isAccessibleForFree + '\n';
   }).join('');	
 };
 
@@ -75,22 +77,8 @@ exports.toText = function() {
 exports.toJson = function() {
 	let send=[];
 	for(let i=0; i<creativeWorkArray.length; i++){
-		let jsonSend={"@context":"http://schema.org","@type":"CreativeWork","id":i,"alternativeHeadline":creativeWorkArray[i].alternativeHeadline,"commentCount":creativeWorkArray[i].commentCount,"copyrightYear":creativeWorkArray[i].copyrightYear,"inLanguage":creativeWorkArray[i].inLanguage,"isAccesibleForFree":creativeWorkArray[i].isAccesibleForFree};
+		let jsonSend={"@context":"http://schema.org","@type":"CreativeWork","id":i,"alternativeHeadline":creativeWorkArray[i].alternativeHeadline,"commentCount":creativeWorkArray[i].commentCount,"copyrightYear":creativeWorkArray[i].copyrightYear,"inLanguage":creativeWorkArray[i].inLanguage,"isAccessibleForFree":creativeWorkArray[i].isAccessibleForFree};
 		send.push(jsonSend);
 	}
 	return JSON.stringify(send);
-};
-
-// XML
-exports.toXML = function() {
-    return '<creativeWorks>' + creativeWorkArray.map(function(creativeWork, i){
-	    return  '<creativeWork id =' + i + '>' +
-	   			'<alternativeHeadline>'+creativeWork.alternativeHeadline+ '</alternativeHeadline>'+
-                '<commentCount>' + creativeWork.commentCount + '</commentCount>' +
-                '<copyrightYear>' + creativeWork.copyrightYear + '</copyrightYear>' +
-                '<inLanguage>' + creativeWork.inLanguage + '</inLanguage>' +
-                '<isAccesibleForFree>' + creativeWork.isAccesibleForFree + '</isAccesibleForFree>' +
-		        '</creativeWork>';
-   }).join('') +
-   '</creativeWorks>';
 };

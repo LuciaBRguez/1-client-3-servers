@@ -4,7 +4,7 @@ var http = require('http'),
     creativeWork = require('./creativeWorkFunctions.js'),
     publicationVolume = require('./publicationVolumeFunctions.js'),
     softwareApplication = require('./softwareApplicationFunctions.js'),
-    availableMediaTypes = ['text/html', 'text/plain', 'application/ld+json', 'application/xml'];
+    availableMediaTypes = ['text/html', 'text/plain', 'application/ld+json'];
 
 
 // Creating server
@@ -14,6 +14,16 @@ console.log("Server booted.");
 
 // Processing URI
 function process (req, res) {
+	// CORS
+	res.setHeader('Access-Control-Allow-Origin','*');
+	res.setHeader('Access-Control-Request-Method','*');
+	res.setHeader('Access-Control-Allow-Methods',"GET, PUT, POST, DELETE, OPTIONS");
+	res.setHeader('Access-Control-Allow-Headers','*');
+	if (req.method === 'OPTIONS'){
+		res.writeHead(200);
+		res.end();
+		return;
+	}
     
     // Obtaining URI
     var urlparsed = url.parse(req.url, true);
@@ -148,10 +158,6 @@ function getCreativeWork(req, res) {
 		res.setHeader('content-type',mediaType);
 		res.end(creativeWork.toText());
 		break;
-	case 'application/xml': 
-		res.setHeader('content-type',mediaType);
-		res.end(creativeWork.toXML());
-		break;
 	case 'application/ld+json': 
 		res.setHeader('content-type',mediaType);
 		res.end(creativeWork.toJson());
@@ -192,9 +198,9 @@ function postCreativeWork(post, req, res) {
 		commentCount = post.commentCount,
 		copyrightYear = post.copyrightYear,
 		inLanguage = post.inLanguage,
-		isAccesibleForFree = post.isAccesibleForFree;
+		isAccessibleForFree = post.isAccessibleForFree;
 	console.log("Creating creativeWork.");
-    creativeWork.postCreativeWork(alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccesibleForFree, function(err, id) {
+    creativeWork.postCreativeWork(alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree, function(err, id) {
     	if (err) notAllowed("Couldn't post creativeWork.", res);
     	else{
 			res.statusCode = 200;
@@ -209,8 +215,8 @@ function putCreativeWork(post, id, req, res) {
         commentCount = post.commentCount,
         copyrightYear = post.copyrightYear,
         inLanguage = post.inLanguage,
-        isAccesibleForFree = post.isAccesibleForFree;
-	creativeWork.putCreativeWork(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccesibleForFree, function(err, als) {
+        isAccessibleForFree = post.isAccessibleForFree;
+	creativeWork.putCreativeWork(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree, function(err, als) {
 		if (err) notAllowed("Couldn't put creativeWork with id: " + id, res);
 		else{
 			res.statusCode = 200;
@@ -230,10 +236,6 @@ function getPublicationVolume(req, res) {
 	case 'text/plain':
 		res.setHeader('content-type',mediaType);
 		res.end(publicationVolume.toText());
-		break;
-	case 'application/xml': 
-		res.setHeader('content-type',mediaType);
-		res.end(publicationVolume.toXML());
 		break;
 	case 'application/ld+json': 
 		res.setHeader('content-type',mediaType);
@@ -274,13 +276,13 @@ function postPublicationVolume(post, req, res) {
 		commentCount = post.commentCount,
 		copyrightYear = post.copyrightYear,
 		inLanguage = post.inLanguage,
-        isAccesibleForFree = post.isAccesibleForFree,
+        isAccessibleForFree = post.isAccessibleForFree,
         pageStart = post.pageStart,
         pageEnd = post.pageEnd,
         pagination = post.pagination,
         volumeNumber = post.volumeNumber;
 	console.log("Creating publicationVolume.");
-    publicationVolume.postPublicationVolume(alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccesibleForFree, pageStart, pageEnd, pagination, volumeNumber, function(err, id) {
+    publicationVolume.postPublicationVolume(alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree, pageStart, pageEnd, pagination, volumeNumber, function(err, id) {
     	if (err) notAllowed("Couldn't post publicationVolume.", res);
     	else{
 			res.statusCode = 200;
@@ -295,12 +297,12 @@ function putPublicationVolume(post, id, req, res) {
         commentCount = post.commentCount,
         copyrightYear = post.copyrightYear,
         inLanguage = post.inLanguage,
-        isAccesibleForFree = post.isAccesibleForFree;
+        isAccessibleForFree = post.isAccessibleForFree;
         pageStart = post.pageStart,
         pageEnd = post.pageEnd,
         pagination = post.pagination,
         volumeNumber = post.volumeNumber;
-	publicationVolume.putPublicationVolume(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccesibleForFree, pageStart, pageEnd, pagination, volumeNumber, function(err, als) {
+	publicationVolume.putPublicationVolume(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree, pageStart, pageEnd, pagination, volumeNumber, function(err, als) {
 		if (err) notAllowed("Couldn't put publicationVolume with id: " + id, res);
 		else{
 			res.statusCode = 200;
@@ -320,10 +322,6 @@ function getSoftwareApplication(req, res) {
 	case 'text/plain':
 		res.setHeader('content-type',mediaType);
 		res.end(softwareApplication.toText());
-		break;
-	case 'application/xml': 
-		res.setHeader('content-type',mediaType);
-		res.end(softwareApplication.toXML());
 		break;
 	case 'application/ld+json': 
 		res.setHeader('content-type',mediaType);
@@ -365,13 +363,13 @@ function postSoftwareApplication(post, req, res) {
 		commentCount = post.commentCount,
 		copyrightYear = post.copyrightYear,
 		inLanguage = post.inLanguage,
-		isAccesibleForFree = post.isAccesibleForFree,
+		isAccessibleForFree = post.isAccessibleForFree,
 		applicationCategory = post.applicationCategory,
 		applicationSubCategory = post.applicationSubCategory,
 		applicationSuite = post.applicationSuite,
 		fileSize = post.fileSize;
 	console.log("Creating softwareApplication.");
-    softwareApplication.postSoftwareApplication(alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccesibleForFree, applicationCategory, applicationSubCategory, applicationSuite, fileSize, function(err, id) {
+    softwareApplication.postSoftwareApplication(alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree, applicationCategory, applicationSubCategory, applicationSuite, fileSize, function(err, id) {
     	if (err) notAllowed("Couldn't post softwareApplication.", res);
     	else{
 			res.statusCode = 200;
@@ -386,12 +384,12 @@ function putSoftwareApplication(post, id, req, res) {
         commentCount = post.commentCount,
         copyrightYear = post.copyrightYear,
         inLanguage = post.inLanguage,
-		isAccesibleForFree = post.isAccesibleForFree,
+		isAccessibleForFree = post.isAccessibleForFree,
 		applicationCategory = post.applicationCategory,
 		applicationSubCategory = post.applicationSubCategory,
 		applicationSuite = post.applicationSuite,
 		fileSize = post.fileSize;
-	softwareApplication.putSoftwareApplication(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccesibleForFree, applicationCategory, applicationSubCategory, applicationSuite, fileSize, function(err, als) {
+	softwareApplication.putSoftwareApplication(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree, applicationCategory, applicationSubCategory, applicationSuite, fileSize, function(err, als) {
 		if (err) notAllowed("Couldn't put softwareApplication with id: " + id, res);
 		else{
 			res.statusCode = 200;
@@ -412,6 +410,7 @@ function parseBody(req, res, next) {
         }
     });
     req.on('end', function () {
+		console.log(body);
 		var post = JSON.parse(body);
         next(post, req, res);
     });
