@@ -82,7 +82,7 @@ return publicationVolumeArray.map(function(publicationVolume, i){
 exports.toJson = function() {
     let send=[];
     for(let i=0; i<publicationVolumeArray.length; i++){
-        let jsonSend={"@context":"http://schema.org","@type":"publicationVolume","id":i,"alternativeHeadline":publicationVolumeArray[i].alternativeHeadline,"commentCount":publicationVolumeArray[i].commentCount,"copyrightYear":publicationVolumeArray[i].copyrightYear,"inLanguage":publicationVolumeArray[i].inLanguage,"isAccessibleForFree":publicationVolumeArray[i].isAccessibleForFree,"pageStart":publicationVolumeArray[id].pageStart,"pageEnd":publicationVolumeArray[id].pageEnd,"pagination":publicationVolumeArray[id].pagination,"volumeNumber":publicationVolumeArray[id].volumeNumber};
+        let jsonSend={"@context":"http://schema.org","@type":"publicationVolume","id":i,"alternativeHeadline":publicationVolumeArray[i].alternativeHeadline,"commentCount":publicationVolumeArray[i].commentCount,"copyrightYear":publicationVolumeArray[i].copyrightYear,"inLanguage":publicationVolumeArray[i].inLanguage,"isAccessibleForFree":publicationVolumeArray[i].isAccessibleForFree,"pageStart":publicationVolumeArray[i].pageStart,"pageEnd":publicationVolumeArray[i].pageEnd,"pagination":publicationVolumeArray[i].pagination,"volumeNumber":publicationVolumeArray[i].volumeNumber};
         send.push(jsonSend);
     }
     return JSON.stringify(send);

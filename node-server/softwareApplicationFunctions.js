@@ -6,7 +6,7 @@ let softwareApplicationArray = [];
 
 // Create a new Object softwareApplication
 let softwareApplication = new SoftwareApplication();
-softwareApplication.update("softwareApplication", 7, 2003, "Spanish", true, "category", "sub-category", "suite", "200Mb");
+softwareApplication.update(0, "softwareApplication", 7, 2003, "Spanish", true, "category", "sub-category", "suite", "200Mb");
 softwareApplicationArray.push(softwareApplication);
 
 
@@ -82,7 +82,7 @@ return softwareApplicationArray.map(function(softwareApplication, i){
 exports.toJson = function() {
     let send=[];
     for(let i=0; i<softwareApplicationArray.length; i++){
-        let jsonSend={"@context":"http://schema.org","@type":"softwareApplication","id":i,"alternativeHeadline":softwareApplicationArray[i].alternativeHeadline,"commentCount":softwareApplicationArray[i].commentCount,"copyrightYear":softwareApplicationArray[i].copyrightYear,"inLanguage":softwareApplicationArray[i].inLanguage,"isAccessibleForFree":softwareApplicationArray[i].isAccessibleForFree,"applicationCategory":softwareApplicationArray[id].applicationCategory,"applicationSubCategory":softwareApplicationArray[id].applicationSubCategory,"applicationSuite":softwareApplicationArray[id].applicationSuite,"fileSize":softwareApplicationArray[id].fileSize};
+        let jsonSend={"@context":"http://schema.org","@type":"softwareApplication","id":i,"alternativeHeadline":softwareApplicationArray[i].alternativeHeadline,"commentCount":softwareApplicationArray[i].commentCount,"copyrightYear":softwareApplicationArray[i].copyrightYear,"inLanguage":softwareApplicationArray[i].inLanguage,"isAccessibleForFree":softwareApplicationArray[i].isAccessibleForFree,"applicationCategory":softwareApplicationArray[i].applicationCategory,"applicationSubCategory":softwareApplicationArray[i].applicationSubCategory,"applicationSuite":softwareApplicationArray[i].applicationSuite,"fileSize":softwareApplicationArray[i].fileSize};
         send.push(jsonSend);
     }
     return JSON.stringify(send);
