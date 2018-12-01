@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Client-Servers</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <a href="/" class="navbar-brand">
+            Client-Server API
+        </a>
+    </nav>
+    <div class="container">
+        <div id="softwareApplication" class="row pt-5 pb-5 justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div id="get-header" class="card-header text-center border border-primary">
+                        <h4>GET /softwareApplication</h4>
+                    </div>
+                    <form id="get" class="card-body">
+                        <div id="content-get"></div>
+                        <input type="submit" value="Execute" id="btn-get" class="btn btn-outline-primary btn-block">
+                    </form> 
+                </div>
+                <br>
+                <div class="card">
+                    <div id="post-header" class="card-header text-center border border-success">
+                        <h4>POST /softwareApplication</h4>
+                    </div>
+                    <form id="post" class="card-body">
+                        <textarea class="form-control" name="content-post" id="content-post" rows="10"></textarea><br>
+                        <input type="submit" value="Execute" id="btn-post" class="btn btn-outline-primary btn-block">
+                    </form>
+                </div>
+                <br>
+                <div class="card">
+                    <div id="get-id-header" class="card-header text-center border border-primary">
+                        <h4>GET /softwareApplication{id}</h4>
+                    </div>
+                    <form id="get-id" class="card-body">
+                        <label class="col-md-2 text-center">ID</label>
+                        <input id="id-get-id" type="text" class="col-md-9"><br><br>
+                        <div id="content-get-id"></div>
+                        <input type="submit" value="Execute" id="btn-get-id" class="btn btn-outline-primary btn-block">
+                    </form>
+                </div>
+                <br>
+                <div class="card">
+                    <div id="put-id-header" class="card-header text-center border border-warning">
+                        <h4>PUT /softwareApplication{id}</h4>
+                    </div>
+                    <form id="put-id" class="card-body">
+                        <textarea class="form-control" name="content-put" id="content-put" rows="10"></textarea><br>
+                        <input type="submit" value="Execute" id="btn-put-id" class="btn btn-outline-primary btn-block">
+                    </form>
+                </div>
+                <br>
+                <div class="card">
+                    <div id="delete-id-header" class="card-header text-center border border-danger">
+                        <h4>DELETE /softwareApplication{id}</h4>
+                    </div>
+                    <form id="delete-id" class="card-body">
+                        <label class="col-md-2 text-center">ID</label>
+                        <input id="id-delete-id" type="text" class="col-md-9"><br><br>
+                        <input type="submit" value="Execute" id="btn-delete-id" class="btn btn-outline-primary btn-block">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="application/javascript" src="scripts/jQuery.js"></script>
+    <script type="application/javascript" src="scripts/client.js"></script>
+</body>
+</html>
