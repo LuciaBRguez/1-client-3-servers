@@ -265,7 +265,7 @@ $format = $_SERVER['HTTP_ACCEPT'] or 'html';
 if (!$request){
     switch ($_SERVER['REQUEST_METHOD']) {
         case "GET":
-            echo "{\"1\":\"CreativeWork\",\"2\":\"PublicationVolume\",\"3\":\"SoftwareApplication\"}";
+            echo "{\"first\":\"creativeWork\",\"second\":\"publicationVolume\",\"third\":\"softwareApplication\"}";
             http_response_code(200);
             break;
         case "OPTIONS":

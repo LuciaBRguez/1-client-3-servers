@@ -7,7 +7,7 @@
     <title>Client-Servers</title>
     <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
 </head>
-<body>
+<body onLoad="getEntitiesNode()">
     <nav class="navbar navbar-dark bg-dark">
         <a href="/" class="navbar-brand">
             Client-Server API
@@ -23,11 +23,7 @@
                     <div class="card-body pt-5 pb-5">
                         <form>
                             <div class="form-group">
-                                <select class="form-control" onchange="location = this.value;">
-                                    <option selected="true" disabled="disabled"></option> 
-                                    <option value="creativeWork.html">CreativeWork API</option>
-                                    <option value="publicationVolume.html">PublicationVolume API</option>
-                                    <option value="softwareApplication.html">SoftwareApplication API</option>
+                                <select id="select">
                                 </select>
                             </div>
                         </form>
@@ -36,5 +32,7 @@
             </div>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="application/javascript" src="scripts/entities.js"></script>
 </body>
 </html>

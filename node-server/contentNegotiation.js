@@ -34,7 +34,7 @@ function process (req, res) {
         switch (req.method) {
             case 'GET':
                 res.setHeader('content-type',"application/json"); 
-                res.write('{\"1\":\"CreativeWork\",\"2\":\"publicationVolume\",\"3\":\"softwareApplication\"}');
+                res.write('{\"first\":\"creativeWork\",\"second\":\"publicationVolume\",\"third\":\"softwareApplication\"}');
                 res.end();
                 break;
             default:
