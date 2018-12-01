@@ -1,4 +1,8 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+header("Allow: GET, POST, OPTIONS, PUT, DELETE");
 
 // Content negotiation
 // Convert to JSON
@@ -7,7 +11,7 @@ function creativeWorkToJSON()
     global $creativeWorkArray;
     $json ='[';
     for ($i = 0; $i < sizeof($creativeWorkArray); $i++) {
-        $json = $json.'{'.'"@context":"http://schema.org","@type":"CreativeWork",'.' "id":'.$creativeWorkArray[$i]->getId().', "alternativeHeadline":"'.$creativeWorkArray[$i]->getAlternativeHeadline().'","commentCount":'.$creativeWorkArray[$i]->getCommentCount().', "copyrightYear":'.$creativeWorkArray[$i]->getCopyrightYear().', "inLanguage":'.$creativeWorkArray[$i]->getInLanguage().', "isAccessibleForFree":'.$creativeWorkArray[$i]->getIsAccessibleForFree().' }';
+        $json = $json.'{'.'"@context":"http://schema.org","@type":"CreativeWork",'.' "id":'.$creativeWorkArray[$i]->getId().', "alternativeHeadline":"'.$creativeWorkArray[$i]->getAlternativeHeadline().'","commentCount":'.$creativeWorkArray[$i]->getCommentCount().', "copyrightYear":'.$creativeWorkArray[$i]->getCopyrightYear().', "inLanguage":"'.$creativeWorkArray[$i]->getInLanguage().'", "isAccessibleForFree":'.$creativeWorkArray[$i]->getIsAccessibleForFree().' }';
         if($i < (sizeof($creativeWorkArray)-1)){
             $json = $json.',';
         }
@@ -20,7 +24,7 @@ function creativeWorkToJSONWithoutBrackets()
     global $creativeWorkArray;
     $json ='';
     for ($i = 0; $i < sizeof($creativeWorkArray); $i++) {
-        $json = $json.'{'.'"id":'.$creativeWorkArray[$i]->getId().', "alternativeHeadline":"'.$creativeWorkArray[$i]->getAlternativeHeadline().'","commentCount":'.$creativeWorkArray[$i]->getCommentCount().', "copyrightYear":'.$creativeWorkArray[$i]->getCopyrightYear().', "inLanguage":'.$creativeWorkArray[$i]->getInLanguage().', "isAccessibleForFree":'.$creativeWorkArray[$i]->getIsAccessibleForFree().' }';
+        $json = $json.'{'.'"id":'.$creativeWorkArray[$i]->getId().', "alternativeHeadline":"'.$creativeWorkArray[$i]->getAlternativeHeadline().'","commentCount":'.$creativeWorkArray[$i]->getCommentCount().', "copyrightYear":'.$creativeWorkArray[$i]->getCopyrightYear().', "inLanguage":"'.$creativeWorkArray[$i]->getInLanguage().'", "isAccessibleForFree":'.$creativeWorkArray[$i]->getIsAccessibleForFree().' }';
         if($i < (sizeof($creativeWorkArray)-1)){
             $json = $json.',';
         }
@@ -262,6 +266,10 @@ if (!$request){
     switch ($_SERVER['REQUEST_METHOD']) {
         case "GET":
             echo "{\"1\":\"CreativeWork\",\"2\":\"PublicationVolume\",\"3\":\"SoftwareApplication\"}";
+            http_response_code(200);
+            break;
+        case "OPTIONS":
+            http_response_code(200);
             break;
         default:
             http_response_code(404);
@@ -281,6 +289,9 @@ if (!$request){
                 case 'text/plain':
                     header('Content-type: text/plain');
                     echo creativeWorkToText();
+                    break;
+                case "OPTIONS":
+                    http_response_code(200);
                     break;
                 default:
                     header('Content-type: text/html');
@@ -324,11 +335,15 @@ if (!$request){
                 }else{
                     file_put_contents("creativeWork.json", json_encode($arr, JSON_PRETTY_PRINT), FILE_APPEND | LOCK_EX);
                 }
+                http_response_code(200);
             }
             break;
         case "DELETE":
             http_response_code(404);
             echo "DELETE not allowed over every creativeWork.";
+            break;
+        case "OPTIONS":
+            http_response_code(200);
             break;
         default:
             http_response_code(404);
@@ -341,8 +356,9 @@ if (!$request){
             $getId = false;
             for($i = 0; $i < sizeof($creativeWorkArray); $i++) {
                 if ($creativeWorkArray[$i]->getId() == $id) {
-                    echo json_encode('{'.'"@context":"http://schema.org","@type":"CreativeWork",'.' "id":'.$id.', "alternativeHeadline":"'.$creativeWorkArray[$i]->getAlternativeHeadline().'","commentCount":'.$creativeWorkArray[$i]->getCommentCount().', "copyrightYear":'.$creativeWorkArray[$i]->getCopyrightYear().', "inLanguage":'.$creativeWorkArray[$i]->getInLanguage().', "isAccessibleForFree":'.$creativeWorkArray[$i]->getIsAccessibleForFree().' }');
+                    echo json_encode('{'.'"@context":"http://schema.org","@type":"CreativeWork",'.' "id":'.$id.', "alternativeHeadline":"'.$creativeWorkArray[$i]->getAlternativeHeadline().'", "commentCount":'.$creativeWorkArray[$i]->getCommentCount().', "copyrightYear":'.$creativeWorkArray[$i]->getCopyrightYear().', "inLanguage":"'.$creativeWorkArray[$i]->getInLanguage().'", "isAccessibleForFree":'.$creativeWorkArray[$i]->getIsAccessibleForFree().' }');
                     $getId = true;
+                    http_response_code(200);
                 }
             }
             if(!$getId){
@@ -390,6 +406,7 @@ if (!$request){
                                 file_put_contents("creativeWork.json", json_encode($arr, JSON_PRETTY_PRINT), FILE_APPEND | LOCK_EX);
                             }
                         }
+                        http_response_code(200);
                     }
                 }
                 if(!$put) {
@@ -425,12 +442,16 @@ if (!$request){
                             }
                         }
                     }
+                    http_response_code(200);
                 }
             }
             if(!$delete) {
                 http_response_code(404);
                 echo "Not allowed.";
             }
+            break;
+        case "OPTIONS":
+            http_response_code(200);
             break;
         default:
             http_response_code(404);
@@ -450,6 +471,9 @@ if (!$request){
                 case 'text/plain':
                     header('Content-type: text/plain');
                     echo publicationVolumeToText();
+                    break;
+                case "OPTIONS":
+                    http_response_code(200);
                     break;
                 default:
                     header('Content-type: text/html');
@@ -496,11 +520,15 @@ if (!$request){
                 global $creativeWorkArray;
                 $creativeWorkArray[]= $newPublicationVolume;
                 echo $newPublicationVolume->getId()."";
+                http_response_code(200);
             }
             break;
         case "DELETE":
             http_response_code(404);
             echo "DELETE not allowed over every publicationVolume.";
+            break;
+        case "OPTIONS":
+            http_response_code(200);
             break;
         default:
             http_response_code(404);
@@ -515,6 +543,7 @@ if (!$request){
                 if ($publicationVolumeArray[$i]->getId() == $id) {
                     echo json_encode('{'.'"@context":"http://schema.org","@type":"PublicationVolume",'.' "id":'.$id.', "alternativeHeadline":"'.$publicationVolumeArray[$i]->getAlternativeHeadline().'","commentCount":'.$publicationVolumeArray[$i]->getCommentCount().', "copyrightYear":'.$publicationVolumeArray[$i]->getCopyrightYear().', "inLanguage":'.$publicationVolumeArray[$i]->getInLanguage().', "isAccessibleForFree":'.$publicationVolumeArray[$i]->getIsAccessibleForFree().', "pageStart":'.$publicationVolumeArray[$i]->getPageStart().', "pageEnd":'.$publicationVolumeArray[$i]->getPageEnd().', "pagination":'.$publicationVolumeArray[$i]->getPagination().', "volumeNumber":'.$publicationVolumeArray[$i]->getVolumeNumber().' }');
                     $getId = true;
+                    http_response_code(200);
                 }
             }
             if(!$getId){
@@ -562,8 +591,9 @@ if (!$request){
                 }
                 if(!$put) {
                     http_response_code(404);
-                    echo "not allowed";
+                    echo "Not allowed.";
                 }
+                http_response_code(200);
             }
             break;
         case "POST":
@@ -576,12 +606,16 @@ if (!$request){
                 if ($publicationVolumeArray[$i]->getId() == $id) {
                     $delete = true;
                     unset($publicationVolumeArray[$i]);
+                    http_response_code(200);
                 }
             }
             if(!$delete) {
                 http_response_code(404);
                 echo "Not allowed.";
             }
+            break;
+        case "OPTIONS":
+            http_response_code(200);
             break;
         default:
             http_response_code(404);

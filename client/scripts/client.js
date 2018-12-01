@@ -1,5 +1,5 @@
 // Array of creativeWork objects
-let creativeWorkArray = [];
+// let creativeWorkArray = [];
 
 
 class CreativeWork {
@@ -13,72 +13,108 @@ class CreativeWork {
 class UI {
 
     postCreativeWork(){
+
         // Catch post content
         const contentPost = document.getElementById('content-post').value;
 
-        // Convert to JSON to catch id
-        let json = JSON.parse(contentPost);
-        let id = json.id;
+        $.ajax({
+            method:'POST',
+            data:contentPost,
+            url:"http://localhost/phpServer.php/creativeWork",
 
-        // Create a new Object CreativeWork if it doens't exist
-        const creativeWork = new CreativeWork(contentPost, id);
-        
-        // Add new object to creativeWorkArray if other wasn't added previously with the same id
-        let result = creativeWorkArray.filter(obj => obj.id === id);
-        if (result.length === 0){
-            creativeWorkArray.push(creativeWork);
-        }
+            success:function(){
+                alert('POST successful');
+            }
+
+        }).fail(function(){
+            alert('POST failed');
+        });
+    
     }
 
 
     getCreativeWork() {
-        // Load div with id="content-get"
-        const contentGet = document.getElementById('content-get');
+        $.ajax({
 
-        // Clean div with id="content-get"
-        contentGet.innerHTML = "";
+            beforeSend: function(xhrObj){
+                xhrObj.setRequestHeader("Accept","application/ld+json");
+            },
 
-        // creativeWorkArray loop to catch the objects CreativeWork
-        creativeWorkArray.forEach(function(value, index, array){
+            method:'GET',
+            url:"http://localhost/phpServer.php/creativeWork",
 
-            // Create div with id="element-content-get"
-            const element = document.createElement('div');
-            element.setAttribute("id", "element-content-get");
-            
-            // Catch value of the attribute contentPost of the object
-            let contentPost = value.contentPost;
+            success:function(creativeWorkString){  
 
-                // Add contentPost into div with id="element-content-get"
-                element.innerHTML = `
-                    <textarea readonly class="form-control" rows="10">${contentPost}</textarea><br>
-                `;
+                // Parse JSON
+                let creativeWorkArray = JSON.parse(creativeWorkString);
 
-                // Add child with id="element-content-get" inside div with id="content-get" if not exist
-                contentGet.appendChild(element);
+                // Load div with id="content-get"
+                const contentGet = document.getElementById('content-get');
+
+                // Clean div with id="content-get"
+                contentGet.innerHTML = "";
+
+                // creativeWorkArray loop to catch the objects CreativeWork
+                for (let i=0; i<creativeWorkArray.length; i++){
+
+                    // Create div with id="element-content-get"
+                    const element = document.createElement('div');
+                    element.setAttribute("id", "element-content-get");
+                    
+                    // creativeWork to String
+                    let creativeWork = JSON.stringify(creativeWorkArray[i]);
+
+                    // Add contentPost into div with id="element-content-get"
+                    element.innerHTML = `
+                        <textarea readonly class="form-control" rows="10">${creativeWork}</textarea><br>
+                    `;
+
+                    // Add child with id="element-content-get" inside div with id="content-get" if not exist
+                    contentGet.appendChild(element);
+                }
+                alert('GET successful');
+            }
+
+        }).fail(function(){
+            alert('GET failed');
         });
     }
 
 
     deleteCreativeWork() {
+
         // Catch id value from input with id="id-delete-id"
         const id = document.getElementById('id-delete-id').value;
 
-        // If an object with this id exists then delete it from creativeWorkArray
-        creativeWorkArray.forEach(function(value, index, array){
-            if (id == value.id) {
-                creativeWorkArray.splice(index, 1);
+        $.ajax({
+
+            method:'DELETE',
+            url:"http://localhost/phpServer.php/creativeWork/"+id,
+
+            success:function(){
+                alert('DELETED successful');
             }
+
+        }).fail(function(){
+            alert('DELETE failed');
         });
     }
 
 
     getIdCreativeWork() {
+
         // Catch id value from input with id="id-get-id"
         const id = document.getElementById('id-get-id').value;
 
-        // If an object with this id exists then show it
-        creativeWorkArray.forEach(function(value, index, array){
-            if (id == value.id) {
+        $.ajax({
+
+            method:'GET',
+            url:"http://localhost/phpServer.php/creativeWork/"+id,
+            
+            success:function(creativeWorkString){
+
+                // Parse JSON
+                let creativeWork = JSON.parse(creativeWorkString);
                 
                 // Load div with id="content-get-id"
                 const contentGetId = document.getElementById('content-get-id');
@@ -89,41 +125,44 @@ class UI {
                 // Create div with id="element-content-get-id"
                 const element = document.createElement('div');
                 element.setAttribute("id", "element-content-get-id");
-                
-                // Catch value of the attribute contentPost of the object
-                let contentPost = value.contentPost;
 
                 // Add contentPost into div with id="element-content-get-id"
                 element.innerHTML = `
-                    <textarea readonly class="form-control" rows="10">${contentPost}</textarea><br>
+                    <textarea readonly class="form-control" rows="10">${creativeWork}</textarea><br>
                 `;
 
                 // Add child with id="element-content-get-id" inside div with id="content-get" if not exist
                 contentGetId.appendChild(element);      
+
+                alert('GET/id successful');
             }
+
+        }).fail(function(){
+            alert('GET/id failed');
         });
     }
 
 
     putCreativeWork() {
+
         // Catch put content
         const contentPut = document.getElementById('content-put').value;
 
-        // Convert to JSON to catch id
-        let json = JSON.parse(contentPut);
-        let id = json.id;
+        // Catch id value from input with id="id-put-id"
+        const id = document.getElementById('id-put-id').value;
 
-        // Create a new Object CreativeWork if it doens't exist
-        const creativeWork = new CreativeWork(contentPut, id);
-        
-        // Replace an object which has the same id
-        creativeWorkArray.forEach(function(value, index, array){
-            if (id == value.id) {
-                creativeWorkArray.splice(index, 1, creativeWork);
+        $.ajax({
+            method:'PUT',
+            data:contentPut,
+            url:"http://localhost/phpServer.php/creativeWork/"+id,
+            success:function(){
+                alert('PUT successful');
             }
+
+        }).fail(function(){
+            alert('PUT failed');
         });
     }
-    
 }
 
 
