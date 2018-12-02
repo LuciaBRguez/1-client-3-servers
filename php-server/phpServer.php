@@ -378,19 +378,19 @@ if (!$request){
         case "POST":
             $creativeWork = json_decode(file_get_contents('php://input'));
             if($creativeWork->alternativeHeadline == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "alternativeHeadline can't be null.";
             }elseif($creativeWork->commentCount == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "commentCount can't be null.";
             }elseif($creativeWork->copyrightYear == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "copyrightYear can't be null.";
             }elseif($creativeWork->inLanguage == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "inLanguage can't be null.";
             }elseif($creativeWork->isAccessibleForFree == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "isAccessibleForFree can't be null.";
             }else{
                 global $creativeWorkArray;
@@ -443,19 +443,19 @@ if (!$request){
             $put = false;
             $creativeWork = json_decode(file_get_contents('php://input'));
             if($creativeWork->alternativeHeadline == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "alternativeHeadline can't be null.";
             }elseif($creativeWork->commentCount == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "commentCount can't be null.";
             }elseif($creativeWork->copyrightYear == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "copyrightYear can't be null.";
             }elseif($creativeWork->inLanguage == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "inLanguage can't be null.";
             }elseif($creativeWork->isAccessibleForFree == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "isAccessibleForFree can't be null.";
             }else {
                 $put = false;
@@ -560,31 +560,31 @@ if (!$request){
         case "POST":
             $publicationVolume = json_decode(file_get_contents('php://input'));
             if($publicationVolume->alternativeHeadline == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "alternativeHeadline can't be null.";
             }elseif($publicationVolume->commentCount == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "commentCount can't be null.";
             }elseif($publicationVolume->copyrightYear == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "copyrightYear can't be null.";
             }elseif($publicationVolume->inLanguage == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "inLanguage can't be null.";
             }elseif($publicationVolume->isAccessibleForFree == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "isAccessibleForFree can't be null.";
             }elseif($publicationVolume->pageStart == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "pageStart can't be null.";
             }elseif($publicationVolume->pageEnd == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "pageEnd can't be null.";
             }elseif($publicationVolume->pagination == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "pagination can't be null.";
             }elseif($publicationVolume->volumeNumber == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "volumeNumber can't be null.";
             }else{
                 global $publicationVolumeArray;
@@ -637,31 +637,31 @@ if (!$request){
             $put = false;
             $publicationVolume = json_decode(file_get_contents('php://input'));
             if($publicationVolume->alternativeHeadline == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "alternativeHeadline can't be null.";
             }elseif($publicationVolume->commentCount == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "commentCount can't be null.";
             }elseif($publicationVolume->copyrightYear == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "copyrightYear can't be null.";
             }elseif($publicationVolume->inLanguage == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "inLanguage can't be null.";
             }elseif($publicationVolume->isAccessibleForFree == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "isAccessibleForFree can't be null.";
             }elseif($publicationVolume->pageStart == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "pageStart can't be null.";
             }elseif($publicationVolume->pageEnd == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "pageEnd can't be null.";
             }elseif($publicationVolume->pagination == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "pagination can't be null.";
             }elseif($publicationVolume->volumeNumber == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "volumeNumber can't be null.";
             }else {
                 $put = false;
@@ -766,31 +766,31 @@ if (!$request){
         case "POST":
             $softwareApplication = json_decode(file_get_contents('php://input'));
             if($softwareApplication->alternativeHeadline == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "alternativeHeadline can't be null.";
             }elseif($softwareApplication->commentCount == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "commentCount can't be null.";
             }elseif($softwareApplication->copyrightYear == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "copyrightYear can't be null.";
             }elseif($softwareApplication->inLanguage == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "inLanguage can't be null.";
             }elseif($softwareApplication->isAccessibleForFree == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "isAccessibleForFree can't be null.";
             }elseif($softwareApplication->applicationCategory == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "applicationCategory can't be null.";
             }elseif($softwareApplication->applicationSubCategory == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "applicationSubCategory can't be null.";
             }elseif($softwareApplication->applicationSuite == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "applicationSuite can't be null.";
             }elseif($softwareApplication->fileSize == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "fileSize can't be null.";
             }else{
                 global $softwareApplicationArray;
@@ -843,31 +843,31 @@ if (!$request){
             $put = false;
             $softwareApplication = json_decode(file_get_contents('php://input'));
             if($softwareApplication->alternativeHeadline == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "alternativeHeadline can't be null.";
             }elseif($softwareApplication->commentCount == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "commentCount can't be null.";
             }elseif($softwareApplication->copyrightYear == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "copyrightYear can't be null.";
             }elseif($softwareApplication->inLanguage == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "inLanguage can't be null.";
             }elseif($softwareApplication->isAccessibleForFree == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "isAccessibleForFree can't be null.";
             }elseif($softwareApplication->applicationCategory == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "applicationCategory can't be null.";
             }elseif($softwareApplication->applicationSubCategory == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "applicationSubCategory can't be null.";
             }elseif($softwareApplication->applicationSuite == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "applicationSuite can't be null.";
             }elseif($softwareApplication->fileSize == null) {
-                http_response_code(405);
+                http_response_code(404);
                 echo "fileSize can't be null.";
             }else {
                 $put = false;

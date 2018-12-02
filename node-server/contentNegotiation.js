@@ -419,7 +419,7 @@ function parseBody(req, res, next) {
 
 // notAllowed
 function notAllowed(msg, res) {
-	res.statusCode = 405;
+	res.statusCode = 404;
 	res.write(msg);
 	res.end();
 }
