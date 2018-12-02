@@ -176,7 +176,7 @@ document.getElementById('post').addEventListener('submit', function(e){
 
 
 document.getElementById('get').addEventListener('submit', function(e){
-    // Create a new UI getCreativeWor
+    // Create a new UI getSoftwareApplication
     const ui = new UI();
     ui.getSoftwareApplication();
     // Prevent default on form submit

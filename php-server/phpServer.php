@@ -6,6 +6,7 @@ header("Allow: GET, POST, OPTIONS, PUT, DELETE");
 
 // Content negotiation
 // Convert to JSON
+// creativeWork
 function creativeWorkToJSON()
 {
     global $creativeWorkArray;
@@ -31,6 +32,7 @@ function creativeWorkToJSONWithoutBrackets()
     }
     return $json;
 }
+// publicationVolume
 function publicationVolumeToJSON()
 {
     global $publicationVolumeArray;
@@ -56,20 +58,32 @@ function publicationVolumeToJSONWithoutBrackets()
     }
     return $json;
 }
-/*
+// softwareApplication
 function softwareApplicationToJSON()
 {
-    global $softwareApplication;
+    global $softwareApplicationArray;
     $json ='[';
-    for ($i = 0; $i < sizeof($softwareApplication); $i++) {
-        $json = $json.'{' .'"@context":"http://schema.org","@type":"Article",'. ' "id":'.$softwareApplication[$i]->getId().', "alternativeHeadline":"'.$softwareApplication[$i]->getAlternativeHeadline().'","commentCount":'.$softwareApplication[$i]->getCommentCount().', "copyrightYear":'.$softwareApplication[$i]->getCopyrightYear().', "inLanguage":'.$softwareApplication[$i]->getInLanguage().', "isAccessibleForFree":'.$softwareApplication[$i]->getIsAccessibleForFree().', "applicationCategory":"'.$softwareApplication[$i]->getApplicationCategory().'", "applicationSubCategory":"'.$softwareApplication[$i]->getApplicationSubCategory(). '", "applicationSuite":'.$softwareApplication[$i]->getApplicationSuite().', "fileSize":'.$softwareApplication[$i]->getFileSize().' }';
-        if($i<(sizeof($softwareApplication)-1)){
+    for ($i = 0; $i < sizeof($softwareApplicationArray); $i++) {
+        $json = $json.'{'.'"@context":"http://schema.org","@type":"SoftwareApplication",'.' "id":' .$softwareApplicationArray[$i]->getId(). ', "alternativeHeadline":"'.$softwareApplicationArray[$i]->getAlternativeHeadline().'","commentCount":'.$softwareApplicationArray[$i]->getCommentCount().', "copyrightYear":'.$softwareApplicationArray[$i]->getCopyrightYear().', "inLanguage":"'.$softwareApplicationArray[$i]->getInLanguage().'", "isAccessibleForFree":'.$softwareApplicationArray[$i]->getIsAccessibleForFree().', "applicationCategory":"'.$softwareApplicationArray[$i]->getApplicationCategory().'", "applicationSubCategory":"'.$softwareApplicationArray[$i]->getApplicationSubCategory().'", "applicationSuite":"'.$softwareApplicationArray[$i]->getApplicationSuite().'", "fileSize":"'.$softwareApplicationArray[$i]->getFileSize().'"}';
+        if($i < (sizeof($softwareApplicationArray)-1)){
             $json = $json.',';
         }
     }
     $json = $json.']';
     return $json;
-}*/
+}
+function softwareApplicationToJSONWithoutBrackets()
+{
+    global $softwareApplicationArray;
+    $json ='';
+    for ($i = 0; $i < sizeof($softwareApplicationArray); $i++) {
+        $json = $json.'{'.'"id":'.$softwareApplicationArray[$i]->getId().', "alternativeHeadline":"'.$softwareApplicationArray[$i]->getAlternativeHeadline().'","commentCount":'.$softwareApplicationArray[$i]->getCommentCount().', "copyrightYear":'.$softwareApplicationArray[$i]->getCopyrightYear().', "inLanguage":"'.$softwareApplicationArray[$i]->getInLanguage().'", "isAccessibleForFree":'.$softwareApplicationArray[$i]->getIsAccessibleForFree().', "applicationCategory":"'.$softwareApplicationArray[$i]->getApplicationCategory().'", "applicationSubCategory":"'.$softwareApplicationArray[$i]->getApplicationSubCategory().'", "applicationSuite":"'.$softwareApplicationArray[$i]->getApplicationSuite().'", "fileSize":"'.$softwareApplicationArray[$i]->getFileSize().'" }';
+        if($i < (sizeof($softwareApplicationArray)-1)){
+            $json = $json.',';
+        }
+    }
+    return $json;
+}
 
 
 // Convert to HTML
@@ -90,16 +104,16 @@ function publicationVolumeToHTML(){
     }
     $html= $html."</ul>";
     return $html;
-}/*
+}
 function softwareApplicationToHTML(){
-    global $softwareApplication;
+    global $softwareApplicationArray;
     $html="<ul>";
-    for($i = 0; $i < sizeof($softwareApplication); $i++) {
-        $html = $html."<li>" .$softwareApplication[$i]->getId()." ".$softwareApplication[$i]->getAlternativeHeadline()." ".$softwareApplication[$i]->getCommentCount()." ".$softwareApplication[$i]->getCopyrightYear()." ".$softwareApplication[$i]->getInLanguage()." ".$softwareApplication[$i]->getIsAccessibleForFree()." ".$softwareApplication[$i]->getApplicationCategory()." ".$softwareApplication[$i]->getApplicationSubCategory()." ".$softwareApplication[$i]->applicationSuite()." ".$softwareApplication[$i]->getFileSize()."</li>";
+    foreach ($softwareApplicationArray as &$softwareApplication) {
+        $html = $html."<li>".$softwareApplication->getId()." ".$softwareApplication->getAlternativeHeadline()." ".$softwareApplication->getCommentCount()." ".$softwareApplication->getCopyrightYear()." ".$softwareApplication->getInLanguage()." ".$softwareApplication->getIsAccessibleForFree()." ".$softwareApplication->getApplicationCategory()." ".$softwareApplication->getApplicationSubCategory()." ".$softwareApplication->getApplicationSuite()." ".$softwareApplication->getFileSize()."</li>";
     }
     $html= $html."</ul>";
     return $html;
-}*/
+}
 
 
 // Convert to text
@@ -118,16 +132,15 @@ function publicationVolumeToText(){
         $text= $text.$publicationVolume->getId()." ".$publicationVolume->getAlternativeHeadline()." ".$publicationVolume->getCommentCount()." ".$publicationVolume->getCopyrightYear()." ".$publicationVolume->getInLanguage()." ".$publicationVolume->getIsAccessibleForFree()." ".$publicationVolume->getPageStart()." ".$publicationVolume->getPageEnd()." ".$publicationVolume->getPagination()." ".$publicationVolume->getVolumeNumber()."\n";
     }
     return $text;
-}/*
+}
 function softwareApplicationToText(){
-    global $softwareApplication;
+    global $softwareApplicationArray;
     $text="";
-    for($i = 0; $i < sizeof($softwareApplication); $i++) {
-    for($i = 0; $i < sizeof($softwareApplication); $i++) {
-        $text = $text. $softwareApplication[$i]->getId()." ".$softwareApplication[$i]->getAlternativeHeadline()." ".$softwareApplication[$i]->getCommentCount()." ".$softwareApplication[$i]->getCopyrightYear()." ".$softwareApplication[$i]->getInLanguage()." ".$softwareApplication[$i]->getIsAccessibleForFree()." ".$softwareApplication[$i]->getApplicationCategory()." ".$softwareApplication[$i]->getApplicationSubCategory()." ".$softwareApplication[$i]->applicationSuite()." ".$softwareApplication[$i]->getFileSize()."\n";
+    foreach ($softwareApplicationArray as &$softwareApplication) {
+        $text= $text.$softwareApplication->getId()." ".$softwareApplication->getAlternativeHeadline()." ".$softwareApplication->getCommentCount()." ".$softwareApplication->getCopyrightYear()." ".$softwareApplication->getInLanguage()." ".$softwareApplication->getIsAccessibleForFree()." ".$softwareApplication->getApplicationCategory()." ".$softwareApplication->getApplicationSubCategory()." ".$softwareApplication->getApplicationSuite()." ".$softwareApplication->getFileSize()."\n";
     }
     return $text;
-}*/
+}
 
 
 // Classes creativeWork, publicationVolume, softwareApplication
@@ -194,7 +207,7 @@ class PublicationVolume extends CreativeWork{
     {
         return $this->volumeNumber;
     }
-}/*
+}
 class SoftwareApplication extends CreativeWork{
     private $applicationCategory;
     private $applicationSubCategory;
@@ -223,18 +236,21 @@ class SoftwareApplication extends CreativeWork{
     {
         return $this->fileSize;
     }
-}*/
+}
+
 
 // Arrays creativeWorkArray, publicationVolumeArray, softwareApplicationArray
 global $creativeWorkArray;
 $creativeWorkArray = Array();
+$idCreativeWork = -1;
+
 global $publicationVolumeArray;
 $publicationVolumeArray = Array();
-/*global $softwareApplicationArray;
-$softwareApplicationArray = Array();*/
-$idCreativeWork = -1;
 $idPublicationVolume = -1;
-/*$idSoftwareApplication = 1;*/
+
+global $softwareApplicationArray;
+$softwareApplicationArray = Array();
+$idSoftwareApplication = -1;
 
 
 // Read file elements
@@ -278,6 +294,28 @@ if(sizeof($publicationVolumeArray)!=0){
     $idPublicationVolume = $publicationVolumeArray[$position]->getId();
 }
 
+// softwareApplication
+$jsonReadSoftwareApplication = file_get_contents("softwareApplication.json");
+$arrayReadSoftwareApplication = json_decode("[".$jsonReadSoftwareApplication."]", true);
+
+foreach ($arrayReadSoftwareApplication as $jsonObj){
+    $id = $jsonObj['id'];
+    $alternativeHeadline = $jsonObj['alternativeHeadline'];
+    $commentCount = $jsonObj['commentCount'];
+    $copyrightYear = $jsonObj['copyrightYear'];
+    $inLanguage = $jsonObj['inLanguage'];
+    $isAccessibleForFree = $jsonObj['isAccessibleForFree'];
+    $applicationCategory = $jsonObj['applicationCategory'];
+    $applicationSubCategory = $jsonObj['applicationSubCategory'];
+    $applicationSuite = $jsonObj['applicationSuite'];
+    $fileSize = $jsonObj['fileSize'];
+    $softwareApplicationArray[] = new SoftwareApplication($id, $alternativeHeadline, $commentCount, $copyrightYear, $inLanguage, $isAccessibleForFree, $applicationCategory, $applicationSubCategory, $applicationSuite, $fileSize);
+}
+if(sizeof($softwareApplicationArray)!=0){
+    $position = sizeof($softwareApplicationArray)-1;
+    $idSoftwareApplication = $softwareApplicationArray[$position]->getId();
+}
+
 
 // Processing URI
 if (isset($_SERVER['PATH_INFO'])) {
@@ -311,7 +349,7 @@ if (!$request){
             break;
     }
 
-    // creativeWork
+// creativeWork
 }elseif (strcmp('creativeWork', $request) === 0 && $id == null){
     switch ($_SERVER['REQUEST_METHOD']) {
         case "GET":
@@ -493,7 +531,7 @@ if (!$request){
             break;
     }
 
-    // publicationVolume
+// publicationVolume
 }elseif (strcmp('publicationVolume', $request) === 0 && $id == null){
     switch ($_SERVER['REQUEST_METHOD']) {
         case "GET":
@@ -669,7 +707,7 @@ if (!$request){
                     file_put_contents("publicationVolume.json", "");
                     for($j = 0; $j <sizeof($publicationVolumeArray); $j++){
                         if ($publicationVolumeArray[$j]->getId() != $id){
-                            $arr = array('id' => $publicationVolumeArray[$j]->getId(), 'alternativeHeadline' => $publicationVolumeArray[$j]->getAlternativeHeadline(), 'commentCount' => $publicationVolumeArray[$j]->getCommentCount(), 'copyrightYear' => $publicationVolumeArray[$j]->getCopyrightYear(), 'inLanguage' => $publicationVolumeArray[$j]->getInLanguage(), 'isAccessibleForFree' => $publicationVolumeArray[$j]->getIsAccessibleForFree(), 'pageStart' => $publicationVolumeArray[$j]->getpageStart(), 'pageEnd' => $publicationVolumeArray[$j]->getPageEnd(), 'pagination' => $publicationVolumeArray[$j]->getPagination(), 'volumeNumber' => $publicationVolumeArray[$j]->getVolumeNumber());
+                            $arr = array('id' => $publicationVolumeArray[$j]->getId(), 'alternativeHeadline' => $publicationVolumeArray[$j]->getAlternativeHeadline(), 'commentCount' => $publicationVolumeArray[$j]->getCommentCount(), 'copyrightYear' => $publicationVolumeArray[$j]->getCopyrightYear(), 'inLanguage' => $publicationVolumeArray[$j]->getInLanguage(), 'isAccessibleForFree' => $publicationVolumeArray[$j]->getIsAccessibleForFree(), 'pageStart' => $publicationVolumeArray[$j]->getPageStart(), 'pageEnd' => $publicationVolumeArray[$j]->getPageEnd(), 'pagination' => $publicationVolumeArray[$j]->getPagination(), 'volumeNumber' => $publicationVolumeArray[$j]->getVolumeNumber());
 
                             // Added publicationVolume to file
                             $jsonReadPublicationVolume = file_get_contents("publicationVolume.json");
@@ -698,7 +736,213 @@ if (!$request){
             echo "Not allowed.";
             break;
     }
+
+// softwareApplication
+}elseif (strcmp('softwareApplication', $request) === 0 && $id == null){
+    switch ($_SERVER['REQUEST_METHOD']) {
+        case "GET":
+            switch ($format) {
+                case 'application/ld+json':
+                    header('Content-type: application/ld+json');
+                    echo json_encode(softwareApplicationToJSON());
+                    break;
+                case 'text/plain':
+                    header('Content-type: text/plain');
+                    echo softwareApplicationToText();
+                    break;
+                case "OPTIONS":
+                    http_response_code(200);
+                    break;
+                default:
+                    header('Content-type: text/html');
+                    echo softwareApplicationToHTML();
+                    break;
+            }
+            break;
+        case "PUT":
+            http_response_code(404);
+            echo "PUT not allowed over every softwareApplication.";
+            break;
+        case "POST":
+            $softwareApplication = json_decode(file_get_contents('php://input'));
+            if($softwareApplication->alternativeHeadline == null) {
+                http_response_code(405);
+                echo "alternativeHeadline can't be null.";
+            }elseif($softwareApplication->commentCount == null) {
+                http_response_code(405);
+                echo "commentCount can't be null.";
+            }elseif($softwareApplication->copyrightYear == null) {
+                http_response_code(405);
+                echo "copyrightYear can't be null.";
+            }elseif($softwareApplication->inLanguage == null) {
+                http_response_code(405);
+                echo "inLanguage can't be null.";
+            }elseif($softwareApplication->isAccessibleForFree == null) {
+                http_response_code(405);
+                echo "isAccessibleForFree can't be null.";
+            }elseif($softwareApplication->applicationCategory == null) {
+                http_response_code(405);
+                echo "applicationCategory can't be null.";
+            }elseif($softwareApplication->applicationSubCategory == null) {
+                http_response_code(405);
+                echo "applicationSubCategory can't be null.";
+            }elseif($softwareApplication->applicationSuite == null) {
+                http_response_code(405);
+                echo "applicationSuite can't be null.";
+            }elseif($softwareApplication->fileSize == null) {
+                http_response_code(405);
+                echo "fileSize can't be null.";
+            }else{
+                global $softwareApplicationArray;
+                $idSoftwareApplication++;
+
+                $arr = array('id' => $idSoftwareApplication, 'alternativeHeadline' => $softwareApplication->alternativeHeadline, 'commentCount' => $softwareApplication->commentCount, 'copyrightYear' => $softwareApplication->copyrightYear, 'inLanguage' => $softwareApplication->inLanguage, 'isAccessibleForFree' => $softwareApplication->isAccessibleForFree, 'applicationCategory' => $softwareApplication->applicationCategory, 'applicationSubCategory' => $softwareApplication->applicationSubCategory, 'applicationSuite' => $softwareApplication->applicationSuite, 'fileSize' => $softwareApplication->fileSize);
+
+                // Added softwareApplication to file
+                $jsonReadSoftwareApplication = file_get_contents("softwareApplication.json");
+
+                // If it's not empty add commas
+                if($jsonReadSoftwareApplication!=null){
+                    file_put_contents("softwareApplication.json", ",".json_encode($arr, JSON_PRETTY_PRINT), FILE_APPEND | LOCK_EX);
+                }else{
+                    file_put_contents("softwareApplication.json", json_encode($arr, JSON_PRETTY_PRINT), FILE_APPEND | LOCK_EX);
+                }
+                http_response_code(200);
+            }
+            break;
+        case "DELETE":
+            http_response_code(404);
+            echo "DELETE not allowed over every softwareApplication.";
+            break;
+        case "OPTIONS":
+            http_response_code(200);
+            break;
+        default:
+            http_response_code(404);
+            echo "Not allowed.";
+            break;
+    }
+}elseif (strcmp('softwareApplication', $request) === 0 && $id != null){
+    switch ($_SERVER['REQUEST_METHOD']) {
+        case "GET":
+            $getId = false;
+            for($i = 0; $i < sizeof($softwareApplicationArray); $i++) {
+                if ($softwareApplicationArray[$i]->getId() == $id) {
+                    echo json_encode('{'.'"@context":"http://schema.org","@type":"$softwareApplication",'.' "id":'.$id.', "alternativeHeadline":"'.$softwareApplicationArray[$i]->getAlternativeHeadline().'", "commentCount":'.$softwareApplicationArray[$i]->getCommentCount().', "copyrightYear":'.$softwareApplicationArray[$i]->getCopyrightYear().', "inLanguage":"'.$softwareApplicationArray[$i]->getInLanguage().'", "isAccessibleForFree":'.$softwareApplicationArray[$i]->getIsAccessibleForFree().', "applicationCategory":"'.$softwareApplicationArray[$i]->getApplicationCategory().'", "applicationSubCategory":"'.$softwareApplicationArray[$i]->getApplicationSubCategory().'", "applicationSuite":"'.$softwareApplicationArray[$i]->getApplicationSuite().'", "fileSize":"'.$softwareApplicationArray[$i]->getFileSize().'"}');
+                    $getId = true;
+                    http_response_code(200);
+                }
+            }
+            if(!$getId){
+                http_response_code(404);
+                echo "Not allowed.";
+            }
+            break;
+        case "PUT":
+            global $put;
+            $put = false;
+            $softwareApplication = json_decode(file_get_contents('php://input'));
+            if($softwareApplication->alternativeHeadline == null) {
+                http_response_code(405);
+                echo "alternativeHeadline can't be null.";
+            }elseif($softwareApplication->commentCount == null) {
+                http_response_code(405);
+                echo "commentCount can't be null.";
+            }elseif($softwareApplication->copyrightYear == null) {
+                http_response_code(405);
+                echo "copyrightYear can't be null.";
+            }elseif($softwareApplication->inLanguage == null) {
+                http_response_code(405);
+                echo "inLanguage can't be null.";
+            }elseif($softwareApplication->isAccessibleForFree == null) {
+                http_response_code(405);
+                echo "isAccessibleForFree can't be null.";
+            }elseif($softwareApplication->applicationCategory == null) {
+                http_response_code(405);
+                echo "applicationCategory can't be null.";
+            }elseif($softwareApplication->applicationSubCategory == null) {
+                http_response_code(405);
+                echo "applicationSubCategory can't be null.";
+            }elseif($softwareApplication->applicationSuite == null) {
+                http_response_code(405);
+                echo "applicationSuite can't be null.";
+            }elseif($softwareApplication->fileSize == null) {
+                http_response_code(405);
+                echo "fileSize can't be null.";
+            }else {
+                $put = false;
+                for($i = 0; $i < sizeof($softwareApplicationArray); $i++){
+                    if($softwareApplicationArray[$i]->getId()== $id){
+                        $put = true;
+                        $softwareApplicationArray[$i] = new SoftwareApplication($id, $softwareApplication->alternativeHeadline, $softwareApplication->commentCount, $softwareApplication->copyrightYear, $softwareApplication->inLanguage, $softwareApplication->isAccessibleForFree, $softwareApplication->applicationCategory, $softwareApplication->applicationSubCategory, $softwareApplication->applicationSuite, $softwareApplication->fileSize);
+
+                        file_put_contents("softwareApplication.json", "");
+                        for($j = 0; $j <sizeof($softwareApplicationArray); $j++){
+                            $arr = array('id' => $softwareApplicationArray[$j]->getId(), 'alternativeHeadline' => $softwareApplicationArray[$j]->getAlternativeHeadline(), 'commentCount' => $softwareApplicationArray[$j]->getCommentCount(), 'copyrightYear' => $softwareApplicationArray[$j]->getCopyrightYear(), 'inLanguage' => $softwareApplicationArray[$j]->getInLanguage(), 'isAccessibleForFree' => $softwareApplicationArray[$j]->getIsAccessibleForFree(), 'applicationCategory' => $softwareApplicationArray[$j]->getApplicationCategory(), 'applicationSubCategory' => $softwareApplicationArray[$j]->getApplicationSubCategory(), 'applicationSuite' => $softwareApplicationArray[$j]->getApplicationSuite(), 'fileSize' => $softwareApplicationArray[$j]->getFileSize());
+
+                            // Added softwareApplication to file
+                            $jsonReadSoftwareApplication = file_get_contents("softwareApplication.json");
+
+                            // If it's not empty add commas
+                            if($jsonReadSoftwareApplication!=null){
+                                file_put_contents("softwareApplication.json", ",".json_encode($arr, JSON_PRETTY_PRINT), FILE_APPEND | LOCK_EX);
+                            }else{
+                                file_put_contents("softwareApplication.json", json_encode($arr, JSON_PRETTY_PRINT), FILE_APPEND | LOCK_EX);
+                            }
+                        }
+                        http_response_code(200);
+                    }
+                }
+                if(!$put) {
+                    http_response_code(404);
+                    echo "Not allowed.";
+                }
+            }
+            break;
+        case "POST":
+            http_response_code(404);
+            echo "POST not allowed over a particular softwareApplication.";
+            break;
+        case "DELETE":
+            $delete = false;
+
+            for($i = 0; $i < sizeof($softwareApplicationArray); $i++) {
+                if ($softwareApplicationArray[$i]->getId() == $id) {
+                    $delete = true;
+
+                    file_put_contents("softwareApplication.json", "");
+                    for($j = 0; $j <sizeof($softwareApplicationArray); $j++){
+                        if ($softwareApplicationArray[$j]->getId() != $id){
+                            $arr = array('id' => $softwareApplicationArray[$j]->getId(), 'alternativeHeadline' => $softwareApplicationArray[$j]->getAlternativeHeadline(), 'commentCount' => $softwareApplicationArray[$j]->getCommentCount(), 'copyrightYear' => $softwareApplicationArray[$j]->getCopyrightYear(), 'inLanguage' => $softwareApplicationArray[$j]->getInLanguage(), 'isAccessibleForFree' => $softwareApplicationArray[$j]->getIsAccessibleForFree(), 'applicationCategory' => $softwareApplicationArray[$j]->getApplicationCategory(), 'applicationSubCategory' => $softwareApplicationArray[$j]->getApplicationSubCategory(), 'applicationSuite' => $softwareApplicationArray[$j]->getApplicationSuite(), 'fileSize' => $softwareApplicationArray[$j]->getFileSize());
+
+                            // Added softwareApplication to file
+                            $jsonReadSoftwareApplication = file_get_contents("softwareApplication.json");
+
+                            // If it's not empty add commas
+                            if($jsonReadSoftwareApplication!=null){
+                                file_put_contents("softwareApplication.json", ",".json_encode($arr, JSON_PRETTY_PRINT), FILE_APPEND | LOCK_EX);
+                            }else{
+                                file_put_contents("softwareApplication.json", json_encode($arr, JSON_PRETTY_PRINT), FILE_APPEND | LOCK_EX);
+                            }
+                        }
+                    }
+                    http_response_code(200);
+                }
+            }
+            if(!$delete) {
+                http_response_code(404);
+                echo "Not allowed.";
+            }
+            break;
+        case "OPTIONS":
+            http_response_code(200);
+            break;
+        default:
+            http_response_code(404);
+            echo "Not allowed.";
+            break;
+    }
 }else{
     http_response_code(404);
-    echo "Not allowed.";
+    echo "Not allowed stupid.";
 }
