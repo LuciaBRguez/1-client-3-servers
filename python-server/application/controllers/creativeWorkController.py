@@ -1,11 +1,14 @@
 from flask import json, Blueprint, request, make_response
 from ..model import array_creative_work
 from ..model import CreativeWork
+from flask_cors import CORS
 
 __author__ = 'Lucía Blanco Rodríguez'
 
 
 routes = Blueprint('creativeWork', __name__, url_prefix='/creativeWork')
+
+CORS(routes)
 
 
 @routes.route('', methods=['POST'])
@@ -26,8 +29,8 @@ def postCreativeWork():
 @routes.route('', methods=['GET'])
 def getCreativeWork():
     creativeWorkList = array_creative_work.get_creative_work()
-    valor = (request.headers["Accept"]) == 'application/json'
-    if valor:
+    value = (request.headers["Accept"]) == 'application/json'
+    if value:
         dictionary = [{'id': v.id, 'alternativeHeadline': v.alternativeHeadline, 'commentCount': v.commentCount, 'copyrightYear': v.copyrightYear, 'inLanguage': v.inLanguage, 'isAccessibleForFree': v.isAccessibleForFree} for v in creativeWorkList]
         return json.dumps(dictionary)
     else:

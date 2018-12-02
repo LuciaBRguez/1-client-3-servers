@@ -10,6 +10,9 @@ class CreativeWork {
 }
 
 
+
+
+
 class UI {
 
     postCreativeWork(){
@@ -20,7 +23,7 @@ class UI {
         $.ajax({
             method:'POST',
             data:contentPost,
-            url:"http://localhost/phpServer.php/creativeWork",
+            url:"http://localhost:5000/creativeWork",
 
             success:function(){
                 alert('POST successful');
@@ -41,12 +44,9 @@ class UI {
             },
 
             method:'GET',
-            url:"http://localhost/phpServer.php/creativeWork",
+            url:"http://localhost:5000/creativeWork",
 
-            success:function(creativeWorkString){  
-
-                // Parse JSON
-                let creativeWorkArray = JSON.parse(creativeWorkString);
+            success:function(creativeWorkArray){  
 
                 // Load div with id="content-get"
                 const contentGet = document.getElementById('content-get');
@@ -89,7 +89,7 @@ class UI {
         $.ajax({
 
             method:'DELETE',
-            url:"http://localhost/phpServer.php/creativeWork/"+id,
+            url:"http://localhost:5000/creativeWork/"+id,
 
             success:function(){
                 alert('DELETED successful');
@@ -109,13 +109,10 @@ class UI {
         $.ajax({
 
             method:'GET',
-            url:"http://localhost/phpServer.php/creativeWork/"+id,
+            url:"http://localhost:5000/creativeWork/"+id,
             
-            success:function(creativeWorkString){
+            success:function(creativeWork){
 
-                // Parse JSON
-                let creativeWork = JSON.parse(creativeWorkString);
-                
                 // Load div with id="content-get-id"
                 const contentGetId = document.getElementById('content-get-id');
 
@@ -154,7 +151,7 @@ class UI {
         $.ajax({
             method:'PUT',
             data:contentPut,
-            url:"http://localhost/phpServer.php/creativeWork/"+id,
+            url:"http://localhost:5000/creativeWork/"+id,
             success:function(){
                 alert('PUT successful');
             }

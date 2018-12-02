@@ -1,11 +1,14 @@
 from flask import json, Blueprint, request, make_response
 from ..model import array_publication_volume
 from ..model import PublicationVolume
+from flask_cors import CORS
 
 __author__ = 'Lucía Blanco Rodríguez'
 
 
 routes = Blueprint('publicationVolume', __name__, url_prefix='/publicationVolume')
+
+CORS(routes)
 
 
 @routes.route('', methods=['POST'])
@@ -30,8 +33,8 @@ def postPublicationVolume():
 @routes.route('', methods=['GET'])
 def getPublicationVolume():
     publicationVolumeList = array_publication_volume.get_publication_volume()
-    valor = (request.headers["Accept"]) == 'application/json'
-    if valor:
+    value = (request.headers["Accept"]) == 'application/json'
+    if value:
         dictionary = [{'id': v.id, 'alternativeHeadline': v.alternativeHeadline, 'commentCount': v.commentCount,
                      'copyrightYear': v.copyrightYear, 'inLanguage': v.inLanguage, 'isAccessibleForFree': v.isAccessibleForFree, 'pageStart': v.pageStart,
                      'pageEnd': v.pageEnd, 'pagination': v.pagination, 'volumeNumber': v.volumeNumber} for v in publicationVolumeList]

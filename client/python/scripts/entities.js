@@ -1,12 +1,14 @@
 // Node
-function getEntitiesNode(){
+function getEntitiesPython(){
 
     $.ajax({
         
         method:'GET',
-        url:"http://localhost:3000",
+        url:"http://localhost:5000",
 
-        success:function(entities){
+        success:function(entitiesString){
+
+            let entities = JSON.parse(entitiesString);
 
             // Get entities
             let firstEntity = entities.first;

@@ -1,11 +1,14 @@
 from flask import json, Blueprint, request, make_response
 from ..model import array_software_application
 from ..model import SoftwareApplication
+from flask_cors import CORS
 
 __author__ = 'Lucía Blanco Rodríguez'
 
 
 routes = Blueprint('softwareApplication', __name__, url_prefix='/softwareApplication')
+
+CORS(routes)
 
 
 @routes.route('', methods=['POST'])
@@ -30,8 +33,8 @@ def postSoftwareApplication():
 @routes.route('', methods=['GET'])
 def getSoftwareApplication():
     softwareApplicationList = array_software_application.get_software_application()
-    valor = (request.headers["Accept"]) == 'application/json'
-    if valor:
+    value = (request.headers["Accept"]) == 'application/json'
+    if value:
         dictionary = [{'id': v.id, 'alternativeHeadline': v.alternativeHeadline, 'commentCount': v.commentCount, 'copyrightYear': v.copyrightYear, 'inLanguage': v.inLanguage, 'isAccessibleForFree': v.isAccessibleForFree, 'applicationCategory': v.applicationCategory, 'applicationSubCategory': v.applicationSubCategory, 'applicationSuite': v.applicationSuite, 'fileSize': v.fileSize} for v in softwareApplicationList]
         return json.dumps(dictionary)
     else:
