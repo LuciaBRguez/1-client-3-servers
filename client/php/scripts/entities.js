@@ -8,8 +8,6 @@ function getEntitiesNode(){
 
         success:function(entitiesString){
 
-            console.log(entitiesString);
-
             let entities = JSON.parse(entitiesString);
 
             // Get entities

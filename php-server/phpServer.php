@@ -33,17 +33,30 @@ function creativeWorkToJSONWithoutBrackets()
 }
 function publicationVolumeToJSON()
 {
-    global $publicationVolume;
+    global $publicationVolumeArray;
     $json ='[';
-    for ($i = 0; $i < sizeof($publicationVolume); $i++) {
-        $json = $json.'{'.'"@context":"http://schema.org","@type":"Book".'.' "id":' .$publicationVolume[$i]->getId(). ', "alternativeHeadline":"'.$publicationVolume[$i]->getAlternativeHeadline().'","commentCount":'.$publicationVolume[$i]->getCommentCount().', "copyrightYear":'.$publicationVolume[$i]->getCopyrightYear().', "inLanguage":'.$publicationVolume[$i]->getInLanguage().', "isAccessibleForFree":'.$publicationVolume[$i]->getIsAccessibleForFree().', "getPageStart":"'.$publicationVolume[$i]->getPageStart().'", "pageEnd":"'.$publicationVolume[$i]->getPageEnd(). '", "pagination":'.$publicationVolume[$i]->getPagination().', "volumeNumber":'.$publicationVolume[$i]->getVolumeNumber().' }';
-        if($i < (sizeof($publicationVolume)-1)){
+    for ($i = 0; $i < sizeof($publicationVolumeArray); $i++) {
+        $json = $json.'{'.'"@context":"http://schema.org","@type":"PublicationVolume",'.' "id":' .$publicationVolumeArray[$i]->getId(). ', "alternativeHeadline":"'.$publicationVolumeArray[$i]->getAlternativeHeadline().'","commentCount":'.$publicationVolumeArray[$i]->getCommentCount().', "copyrightYear":'.$publicationVolumeArray[$i]->getCopyrightYear().', "inLanguage":"'.$publicationVolumeArray[$i]->getInLanguage().'", "isAccessibleForFree":'.$publicationVolumeArray[$i]->getIsAccessibleForFree().', "pageStart":'.$publicationVolumeArray[$i]->getPageStart().', "pageEnd":'.$publicationVolumeArray[$i]->getPageEnd(). ', "pagination":"'.$publicationVolumeArray[$i]->getPagination().'", "volumeNumber":'.$publicationVolumeArray[$i]->getVolumeNumber().' }';
+        if($i < (sizeof($publicationVolumeArray)-1)){
             $json = $json.',';
         }
     }
     $json = $json.']';
     return $json;
-}/*
+}
+function publicationVolumeToJSONWithoutBrackets()
+{
+    global $publicationVolumeArray;
+    $json ='';
+    for ($i = 0; $i < sizeof($publicationVolumeArray); $i++) {
+        $json = $json.'{'.'"id":'.$publicationVolumeArray[$i]->getId().', "alternativeHeadline":"'.$publicationVolumeArray[$i]->getAlternativeHeadline().'","commentCount":'.$publicationVolumeArray[$i]->getCommentCount().', "copyrightYear":'.$publicationVolumeArray[$i]->getCopyrightYear().', "inLanguage":"'.$publicationVolumeArray[$i]->getInLanguage().'", "isAccessibleForFree":'.$publicationVolumeArray[$i]->getIsAccessibleForFree().', "pageStart":'.$publicationVolumeArray[$i]->getPageStart().', "pageEnd":'.$publicationVolumeArray[$i]->getPageEnd(). ', "pagination":"'.$publicationVolumeArray[$i]->getPagination().'", "volumeNumber":'.$publicationVolumeArray[$i]->getVolumeNumber().' }';
+        if($i < (sizeof($publicationVolumeArray)-1)){
+            $json = $json.',';
+        }
+    }
+    return $json;
+}
+/*
 function softwareApplicationToJSON()
 {
     global $softwareApplication;
@@ -225,9 +238,9 @@ $idPublicationVolume = -1;
 
 
 // Read file elements
+// creativeWork
 $jsonRead = file_get_contents("creativeWork.json");
-
-    $arrayRead = json_decode("[".$jsonRead."]", true);
+$arrayRead = json_decode("[".$jsonRead."]", true);
 
     foreach ($arrayRead as $jsonObj){
         $id = $jsonObj['id'];
@@ -243,6 +256,27 @@ $jsonRead = file_get_contents("creativeWork.json");
         $idCreativeWork = $creativeWorkArray[$position]->getId();
     }
 
+// publicationVolume
+$jsonReadPublicationVolume = file_get_contents("publicationVolume.json");
+$arrayReadPublicationVolume = json_decode("[".$jsonReadPublicationVolume."]", true);
+
+foreach ($arrayReadPublicationVolume as $jsonObj){
+    $id = $jsonObj['id'];
+    $alternativeHeadline = $jsonObj['alternativeHeadline'];
+    $commentCount = $jsonObj['commentCount'];
+    $copyrightYear = $jsonObj['copyrightYear'];
+    $inLanguage = $jsonObj['inLanguage'];
+    $isAccessibleForFree = $jsonObj['isAccessibleForFree'];
+    $pageStart = $jsonObj['pageStart'];
+    $pageEnd = $jsonObj['pageEnd'];
+    $pagination = $jsonObj['pagination'];
+    $volumeNumber = $jsonObj['volumeNumber'];
+    $publicationVolumeArray[] = new PublicationVolume($id, $alternativeHeadline, $commentCount, $copyrightYear, $inLanguage, $isAccessibleForFree, $pageStart, $pageEnd, $pagination, $volumeNumber);
+}
+if(sizeof($publicationVolumeArray)!=0){
+    $position = sizeof($publicationVolumeArray)-1;
+    $idPublicationVolume = $publicationVolumeArray[$position]->getId();
+}
 
 
 // Processing URI
@@ -428,7 +462,7 @@ if (!$request){
 
                     file_put_contents("creativeWork.json", "");
                     for($j = 0; $j <sizeof($creativeWorkArray); $j++){
-                        if ($j != $id){
+                        if ($creativeWorkArray[$j]->getId() != $id){
                             $arr = array('id' => $creativeWorkArray[$j]->getId(), 'alternativeHeadline' => $creativeWorkArray[$j]->getAlternativeHeadline(), 'commentCount' => $creativeWorkArray[$j]->getCommentCount(), 'copyrightYear' => $creativeWorkArray[$j]->getCopyrightYear(), 'inLanguage' => $creativeWorkArray[$j]->getInLanguage(), 'isAccessibleForFree' => $creativeWorkArray[$j]->getIsAccessibleForFree());
 
                             // Added creativeWork to file
@@ -515,11 +549,20 @@ if (!$request){
                 http_response_code(405);
                 echo "volumeNumber can't be null.";
             }else{
+                global $publicationVolumeArray;
                 $idPublicationVolume++;
-                $newPublicationVolume = new PublicationVolume($idPublicationVolume, $publicationVolume->alternativeHeadline, $publicationVolume->commentCount, $publicationVolume->copyrightYear, $publicationVolume->inLanguage, $publicationVolume->isAccessibleForFree, $publicationVolume->pageStart, $publicationVolume->pageEnd, $publicationVolume->pagination, $publicationVolume->volumeNumber);
-                global $creativeWorkArray;
-                $creativeWorkArray[]= $newPublicationVolume;
-                echo $newPublicationVolume->getId()."";
+
+                $arr = array('id' => $idPublicationVolume, 'alternativeHeadline' => $publicationVolume->alternativeHeadline, 'commentCount' => $publicationVolume->commentCount, 'copyrightYear' => $publicationVolume->copyrightYear, 'inLanguage' => $publicationVolume->inLanguage, 'isAccessibleForFree' => $publicationVolume->isAccessibleForFree, 'pageStart' => $publicationVolume->pageStart, 'pageEnd' => $publicationVolume->pageEnd, 'pagination' => $publicationVolume->pagination, 'volumeNumber' => $publicationVolume->volumeNumber);
+
+                // Added publicationVolume to file
+                $jsonReadPublicationVolume = file_get_contents("publicationVolume.json");
+
+                // If it's not empty add commas
+                if($jsonReadPublicationVolume!=null){
+                    file_put_contents("publicationVolume.json", ",".json_encode($arr, JSON_PRETTY_PRINT), FILE_APPEND | LOCK_EX);
+                }else{
+                    file_put_contents("publicationVolume.json", json_encode($arr, JSON_PRETTY_PRINT), FILE_APPEND | LOCK_EX);
+                }
                 http_response_code(200);
             }
             break;
@@ -541,7 +584,7 @@ if (!$request){
             $getId = false;
             for($i = 0; $i < sizeof($publicationVolumeArray); $i++) {
                 if ($publicationVolumeArray[$i]->getId() == $id) {
-                    echo json_encode('{'.'"@context":"http://schema.org","@type":"PublicationVolume",'.' "id":'.$id.', "alternativeHeadline":"'.$publicationVolumeArray[$i]->getAlternativeHeadline().'","commentCount":'.$publicationVolumeArray[$i]->getCommentCount().', "copyrightYear":'.$publicationVolumeArray[$i]->getCopyrightYear().', "inLanguage":'.$publicationVolumeArray[$i]->getInLanguage().', "isAccessibleForFree":'.$publicationVolumeArray[$i]->getIsAccessibleForFree().', "pageStart":'.$publicationVolumeArray[$i]->getPageStart().', "pageEnd":'.$publicationVolumeArray[$i]->getPageEnd().', "pagination":'.$publicationVolumeArray[$i]->getPagination().', "volumeNumber":'.$publicationVolumeArray[$i]->getVolumeNumber().' }');
+                    echo json_encode('{'.'"@context":"http://schema.org","@type":"publicationVolume",'.' "id":'.$id.', "alternativeHeadline":"'.$publicationVolumeArray[$i]->getAlternativeHeadline().'", "commentCount":'.$publicationVolumeArray[$i]->getCommentCount().', "copyrightYear":'.$publicationVolumeArray[$i]->getCopyrightYear().', "inLanguage":"'.$publicationVolumeArray[$i]->getInLanguage().'", "isAccessibleForFree":'.$publicationVolumeArray[$i]->getIsAccessibleForFree().', "pageStart":'.$publicationVolumeArray[$i]->getPageStart().', "pageEnd":'.$publicationVolumeArray[$i]->getPageEnd().', "pagination":"'.$publicationVolumeArray[$i]->getPagination().'", "volumeNumber":'.$publicationVolumeArray[$i]->getVolumeNumber().' }');
                     $getId = true;
                     http_response_code(200);
                 }
@@ -552,21 +595,22 @@ if (!$request){
             }
             break;
         case "PUT":
+            global $put;
             $put = false;
-            $creativeWork = json_decode(file_get_contents('php://input'));
-            if($creativeWork->alternativeHeadline == null) {
+            $publicationVolume = json_decode(file_get_contents('php://input'));
+            if($publicationVolume->alternativeHeadline == null) {
                 http_response_code(405);
                 echo "alternativeHeadline can't be null.";
-            }elseif($creativeWork->commentCount == null) {
+            }elseif($publicationVolume->commentCount == null) {
                 http_response_code(405);
                 echo "commentCount can't be null.";
-            }elseif($creativeWork->copyrightYear == null) {
+            }elseif($publicationVolume->copyrightYear == null) {
                 http_response_code(405);
                 echo "copyrightYear can't be null.";
-            }elseif($creativeWork->inLanguage == null) {
+            }elseif($publicationVolume->inLanguage == null) {
                 http_response_code(405);
                 echo "inLanguage can't be null.";
-            }elseif($creativeWork->isAccessibleForFree == null) {
+            }elseif($publicationVolume->isAccessibleForFree == null) {
                 http_response_code(405);
                 echo "isAccessibleForFree can't be null.";
             }elseif($publicationVolume->pageStart == null) {
@@ -582,18 +626,33 @@ if (!$request){
                 http_response_code(405);
                 echo "volumeNumber can't be null.";
             }else {
-                for($i = 0; $i < sizeof($publicationVolume); $i++){
+                $put = false;
+                for($i = 0; $i < sizeof($publicationVolumeArray); $i++){
                     if($publicationVolumeArray[$i]->getId()== $id){
                         $put = true;
-                        global $publicationVolumeArray;
-                        $publicationVolumeArray[$i] = new PublicationVolume($idPublicationVolume, $publicationVolume->alternativeHeadline, $publicationVolume->commentCount, $publicationVolume->copyrightYear, $publicationVolume->inLanguage, $publicationVolume->isAccessibleForFree, $publicationVolume->pageStart, $publicationVolume->pageEnd, $publicationVolume->pagination, $publicationVolume->volumeNumber);
+                        $publicationVolumeArray[$i] = new PublicationVolume($id, $publicationVolume->alternativeHeadline, $publicationVolume->commentCount, $publicationVolume->copyrightYear, $publicationVolume->inLanguage, $publicationVolume->isAccessibleForFree, $publicationVolume->pageStart, $publicationVolume->pageEnd, $publicationVolume->pagination, $publicationVolume->volumeNumber);
+
+                        file_put_contents("publicationVolume.json", "");
+                        for($j = 0; $j <sizeof($publicationVolumeArray); $j++){
+                            $arr = array('id' => $publicationVolumeArray[$j]->getId(), 'alternativeHeadline' => $publicationVolumeArray[$j]->getAlternativeHeadline(), 'commentCount' => $publicationVolumeArray[$j]->getCommentCount(), 'copyrightYear' => $publicationVolumeArray[$j]->getCopyrightYear(), 'inLanguage' => $publicationVolumeArray[$j]->getInLanguage(), 'isAccessibleForFree' => $publicationVolumeArray[$j]->getIsAccessibleForFree(), 'pageStart' => $publicationVolumeArray[$j]->getPageStart(), 'pageEnd' => $publicationVolumeArray[$j]->getPageEnd(), 'pagination' => $publicationVolumeArray[$j]->getPagination(), 'volumeNumber' => $publicationVolumeArray[$j]->getVolumeNumber());
+
+                            // Added publicationVolume to file
+                            $jsonReadPublicationVolume = file_get_contents("publicationVolume.json");
+
+                            // If it's not empty add commas
+                            if($jsonReadPublicationVolume!=null){
+                                file_put_contents("publicationVolume.json", ",".json_encode($arr, JSON_PRETTY_PRINT), FILE_APPEND | LOCK_EX);
+                            }else{
+                                file_put_contents("publicationVolume.json", json_encode($arr, JSON_PRETTY_PRINT), FILE_APPEND | LOCK_EX);
+                            }
+                        }
+                        http_response_code(200);
                     }
                 }
                 if(!$put) {
                     http_response_code(404);
                     echo "Not allowed.";
                 }
-                http_response_code(200);
             }
             break;
         case "POST":
@@ -602,10 +661,27 @@ if (!$request){
             break;
         case "DELETE":
             $delete = false;
+
             for($i = 0; $i < sizeof($publicationVolumeArray); $i++) {
                 if ($publicationVolumeArray[$i]->getId() == $id) {
                     $delete = true;
-                    unset($publicationVolumeArray[$i]);
+
+                    file_put_contents("publicationVolume.json", "");
+                    for($j = 0; $j <sizeof($publicationVolumeArray); $j++){
+                        if ($publicationVolumeArray[$j]->getId() != $id){
+                            $arr = array('id' => $publicationVolumeArray[$j]->getId(), 'alternativeHeadline' => $publicationVolumeArray[$j]->getAlternativeHeadline(), 'commentCount' => $publicationVolumeArray[$j]->getCommentCount(), 'copyrightYear' => $publicationVolumeArray[$j]->getCopyrightYear(), 'inLanguage' => $publicationVolumeArray[$j]->getInLanguage(), 'isAccessibleForFree' => $publicationVolumeArray[$j]->getIsAccessibleForFree(), 'pageStart' => $publicationVolumeArray[$j]->getpageStart(), 'pageEnd' => $publicationVolumeArray[$j]->getPageEnd(), 'pagination' => $publicationVolumeArray[$j]->getPagination(), 'volumeNumber' => $publicationVolumeArray[$j]->getVolumeNumber());
+
+                            // Added publicationVolume to file
+                            $jsonReadPublicationVolume = file_get_contents("publicationVolume.json");
+
+                            // If it's not empty add commas
+                            if($jsonReadPublicationVolume!=null){
+                                file_put_contents("publicationVolume.json", ",".json_encode($arr, JSON_PRETTY_PRINT), FILE_APPEND | LOCK_EX);
+                            }else{
+                                file_put_contents("publicationVolume.json", json_encode($arr, JSON_PRETTY_PRINT), FILE_APPEND | LOCK_EX);
+                            }
+                        }
+                    }
                     http_response_code(200);
                 }
             }
