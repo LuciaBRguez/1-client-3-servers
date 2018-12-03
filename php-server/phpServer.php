@@ -179,6 +179,9 @@ class CreativeWork{
             return "true";
         return "false";
     }
+    function getBoolean(){
+        return $this->isAccessibleForFree;
+    }
 }
 class PublicationVolume extends CreativeWork{
     private $pageStart;
@@ -389,9 +392,6 @@ if (!$request){
             }elseif($creativeWork->inLanguage == null) {
                 http_response_code(404);
                 echo "inLanguage can't be null.";
-            }elseif($creativeWork->isAccessibleForFree == null) {
-                http_response_code(404);
-                echo "isAccessibleForFree can't be null.";
             }else{
                 global $creativeWorkArray;
                 $idCreativeWork++;
@@ -466,7 +466,7 @@ if (!$request){
 
                         file_put_contents("creativeWork.json", "");
                         for($j = 0; $j <sizeof($creativeWorkArray); $j++){
-                            $arr = array('id' => $creativeWorkArray[$j]->getId(), 'alternativeHeadline' => $creativeWorkArray[$j]->getAlternativeHeadline(), 'commentCount' => $creativeWorkArray[$j]->getCommentCount(), 'copyrightYear' => $creativeWorkArray[$j]->getCopyrightYear(), 'inLanguage' => $creativeWorkArray[$j]->getInLanguage(), 'isAccessibleForFree' => $creativeWorkArray[$j]->getIsAccessibleForFree());
+                            $arr = array('id' => $creativeWorkArray[$j]->getId(), 'alternativeHeadline' => $creativeWorkArray[$j]->getAlternativeHeadline(), 'commentCount' => $creativeWorkArray[$j]->getCommentCount(), 'copyrightYear' => $creativeWorkArray[$j]->getCopyrightYear(), 'inLanguage' => $creativeWorkArray[$j]->getInLanguage(), 'isAccessibleForFree' => $creativeWorkArray[$j]->getBoolean());
 
                             // Added creativeWork to file
                             $jsonRead = file_get_contents("creativeWork.json");
@@ -571,9 +571,6 @@ if (!$request){
             }elseif($publicationVolume->inLanguage == null) {
                 http_response_code(404);
                 echo "inLanguage can't be null.";
-            }elseif($publicationVolume->isAccessibleForFree == null) {
-                http_response_code(404);
-                echo "isAccessibleForFree can't be null.";
             }elseif($publicationVolume->pageStart == null) {
                 http_response_code(404);
                 echo "pageStart can't be null.";
@@ -672,7 +669,7 @@ if (!$request){
 
                         file_put_contents("publicationVolume.json", "");
                         for($j = 0; $j <sizeof($publicationVolumeArray); $j++){
-                            $arr = array('id' => $publicationVolumeArray[$j]->getId(), 'alternativeHeadline' => $publicationVolumeArray[$j]->getAlternativeHeadline(), 'commentCount' => $publicationVolumeArray[$j]->getCommentCount(), 'copyrightYear' => $publicationVolumeArray[$j]->getCopyrightYear(), 'inLanguage' => $publicationVolumeArray[$j]->getInLanguage(), 'isAccessibleForFree' => $publicationVolumeArray[$j]->getIsAccessibleForFree(), 'pageStart' => $publicationVolumeArray[$j]->getPageStart(), 'pageEnd' => $publicationVolumeArray[$j]->getPageEnd(), 'pagination' => $publicationVolumeArray[$j]->getPagination(), 'volumeNumber' => $publicationVolumeArray[$j]->getVolumeNumber());
+                            $arr = array('id' => $publicationVolumeArray[$j]->getId(), 'alternativeHeadline' => $publicationVolumeArray[$j]->getAlternativeHeadline(), 'commentCount' => $publicationVolumeArray[$j]->getCommentCount(), 'copyrightYear' => $publicationVolumeArray[$j]->getCopyrightYear(), 'inLanguage' => $publicationVolumeArray[$j]->getInLanguage(), 'isAccessibleForFree' => $publicationVolumeArray[$j]->getBoolean(), 'pageStart' => $publicationVolumeArray[$j]->getPageStart(), 'pageEnd' => $publicationVolumeArray[$j]->getPageEnd(), 'pagination' => $publicationVolumeArray[$j]->getPagination(), 'volumeNumber' => $publicationVolumeArray[$j]->getVolumeNumber());
 
                             // Added publicationVolume to file
                             $jsonReadPublicationVolume = file_get_contents("publicationVolume.json");
@@ -777,9 +774,6 @@ if (!$request){
             }elseif($softwareApplication->inLanguage == null) {
                 http_response_code(404);
                 echo "inLanguage can't be null.";
-            }elseif($softwareApplication->isAccessibleForFree == null) {
-                http_response_code(404);
-                echo "isAccessibleForFree can't be null.";
             }elseif($softwareApplication->applicationCategory == null) {
                 http_response_code(404);
                 echo "applicationCategory can't be null.";
@@ -878,7 +872,7 @@ if (!$request){
 
                         file_put_contents("softwareApplication.json", "");
                         for($j = 0; $j <sizeof($softwareApplicationArray); $j++){
-                            $arr = array('id' => $softwareApplicationArray[$j]->getId(), 'alternativeHeadline' => $softwareApplicationArray[$j]->getAlternativeHeadline(), 'commentCount' => $softwareApplicationArray[$j]->getCommentCount(), 'copyrightYear' => $softwareApplicationArray[$j]->getCopyrightYear(), 'inLanguage' => $softwareApplicationArray[$j]->getInLanguage(), 'isAccessibleForFree' => $softwareApplicationArray[$j]->getIsAccessibleForFree(), 'applicationCategory' => $softwareApplicationArray[$j]->getApplicationCategory(), 'applicationSubCategory' => $softwareApplicationArray[$j]->getApplicationSubCategory(), 'applicationSuite' => $softwareApplicationArray[$j]->getApplicationSuite(), 'fileSize' => $softwareApplicationArray[$j]->getFileSize());
+                            $arr = array('id' => $softwareApplicationArray[$j]->getId(), 'alternativeHeadline' => $softwareApplicationArray[$j]->getAlternativeHeadline(), 'commentCount' => $softwareApplicationArray[$j]->getCommentCount(), 'copyrightYear' => $softwareApplicationArray[$j]->getCopyrightYear(), 'inLanguage' => $softwareApplicationArray[$j]->getInLanguage(), 'isAccessibleForFree' => $softwareApplicationArray[$j]->getBoolean(), 'applicationCategory' => $softwareApplicationArray[$j]->getApplicationCategory(), 'applicationSubCategory' => $softwareApplicationArray[$j]->getApplicationSubCategory(), 'applicationSuite' => $softwareApplicationArray[$j]->getApplicationSuite(), 'fileSize' => $softwareApplicationArray[$j]->getFileSize());
 
                             // Added softwareApplication to file
                             $jsonReadSoftwareApplication = file_get_contents("softwareApplication.json");
