@@ -1,4 +1,5 @@
 const {SoftwareApplication} = require("./softwareApplication.js");
+var Type = require('type-of-is');
 var idSoftwareApplication = 0;
 
 // Array of softwareApplication objects
@@ -37,6 +38,15 @@ exports.postSoftwareApplication = function (alternativeHeadline, commentCount, c
     else if (applicationSubCategory == null) next("Mandatory applicationSubCategory field.");
     else if (applicationSuite == null) next("Mandatory applicationSuite field.");
     else if (fileSize == null) next("Mandatory fileSize field.");
+    else if (!Type.is(alternativeHeadline,String)) next("alternativeHeadline must be boolean");
+	else if (!Type.is(commentCount,Number)) next("commentCount must be boolean");
+	else if (!Type.is(copyrightYear,Number)) next("copyrightYear must be boolean");
+	else if (!Type.is(inLanguage,String)) next("inLanguage must be boolean");
+    else if (!Type.is(isAccessibleForFree,Boolean)) next("isAccessibleForFree must be boolean");
+    else if (!Type.is(applicationCategory,String)) next("applicationCategory must be boolean");
+    else if (!Type.is(applicationSubCategory,String)) next("applicationSubCategory must be boolean");
+    else if (!Type.is(applicationSuite,String)) next("applicationSuite must be boolean");
+    else if (!Type.is(fileSize,String)) next("fileSize must be boolean");
 	else {
         idSoftwareApplication++;
 		let softwareApplication = new SoftwareApplication();
@@ -61,19 +71,39 @@ exports.deleteSoftwareApplication = function (id, next) {
 };
 
 exports.putSoftwareApplication = function(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree, applicationCategory, applicationSubCategory, applicationSuite, fileSize, next) {
-    let foundId = false; 
-    let softwareApplication = new SoftwareApplication();
-    for (let i=0; i<softwareApplicationArray.length; i++){
-		if(softwareApplicationArray[i].idCreativeWork == id){
-            softwareApplication.update(softwareApplicationArray[i].idCreativeWork, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree, applicationCategory, applicationSubCategory, applicationSuite, fileSize);
-            softwareApplicationArray[i] = softwareApplication;
-            foundId = true;
-            next(null, softwareApplicationArray);
+    if (alternativeHeadline == null) next("Mandatory alternativeHeadline field.");
+    else if (commentCount == null) next("Mandatory commentCount field.");
+    else if (copyrightYear == null) next("Mandatory copyrightYear field.");
+    else if (inLanguage == null) next("Mandatory inLanguage field.");
+    else if (isAccessibleForFree == null) next("Mandatory isAccessibleForFree field.");
+    else if (applicationCategory == null) next("Mandatory applicationCategory field.");
+    else if (applicationSubCategory == null) next("Mandatory applicationSubCategory field.");
+    else if (applicationSuite == null) next("Mandatory applicationSuite field.");
+    else if (fileSize == null) next("Mandatory fileSize field.");
+    else if (!Type.is(alternativeHeadline,String)) next("alternativeHeadline must be boolean");
+	else if (!Type.is(commentCount,Number)) next("commentCount must be boolean");
+	else if (!Type.is(copyrightYear,Number)) next("copyrightYear must be boolean");
+	else if (!Type.is(inLanguage,String)) next("inLanguage must be boolean");
+    else if (!Type.is(isAccessibleForFree,Boolean)) next("isAccessibleForFree must be boolean");
+    else if (!Type.is(applicationCategory,String)) next("applicationCategory must be boolean");
+    else if (!Type.is(applicationSubCategory,String)) next("applicationSubCategory must be boolean");
+    else if (!Type.is(applicationSuite,String)) next("applicationSuite must be boolean");
+    else if (!Type.is(fileSize,String)) next("fileSize must be boolean");
+    else {
+        let foundId = false; 
+        let softwareApplication = new SoftwareApplication();
+        for (let i=0; i<softwareApplicationArray.length; i++){
+            if(softwareApplicationArray[i].idCreativeWork == id){
+                softwareApplication.update(softwareApplicationArray[i].idCreativeWork, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree, applicationCategory, applicationSubCategory, applicationSuite, fileSize);
+                softwareApplicationArray[i] = softwareApplication;
+                foundId = true;
+                next(null, softwareApplicationArray);
+            }
         }
+        if(!foundId){
+            next(new Error("Couldn't find softwareApplication. Non-existent softwareApplication with id: " + id)); 
+        } 
     }
-    if(!foundId){
-        next(new Error("Couldn't find softwareApplication. Non-existent softwareApplication with id: " + id)); 
-    } 
 };
 
 

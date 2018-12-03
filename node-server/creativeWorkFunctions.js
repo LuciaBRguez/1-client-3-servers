@@ -1,4 +1,5 @@
 const {CreativeWork} = require("./creativeWork.js");
+var Type = require('type-of-is');
 var idCreativeWork = 0;
 
 // Array of creativeWork objects
@@ -31,7 +32,12 @@ exports.postCreativeWork = function (alternativeHeadline, commentCount, copyrigh
     else if (commentCount == null) next("Mandatory commentCount field.");
     else if (copyrightYear == null) next("Mandatory copyrightYear field.");
     else if (inLanguage == null) next("Mandatory inLanguage field.");
-    else if (isAccessibleForFree == null) next("Mandatory isAccessibleForFree field.");
+	else if (isAccessibleForFree == null) next("Mandatory isAccessibleForFree field.");
+	else if (!Type.is(alternativeHeadline,String)) next("alternativeHeadline must be boolean");
+	else if (!Type.is(commentCount,Number)) next("commentCount must be boolean");
+	else if (!Type.is(copyrightYear,Number)) next("copyrightYear must be boolean");
+	else if (!Type.is(inLanguage,String)) next("inLanguage must be boolean");
+	else if (!Type.is(isAccessibleForFree,Boolean)) next("isAccessibleForFree must be boolean");
 	else {
 		idCreativeWork++;
 		let creativeWork = new CreativeWork();
@@ -56,18 +62,30 @@ exports.deleteCreativeWork = function (id, next) {
 };
 
 exports.putCreativeWork = function(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree, next) {
-	let foundId = false; 
-	let creativeWork = new CreativeWork();
-	for (let i=0; i<creativeWorkArray.length; i++){
-		if(creativeWorkArray[i].idCreativeWork == id){
-			creativeWork.update(creativeWorkArray[i].idCreativeWork, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree);
-			creativeWorkArray[i] = creativeWork;
-			foundId = true;
-			next(null, creativeWorkArray);
+	if (alternativeHeadline == null) next("Mandatory alternativeHeadline field.");
+    else if (commentCount == null) next("Mandatory commentCount field.");
+    else if (copyrightYear == null) next("Mandatory copyrightYear field.");
+    else if (inLanguage == null) next("Mandatory inLanguage field.");
+	else if (isAccessibleForFree == null) next("Mandatory isAccessibleForFree field.");
+	else if (!Type.is(alternativeHeadline,String)) next("alternativeHeadline must be boolean");
+	else if (!Type.is(commentCount,Number)) next("commentCount must be boolean");
+	else if (!Type.is(copyrightYear,Number)) next("copyrightYear must be boolean");
+	else if (!Type.is(inLanguage,String)) next("inLanguage must be boolean");
+	else if (!Type.is(isAccessibleForFree,Boolean)) next("isAccessibleForFree must be boolean");
+	else {
+		let foundId = false; 
+		let creativeWork = new CreativeWork();
+		for (let i=0; i<creativeWorkArray.length; i++){
+			if(creativeWorkArray[i].idCreativeWork == id){
+				creativeWork.update(creativeWorkArray[i].idCreativeWork, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree);
+				creativeWorkArray[i] = creativeWork;
+				foundId = true;
+				next(null, creativeWorkArray);
+			}
 		}
-	}
-	if (!foundId){
-		next(new Error("Couldn't find creativeWork. Non-existent creativeWork with id: " + id)) ; 
+		if (!foundId){
+			next(new Error("Couldn't find creativeWork. Non-existent creativeWork with id: " + id)) ; 
+		}
 	}
 };
 
