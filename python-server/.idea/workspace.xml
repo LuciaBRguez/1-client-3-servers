@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c6612a38-712e-4423-b7a4-c6e120282485" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/application/controllers/creativeWorkController.py" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/creativeWorkController.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/publicationVolumeController.py" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/publicationVolumeController.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/softwareApplicationController.py" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/softwareApplicationController.py" afterDir="false" />
-    </list>
+    <list default="true" id="c6612a38-712e-4423-b7a4-c6e120282485" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,8 +37,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/controllers/softwareApplicationController.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="29" column="18" lean-forward="true" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
+            <state relative-caret-position="85">
+              <caret line="14" column="30" lean-forward="true" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
               <folding>
                 <element signature="e#0#57#0" expanded="true" />
               </folding>
@@ -243,16 +239,15 @@
       <updated>1543684182163</updated>
       <workItem from="1543684184355" duration="13207000" />
       <workItem from="1543765348514" duration="22702000" />
-      <workItem from="1543791569665" duration="4835000" />
+      <workItem from="1543791569665" duration="5039000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40744000" />
+    <option name="totallyTimeSpent" value="40948000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15973154" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -391,8 +386,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/controllers/softwareApplicationController.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="29" column="18" lean-forward="true" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
+        <state relative-caret-position="85">
+          <caret line="14" column="30" lean-forward="true" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
           <folding>
             <element signature="e#0#57#0" expanded="true" />
           </folding>

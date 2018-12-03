@@ -7,10 +7,6 @@ class PublicationVolume extends CreativeWork{
         this.pageEnd = pageEnd;
 		this.pagination = pagination;
 		this.volumeNumber = volumeNumber;
-		this.pageStart = pageStart;
-		this.pageEnd = pageEnd;
-		this.pagination = pagination;
-		this.volumeNumber = volumeNumber;
 	}
 }
 
