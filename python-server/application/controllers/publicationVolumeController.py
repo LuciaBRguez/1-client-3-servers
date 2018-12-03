@@ -25,6 +25,60 @@ def postPublicationVolume():
     pageEnd = decoded['pageEnd']
     pagination = decoded['pagination']
     volumeNumber = decoded['volumeNumber']
+    if (alternativeHeadline is None):
+        res = make_response('Mandatory alternativeHeadline field', 404)
+        return res
+    elif (commentCount is None):
+        res = make_response('Mandatory commentCount field', 404)
+        return res
+    elif (copyrightYear is None):
+        res = make_response('Mandatory copyrightYear field', 404)
+        return res
+    elif (inLanguage is None):
+        res = make_response('Mandatory inLanguage field', 404)
+        return res
+    elif (isAccessibleForFree is None):
+        res = make_response('Mandatory isAccessibleForFree field', 404)
+        return res
+    elif (pageStart is None):
+        res = make_response('Mandatory pageStart field', 404)
+        return res
+    elif (pageEnd is None):
+        res = make_response('Mandatory pageEnd field', 404)
+        return res
+    elif (pagination is None):
+        res = make_response('Mandatory pagination field', 404)
+        return res
+    elif (volumeNumber is None):
+        res = make_response('Mandatory volumeNumber field', 404)
+        return res
+    elif not isinstance(alternativeHeadline, str):
+        res = make_response('alternativeHeadline must be a string', 404)
+        return res
+    elif not isinstance(commentCount, int):
+        res = make_response('commentCount must be an int', 404)
+        return res
+    elif not isinstance(copyrightYear, int):
+        res = make_response('copyrightYear must be an int', 404)
+        return res
+    elif not isinstance(inLanguage, str):
+        res = make_response('inLanguage must be a string', 404)
+        return res
+    elif not isinstance(isAccessibleForFree, bool):
+        res = make_response('isAccessibleForFree must be a boolean', 404)
+        return res
+    elif not isinstance(pageStart, int):
+        res = make_response('pageStart must be an int', 404)
+        return res
+    elif not isinstance(pageEnd, int):
+        res = make_response('pageEnd must be an int', 404)
+        return res
+    elif not isinstance(pagination, str):
+        res = make_response('pagination must be a string', 404)
+        return res
+    elif not isinstance(volumeNumber, int):
+        res = make_response('volumeNumber must be an int', 404)
+        return res
     publicationVolume = PublicationVolume(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree, pageStart, pageEnd, pagination, volumeNumber)
     publicationVolumeObj.post_publication_volume(publicationVolume)
     return str(id)
@@ -97,6 +151,60 @@ def putPublicationVolume(number):
     pageEnd = decoded['pageEnd']
     pagination = decoded['pagination']
     volumeNumber = decoded['volumeNumber']
+    if (alternativeHeadline is None):
+        res = make_response('Mandatory alternativeHeadline field', 404)
+        return res
+    elif (commentCount is None):
+        res = make_response('Mandatory commentCount field', 404)
+        return res
+    elif (copyrightYear is None):
+        res = make_response('Mandatory copyrightYear field', 404)
+        return res
+    elif (inLanguage is None):
+        res = make_response('Mandatory inLanguage field', 404)
+        return res
+    elif (isAccessibleForFree is None):
+        res = make_response('Mandatory isAccessibleForFree field', 404)
+        return res
+    elif (pageStart is None):
+        res = make_response('Mandatory pageStart field', 404)
+        return res
+    elif (pageEnd is None):
+        res = make_response('Mandatory pageEnd field', 404)
+        return res
+    elif (pagination is None):
+        res = make_response('Mandatory pagination field', 404)
+        return res
+    elif (volumeNumber is None):
+        res = make_response('Mandatory volumeNumber field', 404)
+        return res
+    elif not isinstance(alternativeHeadline, str):
+        res = make_response('alternativeHeadline must be a string', 404)
+        return res
+    elif not isinstance(commentCount, int):
+        res = make_response('commentCount must be an int', 404)
+        return res
+    elif not isinstance(copyrightYear, int):
+        res = make_response('copyrightYear must be an int', 404)
+        return res
+    elif not isinstance(inLanguage, str):
+        res = make_response('inLanguage must be a string', 404)
+        return res
+    elif not isinstance(isAccessibleForFree, bool):
+        res = make_response('isAccessibleForFree must be a boolean', 404)
+        return res
+    elif not isinstance(pageStart, int):
+        res = make_response('pageStart must be an int', 404)
+        return res
+    elif not isinstance(pageEnd, int):
+        res = make_response('pageEnd must be an int', 404)
+        return res
+    elif not isinstance(pagination, str):
+        res = make_response('pagination must be a string', 404)
+        return res
+    elif not isinstance(volumeNumber, int):
+        res = make_response('volumeNumber must be an int', 404)
+        return res
     publicationVolume = PublicationVolume(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree, pageStart, pageEnd, pagination, volumeNumber)
     if publicationVolumeObj.put_publication_volume(publicationVolume, id):
         res = make_response('PUT successful', 200)

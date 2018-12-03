@@ -21,6 +21,36 @@ def postCreativeWork():
     copyrightYear = decoded['copyrightYear']
     inLanguage = decoded['inLanguage']
     isAccessibleForFree = decoded['isAccessibleForFree']
+    if (alternativeHeadline is None):
+        res = make_response('Mandatory alternativeHeadline field', 404)
+        return res
+    elif (commentCount is None):
+        res = make_response('Mandatory commentCount field', 404)
+        return res
+    elif (copyrightYear is None):
+        res = make_response('Mandatory copyrightYear field', 404)
+        return res
+    elif (inLanguage is None):
+        res = make_response('Mandatory inLanguage field', 404)
+        return res
+    elif (isAccessibleForFree is None):
+        res = make_response('Mandatory isAccessibleForFree field', 404)
+        return res
+    elif not isinstance(alternativeHeadline, str):
+        res = make_response('alternativeHeadline must be a string', 404)
+        return res
+    elif not isinstance(commentCount, int):
+        res = make_response('commentCount must be an int', 404)
+        return res
+    elif not isinstance(copyrightYear, int):
+        res = make_response('copyrightYear must be an int', 404)
+        return res
+    elif not isinstance(inLanguage, str):
+        res = make_response('inLanguage must be a string', 404)
+        return res
+    elif not isinstance(isAccessibleForFree, bool):
+        res = make_response('isAccessibleForFree must be a boolean', 404)
+        return res
     creativeWork = CreativeWork(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree)
     creativeWorkObj.post_creative_work(creativeWork)
     return str(id)
@@ -82,6 +112,36 @@ def putCreativeWork(number):
     copyrightYear = decoded['copyrightYear']
     inLanguage = decoded['inLanguage']
     isAccessibleForFree = decoded['isAccessibleForFree']
+    if (alternativeHeadline is None):
+        res = make_response('Mandatory alternativeHeadline field', 404)
+        return res
+    elif (commentCount is None):
+        res = make_response('Mandatory commentCount field', 404)
+        return res
+    elif (copyrightYear is None):
+        res = make_response('Mandatory copyrightYear field', 404)
+        return res
+    elif (inLanguage is None):
+        res = make_response('Mandatory inLanguage field', 404)
+        return res
+    elif (isAccessibleForFree is None):
+        res = make_response('Mandatory isAccessibleForFree field', 404)
+        return res
+    elif not isinstance(alternativeHeadline, str):
+        res = make_response('alternativeHeadline must be a string', 404)
+        return res
+    elif not isinstance(commentCount, int):
+        res = make_response('commentCount must be an int', 404)
+        return res
+    elif not isinstance(copyrightYear, int):
+        res = make_response('copyrightYear must be an int', 404)
+        return res
+    elif not isinstance(inLanguage, str):
+        res = make_response('inLanguage must be a string', 404)
+        return res
+    elif not isinstance(isAccessibleForFree, bool):
+        res = make_response('isAccessibleForFree must be a boolean', 404)
+        return res
     creativeWork = CreativeWork(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree)
     if creativeWorkObj.put_creative_work(creativeWork, id):
         res = make_response('PUT successful', 200)

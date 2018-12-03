@@ -25,6 +25,60 @@ def postSoftwareApplication():
     applicationSubCategory = decoded['applicationSubCategory']
     applicationSuite = decoded['applicationSuite']
     fileSize = decoded['fileSize']
+    if (alternativeHeadline is None):
+        res = make_response('Mandatory alternativeHeadline field', 404)
+        return res
+    elif (commentCount is None):
+        res = make_response('Mandatory commentCount field', 404)
+        return res
+    elif (copyrightYear is None):
+        res = make_response('Mandatory copyrightYear field', 404)
+        return res
+    elif (inLanguage is None):
+        res = make_response('Mandatory inLanguage field', 404)
+        return res
+    elif (isAccessibleForFree is None):
+        res = make_response('Mandatory isAccessibleForFree field', 404)
+        return res
+    elif (applicationCategory is None):
+        res = make_response('Mandatory applicationCategory field', 404)
+        return res
+    elif (applicationSubCategory is None):
+        res = make_response('Mandatory applicationSubCategory field', 404)
+        return res
+    elif (applicationSuite is None):
+        res = make_response('Mandatory applicationSuite field', 404)
+        return res
+    elif (fileSize is None):
+        res = make_response('Mandatory fileSize field', 404)
+        return res
+    elif not isinstance(alternativeHeadline, str):
+        res = make_response('alternativeHeadline must be a string', 404)
+        return res
+    elif not isinstance(commentCount, int):
+        res = make_response('commentCount must be an int', 404)
+        return res
+    elif not isinstance(copyrightYear, int):
+        res = make_response('copyrightYear must be an int', 404)
+        return res
+    elif not isinstance(inLanguage, str):
+        res = make_response('inLanguage must be a string', 404)
+        return res
+    elif not isinstance(isAccessibleForFree, bool):
+        res = make_response('isAccessibleForFree must be a boolean', 404)
+        return res
+    elif not isinstance(applicationCategory, str):
+        res = make_response('applicationCategory must be a string', 404)
+        return res
+    elif not isinstance(applicationSubCategory, str):
+        res = make_response('applicationSubCategory must be a string', 404)
+        return res
+    elif not isinstance(applicationSuite, str):
+        res = make_response('applicationSuite must be a string', 404)
+        return res
+    elif not isinstance(fileSize, str):
+        res = make_response('fileSize must be a string', 404)
+        return res
     softwareApplication = SoftwareApplication(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree, applicationCategory, applicationSubCategory, applicationSuite, fileSize)
     softwareApplicationObj.post_software_application(softwareApplication)
     return str(id)
@@ -93,6 +147,60 @@ def putSoftwareApplicatioin(number):
     applicationSubCategory = decoded['applicationSubCategory']
     applicationSuite = decoded['applicationSuite']
     fileSize = decoded['fileSize']
+    if (alternativeHeadline is None):
+        res = make_response('Mandatory alternativeHeadline field', 404)
+        return res
+    elif (commentCount is None):
+        res = make_response('Mandatory commentCount field', 404)
+        return res
+    elif (copyrightYear is None):
+        res = make_response('Mandatory copyrightYear field', 404)
+        return res
+    elif (inLanguage is None):
+        res = make_response('Mandatory inLanguage field', 404)
+        return res
+    elif (isAccessibleForFree is None):
+        res = make_response('Mandatory isAccessibleForFree field', 404)
+        return res
+    elif (applicationCategory is None):
+        res = make_response('Mandatory applicationCategory field', 404)
+        return res
+    elif (applicationSubCategory is None):
+        res = make_response('Mandatory applicationSubCategory field', 404)
+        return res
+    elif (applicationSuite is None):
+        res = make_response('Mandatory applicationSuite field', 404)
+        return res
+    elif (fileSize is None):
+        res = make_response('Mandatory fileSize field', 404)
+        return res
+    elif not isinstance(alternativeHeadline, str):
+        res = make_response('alternativeHeadline must be a string', 404)
+        return res
+    elif not isinstance(commentCount, int):
+        res = make_response('commentCount must be an int', 404)
+        return res
+    elif not isinstance(copyrightYear, int):
+        res = make_response('copyrightYear must be an int', 404)
+        return res
+    elif not isinstance(inLanguage, str):
+        res = make_response('inLanguage must be a string', 404)
+        return res
+    elif not isinstance(isAccessibleForFree, bool):
+        res = make_response('isAccessibleForFree must be a boolean', 404)
+        return res
+    elif not isinstance(applicationCategory, str):
+        res = make_response('applicationCategory must be a string', 404)
+        return res
+    elif not isinstance(applicationSubCategory, str):
+        res = make_response('applicationSubCategory must be a string', 404)
+        return res
+    elif not isinstance(applicationSuite, str):
+        res = make_response('applicationSuite must be a string', 404)
+        return res
+    elif not isinstance(fileSize, str):
+        res = make_response('fileSize must be a string', 404)
+        return res
     softwareApplication = SoftwareApplication(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree, applicationCategory, applicationSubCategory, applicationSuite, fileSize)
     if softwareApplicationObj.put_software_application(softwareApplication, id):
         res = make_response('PUT successful', 200)
