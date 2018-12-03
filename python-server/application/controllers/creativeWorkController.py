@@ -31,7 +31,7 @@ def getCreativeWork():
     creativeWorkList = array_creative_work.get_creative_work()
     value = (request.headers["Accept"]) == 'application/ld+json'
     if value:
-        dictionary = [{'id': v.id, 'alternativeHeadline': v.alternativeHeadline, 'commentCount': v.commentCount, 'copyrightYear': v.copyrightYear, 'inLanguage': v.inLanguage, 'isAccessibleForFree': v.isAccessibleForFree} for v in creativeWorkList]
+        dictionary = [{'@context': 'http://schema.org', '@type': 'CreativeWork', 'id': v.id, 'alternativeHeadline': v.alternativeHeadline, 'commentCount': v.commentCount, 'copyrightYear': v.copyrightYear, 'inLanguage': v.inLanguage, 'isAccessibleForFree': v.isAccessibleForFree} for v in creativeWorkList]
         return json.dumps(dictionary)
     else:
         dictionary = "<ul>"
