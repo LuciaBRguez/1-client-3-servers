@@ -1,11 +1,10 @@
-// Array of publicationVolume objects
-// let publicationVolumeArray = [];
-
-
 class PublicationVolume {
-    constructor(contentPost, id) {
-        this.contentPost = contentPost;
-        this.id = id;
+    constructor(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree, pageStart, pageEnd, pagination, volumeNumber){
+        super(id, alternativeHeadline, commentCount, copyrightYear, inLanguage, isAccessibleForFree);
+        this.pageStart = pageStart;
+        this.pageEnd = pageEnd;
+        this.pagination = pagination;
+        this.volumeNumber = volumeNumber;
     }
 }
 
