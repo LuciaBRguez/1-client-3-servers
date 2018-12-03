@@ -1,23 +1,12 @@
 {
     "id": 1,
-    "alternativeHeadline": "segundo",
+    "alternativeHeadline": "anotherCreativeHeadline",
     "commentCount": 123,
-    "copyrightYear": 1,
-    "inLanguage": "holi manoli",
-    "isAccessibleForFree": "true",
+    "copyrightYear": 2000,
+    "inLanguage": "myLanguage",
+    "isAccessibleForFree": false,
     "applicationCategory": "9",
     "applicationSubCategory": "89",
-    "applicationSuite": "holiwis",
-    "fileSize": "43"
-},{
-    "id": "2",
-    "alternativeHeadline": "lololo",
-    "commentCount": 123,
-    "copyrightYear": 1,
-    "inLanguage": "holi manoli",
-    "isAccessibleForFree": "true",
-    "applicationCategory": "9",
-    "applicationSubCategory": "89",
-    "applicationSuite": "holiwis",
+    "applicationSuite": "anotherSuite",
     "fileSize": "43"
 }

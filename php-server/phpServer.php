@@ -392,6 +392,22 @@ if (!$request){
             }elseif($creativeWork->inLanguage == null) {
                 http_response_code(404);
                 echo "inLanguage can't be null.";
+            }elseif(!is_string($creativeWork->alternativeHeadline)){
+                http_response_code(404);
+                echo "alternativeHeadline is not a string";
+            }elseif(!is_int($creativeWork->commentCount)){
+                http_response_code(404);
+                echo "commentCount is not an integer";
+            }elseif(!is_int($creativeWork->copyrightYear)){
+                http_response_code(404);
+                echo "copyrightYear is not an integer";
+            }elseif(!is_string($creativeWork->inLanguage)){
+                http_response_code(404);
+                echo "inLanguage is not a s
+                çtring";
+            }elseif(!is_bool($creativeWork->isAccessibleForFree)){
+                http_response_code(404);
+                echo "isAccessibleForFree is not a boolean";
             }else{
                 global $creativeWorkArray;
                 $idCreativeWork++;
@@ -454,6 +470,21 @@ if (!$request){
             }elseif($creativeWork->inLanguage == null) {
                 http_response_code(404);
                 echo "inLanguage can't be null.";
+            }elseif(!is_string($creativeWork->alternativeHeadline)){
+                http_response_code(404);
+                echo "alternativeHeadline is not a string";
+            }elseif(!is_int($creativeWork->commentCount)){
+                http_response_code(404);
+                echo "commentCount is not an integer";
+            }elseif(!is_int($creativeWork->copyrightYear)){
+                http_response_code(404);
+                echo "copyrightYear is not an integer";
+            }elseif(!is_string($creativeWork->inLanguage)){
+                http_response_code(404);
+                echo "inLanguage is not a string";
+            }elseif(!is_bool($creativeWork->isAccessibleForFree)){
+                http_response_code(404);
+                echo "isAccessibleForFree is not a boolean";
             }else {
                 $put = false;
                 for($i = 0; $i < sizeof($creativeWorkArray); $i++){
@@ -580,6 +611,33 @@ if (!$request){
             }elseif($publicationVolume->volumeNumber == null) {
                 http_response_code(404);
                 echo "volumeNumber can't be null.";
+            }elseif(!is_string($publicationVolume->alternativeHeadline)){
+                http_response_code(404);
+                echo "alternativeHeadline is not a string";
+            }elseif(!is_int($publicationVolume->commentCount)){
+                http_response_code(404);
+                echo "commentCount is not an integer";
+            }elseif(!is_int($publicationVolume->copyrightYear)){
+                http_response_code(404);
+                echo "copyrightYear is not an integer";
+            }elseif(!is_string($publicationVolume->inLanguage)){
+                http_response_code(404);
+                echo "inLanguage is not a string";
+            }elseif(!is_bool($publicationVolume->isAccessibleForFree)){
+                http_response_code(404);
+                echo "isAccessibleForFree is not a boolean";
+            }elseif(!is_int($publicationVolume->pageStart)){
+                http_response_code(404);
+                echo "pageStart is not a string";
+            }elseif(!is_int($publicationVolume->pageEnd)){
+                http_response_code(404);
+                echo "pageEnd is not a string";
+            }elseif(!is_string($publicationVolume->pagination)){
+                http_response_code(404);
+                echo "pagination is not a string";
+            }elseif(!is_int($publicationVolume->volumeNumber)){
+                http_response_code(404);
+                echo "volumeNumber is not a string";
             }else{
                 global $publicationVolumeArray;
                 $idPublicationVolume++;
@@ -654,6 +712,33 @@ if (!$request){
             }elseif($publicationVolume->volumeNumber == null) {
                 http_response_code(404);
                 echo "volumeNumber can't be null.";
+            }elseif(!is_string($publicationVolume->alternativeHeadline)){
+                http_response_code(404);
+                echo "alternativeHeadline is not a string";
+            }elseif(!is_int($publicationVolume->commentCount)){
+                http_response_code(404);
+                echo "commentCount is not an integer";
+            }elseif(!is_int($publicationVolume->copyrightYear)){
+                http_response_code(404);
+                echo "copyrightYear is not an integer";
+            }elseif(!is_string($publicationVolume->inLanguage)){
+                http_response_code(404);
+                echo "inLanguage is not a string";
+            }elseif(!is_bool($publicationVolume->isAccessibleForFree)){
+                http_response_code(404);
+                echo "isAccessibleForFree is not a boolean";
+            }elseif(!is_int($publicationVolume->pageStart)){
+                http_response_code(404);
+                echo "pageStart is not a string";
+            }elseif(!is_int($publicationVolume->pageEnd)){
+                http_response_code(404);
+                echo "pageEnd is not a string";
+            }elseif(!is_string($publicationVolume->pagination)){
+                http_response_code(404);
+                echo "pagination is not a string";
+            }elseif(!is_int($publicationVolume->volumeNumber)){
+                http_response_code(404);
+                echo "volumeNumber is not a string";
             }else {
                 $put = false;
                 for($i = 0; $i < sizeof($publicationVolumeArray); $i++){
@@ -780,6 +865,33 @@ if (!$request){
             }elseif($softwareApplication->fileSize == null) {
                 http_response_code(404);
                 echo "fileSize can't be null.";
+            }elseif(!is_string($softwareApplication->alternativeHeadline)){
+                http_response_code(404);
+                echo "alternativeHeadline is not a string";
+            }elseif(!is_int($softwareApplication->commentCount)){
+                http_response_code(404);
+                echo "commentCount is not an integer";
+            }elseif(!is_int($softwareApplication->copyrightYear)){
+                http_response_code(404);
+                echo "copyrightYear is not an integer";
+            }elseif(!is_string($softwareApplication->inLanguage)){
+                http_response_code(404);
+                echo "inLanguage is not a string";
+            }elseif(!is_bool($softwareApplication->isAccessibleForFree)){
+                http_response_code(404);
+                echo "isAccessibleForFree is not a boolean";
+            }elseif(!is_string($softwareApplication->applicationCategory)){
+                http_response_code(404);
+                echo "applicationCategory is not a boolean";
+            }elseif(!is_string($softwareApplication->applicationSubCategory)){
+                http_response_code(404);
+                echo "applicationSubCategory is not a boolean";
+            }elseif(!is_string($softwareApplication->applicationSuite)){
+                http_response_code(404);
+                echo "applicationSuite is not a boolean";
+            }elseif(!is_string($softwareApplication->fileSize)){
+                http_response_code(404);
+                echo "fileSize is not a boolean";
             }else{
                 global $softwareApplicationArray;
                 $idSoftwareApplication++;
@@ -854,6 +966,33 @@ if (!$request){
             }elseif($softwareApplication->fileSize == null) {
                 http_response_code(404);
                 echo "fileSize can't be null.";
+            }elseif(!is_string($softwareApplication->alternativeHeadline)){
+                http_response_code(404);
+                echo "alternativeHeadline is not a string";
+            }elseif(!is_int($softwareApplication->commentCount)){
+                http_response_code(404);
+                echo "commentCount is not an integer";
+            }elseif(!is_int($softwareApplication->copyrightYear)){
+                http_response_code(404);
+                echo "copyrightYear is not an integer";
+            }elseif(!is_string($softwareApplication->inLanguage)){
+                http_response_code(404);
+                echo "inLanguage is not a string";
+            }elseif(!is_bool($softwareApplication->isAccessibleForFree)){
+                http_response_code(404);
+                echo "isAccessibleForFree is not a boolean";
+            }elseif(!is_string($softwareApplication->applicationCategory)){
+                http_response_code(404);
+                echo "applicationCategory is not a boolean";
+            }elseif(!is_string($softwareApplication->applicationSubCategory)){
+                http_response_code(404);
+                echo "applicationSubCategory is not a boolean";
+            }elseif(!is_string($softwareApplication->applicationSuite)){
+                http_response_code(404);
+                echo "applicationSuite is not a boolean";
+            }elseif(!is_string($softwareApplication->fileSize)){
+                http_response_code(404);
+                echo "fileSize is not a boolean";
             }else {
                 $put = false;
                 for($i = 0; $i < sizeof($softwareApplicationArray); $i++){
