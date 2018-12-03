@@ -46,7 +46,10 @@ class UI {
             method:'GET',
             url:"http://localhost:5000/publicationVolume",
 
-            success:function(publicationVolumeArray){  
+            success:function(publicationVolumeString){  
+
+                // Parse JSON
+                let publicationVolumeArray = JSON.parse(publicationVolumeString);
 
                 // Load div with id="content-get"
                 const contentGet = document.getElementById('content-get');

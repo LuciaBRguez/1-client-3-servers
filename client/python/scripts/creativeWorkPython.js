@@ -46,7 +46,10 @@ class UI {
             method:'GET',
             url:"http://localhost:5000/creativeWork",
 
-            success:function(creativeWorkArray){  
+            success:function(creativeWorkString){  
+
+                // Parse JSON
+                let creativeWorkArray = JSON.parse(creativeWorkString);
 
                 // Load div with id="content-get"
                 const contentGet = document.getElementById('content-get');

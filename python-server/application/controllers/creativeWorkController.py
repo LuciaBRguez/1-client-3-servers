@@ -29,7 +29,7 @@ def postCreativeWork():
 @routes.route('', methods=['GET'])
 def getCreativeWork():
     creativeWorkList = array_creative_work.get_creative_work()
-    value = (request.headers["Accept"]) == 'application/json'
+    value = (request.headers["Accept"]) == 'application/ld+json'
     if value:
         dictionary = [{'id': v.id, 'alternativeHeadline': v.alternativeHeadline, 'commentCount': v.commentCount, 'copyrightYear': v.copyrightYear, 'inLanguage': v.inLanguage, 'isAccessibleForFree': v.isAccessibleForFree} for v in creativeWorkList]
         return json.dumps(dictionary)

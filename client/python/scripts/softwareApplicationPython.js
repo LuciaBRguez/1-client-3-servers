@@ -46,7 +46,10 @@ class UI {
             method:'GET',
             url:"http://localhost:5000/softwareApplication",
 
-            success:function(softwareApplicationArray){  
+            success:function(softwareApplicationString){  
+
+                // Parse JSON
+                let softwareApplicationArray = JSON.parse(softwareApplicationString);
 
                 // Load div with id="content-get"
                 const contentGet = document.getElementById('content-get');

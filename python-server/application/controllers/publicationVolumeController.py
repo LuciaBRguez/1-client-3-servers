@@ -33,7 +33,7 @@ def postPublicationVolume():
 @routes.route('', methods=['GET'])
 def getPublicationVolume():
     publicationVolumeList = array_publication_volume.get_publication_volume()
-    value = (request.headers["Accept"]) == 'application/json'
+    value = (request.headers["Accept"]) == 'application/ld+json'
     if value:
         dictionary = [{'id': v.id, 'alternativeHeadline': v.alternativeHeadline, 'commentCount': v.commentCount,
                      'copyrightYear': v.copyrightYear, 'inLanguage': v.inLanguage, 'isAccessibleForFree': v.isAccessibleForFree, 'pageStart': v.pageStart,

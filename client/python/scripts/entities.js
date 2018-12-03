@@ -16,9 +16,9 @@ function getEntitiesPython(){
             let thirdEntity =  entities.third;
 
             // Add options entities into select with id="select"
-            document.getElementById("select").options.add(new Option(""+firstEntity+"","entity"));
-            document.getElementById("select").options.add(new Option(""+secondEntity+"","entity"));
-            document.getElementById("select").options.add(new Option(""+thirdEntity+"","entity"));
+            document.getElementById("select").options.add(new Option(""+firstEntity+"",""+firstEntity+".html"));
+            document.getElementById("select").options.add(new Option(""+secondEntity+"",""+secondEntity+".html"));
+            document.getElementById("select").options.add(new Option(""+thirdEntity+"",""+thirdEntity+".html"));
         }
 
     }).fail(function(){
