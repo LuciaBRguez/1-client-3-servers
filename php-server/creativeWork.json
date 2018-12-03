@@ -1,8 +1,8 @@
 {
-    "id": 3,
-    "alternativeHeadline": "cuarto",
+    "id": 0,
+    "alternativeHeadline": "myAlternativeHeadline",
     "commentCount": 123,
-    "copyrightYear": 1,
-    "inLanguage": "holi manoli",
-    "isAccessibleForFree": "true"
+    "copyrightYear": 2006,
+    "inLanguage": "English",
+    "isAccessibleForFree": true
 }

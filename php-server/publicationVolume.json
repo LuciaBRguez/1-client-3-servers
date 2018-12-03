@@ -1,12 +1,12 @@
 {
-    "id": 3,
-    "alternativeHeadline": "nuevo",
+    "id": 0,
+    "alternativeHeadline": "anotherAlternativeHeadline",
     "commentCount": 123,
     "copyrightYear": 1999,
-    "inLanguage": "holi manoli",
+    "inLanguage": "French",
     "isAccessibleForFree": true,
     "pageStart": 9,
     "pageEnd": 89,
-    "pagination": "holiwis",
+    "pagination": "anotherPagination",
     "volumeNumber": 43
 }
