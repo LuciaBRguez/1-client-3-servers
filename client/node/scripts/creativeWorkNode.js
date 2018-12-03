@@ -8,7 +8,7 @@ class UI {
         $.ajax({
             method:'POST',
             data:contentPost,
-            url:"http://http://156.35.95.76:3000/creativeWork",
+            url:"http://156.35.95.76:3000/creativeWork",
 
             success:function(){
                 alert('POST successful');
