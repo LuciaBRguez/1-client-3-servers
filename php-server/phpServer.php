@@ -454,9 +454,6 @@ if (!$request){
             }elseif($creativeWork->inLanguage == null) {
                 http_response_code(404);
                 echo "inLanguage can't be null.";
-            }elseif($creativeWork->isAccessibleForFree == null) {
-                http_response_code(404);
-                echo "isAccessibleForFree can't be null.";
             }else {
                 $put = false;
                 for($i = 0; $i < sizeof($creativeWorkArray); $i++){
@@ -645,9 +642,6 @@ if (!$request){
             }elseif($publicationVolume->inLanguage == null) {
                 http_response_code(404);
                 echo "inLanguage can't be null.";
-            }elseif($publicationVolume->isAccessibleForFree == null) {
-                http_response_code(404);
-                echo "isAccessibleForFree can't be null.";
             }elseif($publicationVolume->pageStart == null) {
                 http_response_code(404);
                 echo "pageStart can't be null.";
@@ -848,9 +842,6 @@ if (!$request){
             }elseif($softwareApplication->inLanguage == null) {
                 http_response_code(404);
                 echo "inLanguage can't be null.";
-            }elseif($softwareApplication->isAccessibleForFree == null) {
-                http_response_code(404);
-                echo "isAccessibleForFree can't be null.";
             }elseif($softwareApplication->applicationCategory == null) {
                 http_response_code(404);
                 echo "applicationCategory can't be null.";
