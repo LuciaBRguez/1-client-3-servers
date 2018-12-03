@@ -4,7 +4,7 @@ function getEntitiesPython(){
     $.ajax({
         
         method:'GET',
-        url:"http://localhost:5000",
+        url:"http://156.35.95.76:5000",
 
         success:function(entitiesString){
 

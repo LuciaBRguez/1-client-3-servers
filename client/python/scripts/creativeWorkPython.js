@@ -20,7 +20,7 @@ class UI {
         $.ajax({
             method:'POST',
             data:contentPost,
-            url:"http://localhost:5000/creativeWork",
+            url:"http://156.35.95.76:5000/creativeWork",
 
             success:function(){
                 alert('POST successful');
@@ -41,7 +41,7 @@ class UI {
             },
 
             method:'GET',
-            url:"http://localhost:5000/creativeWork",
+            url:"http://156.35.95.76:5000/creativeWork",
 
             success:function(creativeWorkString){  
 
@@ -89,7 +89,7 @@ class UI {
         $.ajax({
 
             method:'DELETE',
-            url:"http://localhost:5000/creativeWork/"+id,
+            url:"http://156.35.95.76:5000/creativeWork/"+id,
 
             success:function(){
                 alert('DELETED successful');
@@ -109,7 +109,7 @@ class UI {
         $.ajax({
 
             method:'GET',
-            url:"http://localhost:5000/creativeWork/"+id,
+            url:"http://156.35.95.76:5000/creativeWork/"+id,
             
             success:function(creativeWork){
 
@@ -151,7 +151,7 @@ class UI {
         $.ajax({
             method:'PUT',
             data:contentPut,
-            url:"http://localhost:5000/creativeWork/"+id,
+            url:"http://156.35.95.76:5000/creativeWork/"+id,
             success:function(){
                 alert('PUT successful');
             }

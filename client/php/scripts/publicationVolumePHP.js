@@ -8,7 +8,7 @@ class UI {
         $.ajax({
             method:'POST',
             data:contentPost,
-            url:"http://localhost/phpServer.php/publicationVolume",
+            url:"http://156.35.95.76:8000/phpServer.php/publicationVolume",
 
             success:function(){
                 alert('POST successful');
@@ -29,7 +29,7 @@ class UI {
             },
 
             method:'GET',
-            url:"http://localhost/phpServer.php/publicationVolume",
+            url:"http://156.35.95.76:8000/phpServer.php/publicationVolume",
 
             success:function(publicationVolumeString){  
 
@@ -79,7 +79,7 @@ class UI {
         $.ajax({
 
             method:'DELETE',
-            url:"http://localhost/phpServer.php/publicationVolume/"+id,
+            url:"http://156.35.95.76:8000/phpServer.php/publicationVolume/"+id,
 
             success:function(){
                 alert('DELETED successful');
@@ -99,7 +99,7 @@ class UI {
         $.ajax({
 
             method:'GET',
-            url:"http://localhost/phpServer.php/publicationVolume/"+id,
+            url:"http://156.35.95.76:8000/phpServer.php/publicationVolume/"+id,
             
             success:function(publicationVolumeString){
 
@@ -144,7 +144,7 @@ class UI {
         $.ajax({
             method:'PUT',
             data:contentPut,
-            url:"http://localhost/phpServer.php/publicationVolume/"+id,
+            url:"http://156.35.95.76:8000/phpServer.php/publicationVolume/"+id,
             success:function(){
                 alert('PUT successful');
             }

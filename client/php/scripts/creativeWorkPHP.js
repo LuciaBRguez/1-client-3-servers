@@ -8,7 +8,7 @@ class UI {
         $.ajax({
             method:'POST',
             data:contentPost,
-            url:"http://localhost/phpServer.php/creativeWork",
+            url:"http://156.35.95.76:8000:8000/phpServer.php/creativeWork",
 
             success:function(){
                 alert('POST successful');
@@ -29,7 +29,7 @@ class UI {
             },
 
             method:'GET',
-            url:"http://localhost/phpServer.php/creativeWork",
+            url:"http://156.35.95.76:8000/phpServer.php/creativeWork",
 
             success:function(creativeWorkString){  
 
@@ -77,7 +77,7 @@ class UI {
         $.ajax({
 
             method:'DELETE',
-            url:"http://localhost/phpServer.php/creativeWork/"+id,
+            url:"http://156.35.95.76:8000/phpServer.php/creativeWork/"+id,
 
             success:function(){
                 alert('DELETED successful');
@@ -97,7 +97,7 @@ class UI {
         $.ajax({
 
             method:'GET',
-            url:"http://localhost/phpServer.php/creativeWork/"+id,
+            url:"http://156.35.95.76:8000/phpServer.php/creativeWork/"+id,
             
             success:function(creativeWorkString){
 
@@ -142,7 +142,7 @@ class UI {
         $.ajax({
             method:'PUT',
             data:contentPut,
-            url:"http://localhost/phpServer.php/creativeWork/"+id,
+            url:"http://156.35.95.76:8000/phpServer.php/creativeWork/"+id,
             success:function(){
                 alert('PUT successful');
             }
