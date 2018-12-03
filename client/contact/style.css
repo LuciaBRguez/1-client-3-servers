@@ -8,3 +8,7 @@ form {
 *:focus {
     outline: none;
 }
+footer a img {
+    display:block;
+    margin:auto;
+}

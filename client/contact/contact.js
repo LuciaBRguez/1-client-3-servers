@@ -22,6 +22,7 @@ function Validate(){
     // username validation
     if(username.value == ""){
         username.style.border = "1px solid red";
+        username_error.style.color = "red";
         username_error.textContent = "Username is required";
         username.focus();
         return false;
@@ -29,12 +30,14 @@ function Validate(){
     // phone validation
     if(phone.value == ""){
         phone.style.border = "1px solid red";
+        phone_error.style.color = "red";
         phone_error.textContent = "Phone number is required";
         phone.focus();
         return false;
     }
     if(isNaN(parseFloat(phone.value))){
         phone.style.border = "1px solid red";
+        phone_error.style.color = "red";
         phone_error.textContent = "Invalid phone number";
         phone.focus();
         return false;
@@ -42,6 +45,7 @@ function Validate(){
     // email validation
     if(email.value == ""){
         email.style.border = "1px solid red";
+        email_error.style.color = "red";
         email_error.textContent = "Email is required";
         email.focus();
         return false;
@@ -49,6 +53,7 @@ function Validate(){
     // password validation
     if(password.value == ""){
         password.style.border = "1px solid red";
+        password_error.style.color = "red";
         password_error.textContent = "Password is required";
         password.focus();
         return false;
@@ -56,6 +61,7 @@ function Validate(){
     // check if the two passwords match
     if (password.value != password_confirm.value){
         password.style.border = "1px solid red";
+        password_error.style.color = "red";
         password_confirm.style.border = "1px solid red";
         password_error.innerHTML = "The two passwords don't match";
         return false;
