@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Client-Servers</title>
     <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
+    <link href="contact/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <nav class="navbar navbar-dark bg-dark">
@@ -28,14 +29,38 @@
                         </div>
                     </div>
                     <div class="card-header text-center">
-
+                        <h4>Contacts</h4>
                     </div>
                     <div class="card-body pt-5 pb-5">
-                        
+                        <form action="index.html" onsubmit="return Validate()" name="vform">
+                            <div id="username_div">
+                                <input type="text" name="username" class="textImput w-100" placeholder="Username"></br>
+                                <div id="username_error" class="val_error"></div>
+                            </div></br>
+                            <div id="phone_div">
+                                <input type="text" name="phone" class="textImput w-100" placeholder="Phone number"></br>
+                                <div id="phone_error" class="val_error"></div>
+                            </div></br>
+                            <div id="email_div">
+                                <input type="email" name="email" class="textImput w-100" placeholder="Email"></br>
+                                <div id="email_error" class="val_error"></div>
+                            </div></br>
+                            <div id="password_div">
+                                <input type="password" name="password" class="textImput w-100" placeholder="Password"></br>
+                            </div></br>
+                            <div id="password_confirm_div">
+                                <input type="password" name="password_confirm" class="textImput w-100" placeholder="Confirm password"></br>
+                                <div id="password_error" class="val_error"></div>
+                            </div></br>
+                            <div>
+                                <input type="submit" value="Register" class="btn btn-outline-primary btn-block" name="register">
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script type="application/javascript" src="./contact/contact.js"></script>
 </body>
 </html>
